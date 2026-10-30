@@ -1,0 +1,37 @@
+{
+ "name": "منصة أ. منى الخميسي · صعوبات التعلم · اللغة العربية",
+ "short_name": "منصة منى",
+ "description": "معلمة صعوبات التعلم · المجال الأول (اللغة العربية)",
+ "lang": "ar",
+ "dir": "rtl",
+ "id": "./",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "any",
+ "background_color": "#EEF6FF",
+ "theme_color": "#C2416B",
+ "categories": [
+  "education"
+ ],
+ "icons": [
+  {
+   "src": "icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icons/maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-skin-default="jouri">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBEEF1">
+<title>أ. نورة القحطاني</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&family=Tajawal:wght@400;500;700&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap">
+<link rel="stylesheet" href="../tabshoura.css">
+<style>
+  .cover{border-radius:var(--r);overflow:hidden;padding:0}
+  .cover .band{height:150px;position:relative;background:
+     radial-gradient(circle at 15% 30%,color-mix(in srgb,var(--gold) 45%,transparent) 0 40px,transparent 41px),
+     radial-gradient(circle at 80% 70%,rgba(255,255,255,.18) 0 70px,transparent 71px),
+     linear-gradient(135deg,var(--accent),var(--accent2))}
+  .cover .band svg{position:absolute;inset-inline-end:24px;top:22px;width:110px;height:110px;color:rgba(255,255,255,.22)}
+  .cover .who{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;padding:0 22px 20px;margin-top:-48px;position:relative}
+  .cover .who .avatar{--sz:104px;box-shadow:0 0 0 5px var(--glass2),var(--shadow)}
+  .cover .who .info{flex:1;min-width:200px;padding-bottom:4px}
+  .cover .who h1{font-family:var(--f-disp);font-size:1.7rem;font-weight:700}
+  .cover .acts{display:flex;gap:8px;flex-wrap:wrap}
+  .cover .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+  .cover .nums div{padding:12px 8px;text-align:center}
+  .cover .nums b{display:block;font-size:1.3rem;font-variant-numeric:tabular-nums}
+  .cover .nums small{color:var(--muted);font-size:.78rem}
+  @media (max-width:520px){.cover .nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;position:relative}
+  .tl li{display:grid;grid-template-columns:18px 1fr;gap:12px}
+  .tl li::before{content:"";width:12px;height:12px;margin-top:6px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 4px var(--accent-soft)}
+  .tl b{display:block}
+  .rate{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+  .rate .big{font-size:3rem;font-weight:700;line-height:1}
+  .rbar{display:grid;grid-template-columns:22px 1fr 34px;gap:8px;align-items:center;font-size:.78rem;color:var(--muted)}
+  .awards{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;padding-block:8px}
+</style>
+</head>
+<body>
+<div class="app">
+<main class="wrap stack lg">
+
+  <header class="topbar">
+    <a class="brand" href="profile.html"><span class="logo"><i data-ic="atom"></i></span>أ. نورة</a>
+    <nav class="links" aria-label="القوالب">
+      <a href="landing.html">الرئيسية</a><a href="profile.html" aria-current="page">ملف المعلمة</a><a href="lessons.html">الدروس</a><a href="quiz.html">الاختبارات</a><a href="dashboard.html">لوحة التحكم</a>
+    </nav>
+    <div class="tools">
+      <button class="round-btn" data-act="mode" aria-label="تبديل الفاتح والداكن"><i data-ic="moon"></i></button>
+      <button class="round-btn" data-act="studio" aria-label="المظهر والثيمات"><i data-ic="palette"></i></button>
+    </div>
+  </header>
+
+  <section class="card cover view">
+    <div class="band"><i data-ic="atom"></i></div>
+    <div class="who">
+      <span class="avatar">ن</span>
+      <div class="info">
+        <h1 data-type="أ. نورة القحطاني">أ. نورة القحطاني</h1>
+        <p class="sub" data-type="معلمة علوم · المرحلة المتوسطة · مدرسة المتوسطة الحادية عشرة" data-type-speed="35">معلمة علوم · المرحلة المتوسطة · مدرسة المتوسطة الحادية عشرة</p>
+        <div class="chips" style="margin-top:8px"><span class="chip">علوم</span><span class="chip c2">كيمياء</span><span class="chip gold"><i data-ic="award"></i>معلمة متميزة ٢٠٢٥</span></div>
+      </div>
+      <div class="acts"><button class="btn" id="follow"><i data-ic="plus"></i>متابعة</button><button class="btn soft" onclick="TB.toast('فُتحت المحادثة مع أ. نورة',{icon:'msg'})"><i data-ic="msg"></i>راسليني</button></div>
+    </div>
+    <div class="nums"><div><b>9</b><small>سنوات خبرة</small></div><div><b>214</b><small>طالبة</small></div><div><b>96</b><small>درسًا</small></div><div><b>4.9</b><small>التقييم</small></div></div>
+  </section>
+
+  <div class="split">
+    <div class="stack">
+      <section class="card stack"><h2 class="h">نبذة</h2>
+        <p style="color:var(--ink2)">أؤمن أن العلوم تُفهم بالتجربة قبل الحفظ. أصمّم دروسي حول سؤال من حياة الطالبة اليومية، ثم نختبره معًا في المختبر أو بتجربة منزلية بسيطة. أشرفت على نادي العلوم في المدرسة ثلاث سنوات، وتأهّلت طالباتي لأولمبياد العلوم مرتين.</p>
+      </section>
+
+      <section class="card stack"><h2 class="h">المؤهلات والشهادات</h2>
+        <ul class="tl">
+          <li><div><b>ماجستير طرق تدريس العلوم</b><span class="sub">جامعة الملك سعود · 2019</span></div></li>
+          <li><div><b>الرخصة المهنية للمعلمين · مستوى متقدم</b><span class="sub">هيئة تقويم التعليم والتدريب · 2022</span></div></li>
+          <li><div><b>بكالوريوس كيمياء</b><span class="sub">جامعة الأميرة نورة · 2015</span></div></li>
+        </ul>
+      </section>
+
+      <section class="stack"><div class="between"><h2 class="h">أحدث الدروس</h2><a class="btn ghost sm" href="lessons.html">كل الدروس<i data-ic="next"></i></a></div>
+        <div class="grid" style="--min:220px">
+          <a class="card lesson" href="lessons.html" style="--cc:var(--c1)"><div class="cover"><span class="chip">الوحدة ٢</span><i data-ic="flask"></i><span class="dur">١٤ د</span></div><div class="body"><b>المخاليط والمحاليل</b><div class="meta"><span>تجربة منزلية</span><span>٥ أسئلة</span></div></div></a>
+          <a class="card lesson" href="lessons.html" style="--cc:var(--c2)"><div class="cover"><span class="chip">الوحدة ٣</span><i data-ic="atom"></i><span class="dur">١١ د</span></div><div class="body"><b>تركيب الذرّة</b><div class="meta"><span>نموذج تفاعلي</span><span>٤ أسئلة</span></div></div></a>
+          <a class="card lesson" href="lessons.html" style="--cc:var(--gold)"><div class="cover"><span class="chip">الوحدة ٣</span><i data-ic="globe"></i><span class="dur">٩ د</span></div><div class="body"><b>دورة الماء في الطبيعة</b><div class="meta"><span>رسم توضيحي</span><span>٦ أسئلة</span></div></div></a>
+        </div>
+      </section>
+
+      <section class="card stack"><h2 class="h">تقييمات الطالبات وأولياء الأمور</h2>
+        <div class="rate">
+          <div style="text-align:center"><div class="big">4.9</div><div class="stars-row" data-stars="5" style="justify-content:center;margin-top:6px"></div><div class="sub">128 تقييمًا</div></div>
+          <div class="stack" style="gap:6px">
+            <div class="rbar"><span>5</span><div class="track gold"><i style="--p:88%"></i></div><span>113</span></div>
+            <div class="rbar"><span>4</span><div class="track gold"><i style="--p:9%"></i></div><span>11</span></div>
+            <div class="rbar"><span>3</span><div class="track gold"><i style="--p:3%"></i></div><span>4</span></div>
+            <div class="rbar"><span>2</span><div class="track gold"><i style="--p:0%"></i></div><span>0</span></div>
+            <div class="rbar"><span>1</span><div class="track gold"><i style="--p:0%"></i></div><span>0</span></div>
+          </div>
+        </div>
+        <div class="quote-card" style="border-top:1px solid var(--line);padding-top:14px"><p>أول مرة أفهم المعادلات الكيميائية، التجربة بالخل وبيكربونات الصوديوم ما أنساها.</p><div class="row"><span class="avatar c2" style="--sz:34px">ج</span><div><b>جود</b><div class="sub">الثاني المتوسط</div></div></div></div>
+      </section>
+    </div>
+
+    <aside class="stack">
+      <section class="card stack"><div class="between"><h2 class="h">جدول الأحد</h2><span class="chip">٥ حصص</span></div>
+        <div class="periods">
+          <div class="period past"><span class="t">7:15</span><span class="pc"></span><div><b>علوم</b><small>الثاني ب · المختبر</small></div></div>
+          <div class="period now" style="--cc:var(--c2)"><span class="t">8:05</span><span class="pc"></span><div><b>كيمياء</b><small>الثالث أ · فصل ٤</small></div><span class="chip">الآن</span></div>
+          <div class="period"><span class="t">9:40</span><span class="pc"></span><div><b>علوم</b><small>الأول ج · فصل ٧</small></div></div>
+          <div class="period" style="--cc:var(--gold)"><span class="t">11:20</span><span class="pc"></span><div><b>نادي العلوم</b><small>المختبر</small></div></div>
+        </div>
+      </section>
+      <section class="card stack"><h2 class="h">الأوسمة</h2>
+        <div class="awards"><span class="stamp" style="--sz:86px">متميزة<small>٢٠٢٥</small></span><span class="stamp accent" style="--sz:86px">أولمبياد<small>مرتين</small></span><span class="stamp" style="--sz:86px;--c:var(--c2)">مختبر<small>آمن</small></span></div>
+      </section>
+      <section class="card stack"><h2 class="h">ساعات التواصل</h2>
+        <div class="between"><span>الأحد والثلاثاء</span><b class="num">1:00 – 2:00 م</b></div>
+        <div class="between"><span>الخميس</span><b class="num">12:30 – 1:30 م</b></div>
+        <p class="note">الرد على الرسائل خلال يوم دراسي.</p>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="foot">قالب ملف المعلم/المعلمة · نظام طبشورة · <a href="../">العودة إلى النظام</a></footer>
+</main>
+
+<nav class="nav mobile-only" style="--n:5" aria-label="التنقل">
+  <a href="landing.html"><span class="ni"><i data-ic="home"></i></span>الرئيسية</a>
+  <a href="profile.html" aria-current="page"><span class="ni"><i data-ic="user"></i></span>الملف</a>
+  <a href="lessons.html"><span class="ni"><i data-ic="book"></i></span>الدروس</a>
+  <a href="quiz.html"><span class="ni"><i data-ic="quiz"></i></span>الاختبار</a>
+  <a href="dashboard.html"><span class="ni"><i data-ic="chart"></i></span>اللوحة</a>
+</nav>
+</div>
+<script src="../tabshoura.js"></script>
+<script>
+document.querySelectorAll('[data-stars]').forEach(function(el){el.innerHTML=new Array(+el.dataset.stars+1).join(TB.I.star);});
+var f=document.getElementById('follow'),on=false;
+f.addEventListener('click',function(){on=!on;f.innerHTML=on?TB.I.check+'تمت المتابعة':TB.I.plus+'متابعة';f.classList.toggle('soft',on);if(on){var r=f.getBoundingClientRect();TB.celebrate(r.left+r.width/2,r.top,{count:50});}});
+</script>
+</body>
+</html>

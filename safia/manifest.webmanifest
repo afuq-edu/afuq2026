@@ -1,0 +1,21 @@
+{
+  "name": "أ. صفية الجرادية · مدرسة مزن المعرفة (1-4)",
+  "short_name": "المديرة",
+  "description": "منصة المديرة لتنظيم أعمالها: معايير القيادة والإدارة والحوكمة وشواهدها، الأجندة، المهام، المحاضر",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "background_color": "#FBE6DC",
+  "theme_color": "#1B6A86",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

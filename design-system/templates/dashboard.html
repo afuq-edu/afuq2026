@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ECF4EF">
+<title>لوحة المعلم</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&family=Tajawal:wght@400;500;700&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap">
+<link rel="stylesheet" href="../tabshoura.css">
+<style>
+  .greet{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .greet h1{font-family:var(--f-disp);font-size:var(--fs-xl);font-weight:600}
+  .qa{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .qa button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 6px;border-radius:18px;background:var(--glass2);border:1px solid var(--rim);font-size:.86rem;font-weight:600;color:var(--ink2);transition:transform .15s var(--spring)}
+  .qa button:active{transform:scale(.95)}
+  .qa .ci{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--accent2);color:var(--accent-ink)}
+  .qa .ci svg{width:20px;height:20px}
+</style>
+</head>
+<body>
+<div class="app">
+<main class="wrap stack">
+
+  <header class="topbar">
+    <a class="brand" href="dashboard.html"><span class="logo"><i data-ic="logo"></i></span>لوحة المعلم</a>
+    <nav class="links" aria-label="القوالب">
+      <a href="landing.html">الرئيسية</a><a href="profile.html">ملف المعلمة</a><a href="lessons.html">الدروس</a><a href="quiz.html">الاختبارات</a><a href="dashboard.html" aria-current="page">لوحة التحكم</a>
+    </nav>
+    <div class="tools">
+      <button class="round-btn" aria-label="الإشعارات" onclick="TB.toast('٣ تسليمات جديدة بانتظار التصحيح',{icon:'bell'})"><i data-ic="bell"></i></button>
+      <button class="round-btn" data-act="mode" aria-label="تبديل الفاتح والداكن"><i data-ic="moon"></i></button>
+      <button class="round-btn" data-act="studio" aria-label="المظهر والثيمات"><i data-ic="palette"></i></button>
+    </div>
+  </header>
+
+  <div class="dash" style="margin-top:10px">
+    <nav class="glass side" aria-label="أقسام اللوحة">
+      <a href="#" aria-current="page"><i data-ic="home"></i>الرئيسية</a>
+      <a href="#classes"><i data-ic="users"></i>فصولي</a>
+      <a href="lessons.html"><i data-ic="book"></i>الدروس</a>
+      <a href="#todo"><i data-ic="task"></i>الواجبات<span class="cnt">3</span></a>
+      <a href="quiz.html"><i data-ic="quiz"></i>الاختبارات</a>
+      <a href="#grades"><i data-ic="chart"></i>الدرجات</a>
+      <a href="#" data-act="studio"><i data-ic="palette"></i>المظهر</a>
+    </nav>
+
+    <div class="stack view">
+      <div class="greet"><div><span class="eyebrow" id="today">الأحد · الأسبوع السابع</span><h1>صباح الخير، أ. خالد</h1><p class="sub">لديك ٤ حصص اليوم و٣ واجبات بانتظار التصحيح.</p></div>
+        <button class="btn" id="newHw"><i data-ic="plus"></i>واجب جديد</button></div>
+
+      <section class="kpis">
+        <div class="tile"><small>طلابي</small><b>128</b><span class="d eq">في ٤ فصول</span></div>
+        <div class="tile"><small>الحضور اليوم</small><b>94<small>٪</small></b><span class="d up">+2٪ عن أمس</span></div>
+        <div class="tile"><small>متوسط آخر اختبار</small><b>78.6</b><span class="d up">+3.1 عن السابق</span></div>
+        <div class="tile"><small>واجبات متأخرة</small><b>7</b><span class="d down">+2 هذا الأسبوع</span></div>
+      </section>
+
+      <div class="split">
+        <div class="stack">
+          <section class="card" id="classes"><div class="between"><h2 class="h">متوسط الدرجات حسب الفصل</h2><div class="seg" data-tabs="rng"><button data-tab="t1" aria-selected="true">الاختبار الأول</button><button data-tab="t2" aria-selected="false">الواجبات</button></div></div>
+            <div data-pane="rng:t1"><div class="plot">
+              <div class="gl" style="top:0"><span>100</span></div><div class="gl" style="top:50%"><span>50</span></div><div class="gl" style="top:100%"><span>0</span></div>
+              <div class="goal" style="top:25%"><span>الهدف 75</span></div>
+              <div class="bars"><div class="bar" style="--v:82%"><b>82</b><i></i></div><div class="bar" style="--v:74%"><b>74</b><i></i></div><div class="bar" style="--v:91%;--col:var(--gold)"><b>91</b><i></i></div><div class="bar" style="--v:68%"><b>68</b><i></i></div></div>
+            </div><div class="xl"><span>الخامس أ</span><span>الخامس ب</span><span>السادس أ</span><span>السادس ب</span></div></div>
+            <div data-pane="rng:t2" hidden><div class="plot">
+              <div class="gl" style="top:0"><span>100</span></div><div class="gl" style="top:50%"><span>50</span></div><div class="gl" style="top:100%"><span>0</span></div>
+              <div class="goal" style="top:25%"><span>الهدف 75</span></div>
+              <div class="bars"><div class="bar" style="--v:88%;--col:var(--gold)"><b>88</b><i></i></div><div class="bar" style="--v:79%"><b>79</b><i></i></div><div class="bar" style="--v:84%"><b>84</b><i></i></div><div class="bar" style="--v:71%"><b>71</b><i></i></div></div>
+            </div><div class="xl"><span>الخامس أ</span><span>الخامس ب</span><span>السادس أ</span><span>السادس ب</span></div></div>
+          </section>
+
+          <section class="card" id="grades"><div class="between"><h2 class="h">كشف درجات الخامس أ</h2><div class="search" style="min-width:200px"><i data-ic="search"></i><input class="input" id="sq" placeholder="ابحث عن طالب" style="min-height:40px"></div></div>
+            <div class="tbl-wrap" style="margin-top:8px"><table class="tbl" id="tbl">
+              <thead><tr><th>الطالب</th><th>الواجبات /20</th><th>المشاركة /10</th><th>الاختبار /30</th><th>المجموع /60</th><th>التقدير</th></tr></thead><tbody></tbody></table></div>
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="card stack"><div class="between"><h2 class="h">حصص اليوم</h2><span class="chip">٤ حصص</span></div>
+            <div class="periods">
+              <div class="period past"><span class="t">7:15</span><span class="pc"></span><div><b>الخامس ب</b><small>الكسور العشرية</small></div><span class="chip good">تمت</span></div>
+              <div class="period now"><span class="t">8:05</span><span class="pc"></span><div><b>الخامس أ</b><small>جمع الكسور</small></div><span class="chip">الآن</span></div>
+              <div class="period" style="--cc:var(--c2)"><span class="t">9:40</span><span class="pc"></span><div><b>السادس أ</b><small>النسبة والتناسب</small></div></div>
+              <div class="period" style="--cc:var(--gold)"><span class="t">11:20</span><span class="pc"></span><div><b>حصة تقوية</b><small>مباشر · ١٨ طالبًا</small></div></div>
+            </div></section>
+
+          <section class="card stack" id="todo"><div class="between"><h2 class="h">بانتظار التصحيح</h2><span class="chip late" id="todoN">3</span></div>
+            <div class="todo"><span class="avatar" style="--sz:36px">ي</span><div><b>يوسف الحربي</b><small>واجب الكسور · قبل ساعة</small></div><button class="btn sm soft" data-grade>صحّح</button></div>
+            <div class="todo"><span class="avatar c2" style="--sz:36px">ل</span><div><b>ليان الشهري</b><small>واجب الكسور · قبل ٣ ساعات</small></div><button class="btn sm soft" data-grade>صحّح</button></div>
+            <div class="todo"><span class="avatar gold" style="--sz:36px">ع</span><div><b>عبدالله الزهراني</b><small>تمارين ص ٤٢ · أمس</small></div><button class="btn sm soft" data-grade>صحّح</button></div>
+          </section>
+
+          <section class="card stack"><h2 class="h">إجراءات سريعة</h2>
+            <div class="qa">
+              <button id="qa1"><span class="ci"><i data-ic="task"></i></span>واجب جديد</button>
+              <button onclick="TB.toast('أُرسل التذكير لأولياء الأمور',{icon:'bell'})"><span class="ci"><i data-ic="bell"></i></span>تذكير الأهالي</button>
+              <button onclick="location.href='quiz.html'"><span class="ci"><i data-ic="quiz"></i></span>اختبار قصير</button>
+              <button data-act="celebrate"><span class="ci"><i data-ic="award"></i></span>تكريم الفصل</button>
+            </div></section>
+
+          <section class="card stack"><div class="between"><h2 class="h">حضور أكتوبر</h2><span class="sub">الخامس أ</span></div>
+            <div class="cal-wd"><span>أحد</span><span>إثن</span><span>ثلا</span><span>أرب</span><span>خمي</span><span>جمع</span><span>سبت</span></div>
+            <div class="cal" id="cal"></div>
+            <p class="note">الدائرة المؤطّرة بالذهبي تعني حضور الفصل كاملًا.</p></section>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">قالب لوحة تحكم المعلم · نظام طبشورة · <a href="../">العودة إلى النظام</a></footer>
+</main>
+
+<nav class="nav mobile-only" style="--n:5" aria-label="التنقل">
+  <a href="landing.html"><span class="ni"><i data-ic="home"></i></span>الرئيسية</a>
+  <a href="profile.html"><span class="ni"><i data-ic="user"></i></span>الملف</a>
+  <a href="lessons.html"><span class="ni"><i data-ic="book"></i></span>الدروس</a>
+  <a href="quiz.html"><span class="ni"><i data-ic="quiz"></i></span>الاختبار</a>
+  <a href="dashboard.html" aria-current="page"><span class="ni"><i data-ic="chart"></i></span>اللوحة<i class="dot"></i></a>
+</nav>
+</div>
+<script src="../tabshoura.js"></script>
+<script>
+(function(){
+  var S=[['يوسف الحربي',19,10,28],['ليان الشهري',17,9,25],['فيصل القرني',18,8,26],['عبدالله الزهراني',14,7,21],['سارة المطيري',20,10,29],['ريم العنزي',10,6,16],['مازن الغامدي',15,8,22]];
+  function grade(t){return t>=54?['a','ممتاز']:t>=48?['b','جيد جدًا']:t>=39?['c','جيد']:['d','يحتاج دعمًا'];}
+  var av=['','c2','gold'];
+  document.querySelector('#tbl tbody').innerHTML=S.map(function(s,i){var t=s[1]+s[2]+s[3],g=grade(t);return '<tr><td><div class="row"><span class="avatar '+av[i%3]+'" style="--sz:30px">'+s[0][0]+'</span>'+s[0]+'</div></td><td>'+s[1]+'</td><td>'+s[2]+'</td><td>'+s[3]+'</td><td><b>'+t+'</b></td><td><span class="grade '+g[0]+'">'+g[1]+'</span></td></tr>';}).join('');
+  document.getElementById('sq').addEventListener('input',function(e){var v=e.target.value.trim();document.querySelectorAll('#tbl tbody tr').forEach(function(r){r.hidden=v&&r.textContent.indexOf(v)<0;});});
+
+  // October 2026 starts on a Thursday (index 4 when Sunday = 0)
+  var lv=[3,4,2,0,0,4,3,4,4,0,0,3,2,4,4,3,0,0,4,4,3,2,4,0,0,4,3,1,4,4,0],h='';
+  for(var k=0;k<4;k++)h+='<i style="visibility:hidden"></i>';
+  lv.forEach(function(l,d){var dow=(d+4)%7,off=dow===5||dow===6;h+='<i'+(off?' class="off"':' data-l="'+l+'"')+'>'+(d+1)+'</i>';});
+  document.getElementById('cal').innerHTML=h;
+
+  var n=3;
+  document.getElementById('todo').addEventListener('click',function(e){var b=e.target.closest('[data-grade]');if(!b)return;var row=b.closest('.todo');
+    b.outerHTML='<span class="stamp in accent" style="--sz:54px;font-size:.7rem">صُحّح</span>';row.classList.add('done');n--;document.getElementById('todoN').textContent=n;
+    if(!n){var r=row.getBoundingClientRect();TB.celebrate(r.left+r.width/2,r.top);TB.toast('أنهيت كل التصحيح لليوم',{gold:true,icon:'award'});}else TB.toast('حُفظت الدرجة وأُرسلت للطالب');});
+
+  function newHw(){var s=TB.sheet('<form class="stack" id="hwf"><div class="field"><label class="lbl" for="ht">عنوان الواجب</label><input class="input" id="ht" required value="تمارين جمع الكسور ص ٤٤"></div>'+
+      '<div class="field"><label class="lbl" for="hc">الفصل</label><select class="select" id="hc"><option>الخامس أ</option><option>الخامس ب</option><option>السادس أ</option><option>السادس ب</option></select></div>'+
+      '<div class="field"><label class="lbl" for="hd">موعد التسليم</label><input class="input" id="hd" type="date" value="2026-10-29"></div>'+
+      '<div class="opt-row"><span>تذكير قبل الموعد بيوم</span><button type="button" class="switch" role="switch" aria-checked="true" aria-label="تذكير"></button></div>'+
+      '<button class="btn lg" type="submit">'+TB.I.check+'انشر الواجب</button></form>',{title:'واجب جديد',sub:'يصل للطلاب وأولياء الأمور فور النشر',icon:'task'});
+    s.querySelector('#hwf').addEventListener('submit',function(e){e.preventDefault();var c=s.querySelector('#hc').value;TB.closeSheet();TB.toast('نُشر الواجب لفصل '+c);});}
+  document.getElementById('newHw').addEventListener('click',newHw);document.getElementById('qa1').addEventListener('click',newHw);
+})();
+</script>
+</body>
+</html>

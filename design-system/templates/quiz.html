@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ECF4EF">
+<title>اختبار المخاليط والمحاليل</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&family=Tajawal:wght@400;500;700&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap">
+<link rel="stylesheet" href="../tabshoura.css">
+<style>
+  .timer{display:flex;align-items:center;gap:8px;font-weight:700;font-variant-numeric:tabular-nums;font-size:1.1rem}
+  .timer svg{width:20px;height:20px;color:var(--accent-ink)}
+  .timer.low{color:var(--late)}
+  .timer.low svg{color:var(--late)}
+  .files{display:flex;flex-direction:column;gap:6px}
+  .files div{display:flex;align-items:center;gap:8px;font-size:.88rem;padding:8px 12px;border-radius:12px;background:var(--glass2);border:1px solid var(--rim)}
+  .files svg{width:16px;height:16px;color:var(--accent-ink);flex:none}
+  .submitted{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding-block:10px}
+</style>
+</head>
+<body>
+<div class="app">
+<main class="wrap stack lg">
+
+  <header class="topbar">
+    <a class="brand" href="quiz.html"><span class="logo"><i data-ic="quiz"></i></span>الاختبارات</a>
+    <nav class="links" aria-label="القوالب">
+      <a href="landing.html">الرئيسية</a><a href="profile.html">ملف المعلمة</a><a href="lessons.html">الدروس</a><a href="quiz.html" aria-current="page">الاختبارات</a><a href="dashboard.html">لوحة التحكم</a>
+    </nav>
+    <div class="tools">
+      <button class="round-btn" data-act="mode" aria-label="تبديل الفاتح والداكن"><i data-ic="moon"></i></button>
+      <button class="round-btn" data-act="studio" aria-label="المظهر والثيمات"><i data-ic="palette"></i></button>
+    </div>
+  </header>
+
+  <div class="page-h view"><div><span class="eyebrow">العلوم · الوحدة الثانية · الدرس ٣</span><h1>اختبار المخاليط والمحاليل</h1></div>
+    <div class="seg" data-tabs="mode" role="tablist"><button data-tab="quiz" aria-selected="true" role="tab"><i data-ic="quiz"></i>الاختبار</button><button data-tab="hw" aria-selected="false" role="tab"><i data-ic="task"></i>الواجب</button></div></div>
+
+  <div class="split" data-pane="mode:quiz">
+    <section class="card pad-lg"><div id="quiz"></div></section>
+    <aside class="stack">
+      <section class="card stack"><div class="between"><h2 class="h">الوقت المتبقي</h2><span class="timer" id="timer"><i data-ic="clock"></i><span>10:00</span></span></div>
+        <div class="track"><i id="tbar" style="--p:100%"></i></div>
+        <p class="note">يُحفظ تقدّمك تلقائيًا إن انتهى الوقت.</p></section>
+      <section class="card stack"><h2 class="h">تعليمات</h2>
+        <ul style="margin:0;padding-inline-start:18px;color:var(--ink2);font-size:.92rem;display:flex;flex-direction:column;gap:6px">
+          <li>٦ أسئلة: اختيار من متعدد وصح أو خطأ.</li>
+          <li>يظهر التصحيح والشرح بعد كل سؤال.</li>
+          <li>درجة النجاح ٦٠٪، ويُمنح ختم «ممتاز» من ٩٠٪.</li>
+        </ul></section>
+    </aside>
+  </div>
+
+  <div class="split" data-pane="mode:hw" hidden>
+    <section class="card pad-lg stack" id="hw">
+      <div class="between"><h2 class="h-xl">واجب: تجربة فصل المخلوط</h2><span class="chip warn"><i data-ic="clock"></i>التسليم الخميس</span></div>
+      <p style="color:var(--ink2)">اخلط ملعقة رمل وملعقة ملح في كوب ماء، ثم افصلهما بطريقتين مختلفتين. صوّر خطوات التجربة واكتب ما لاحظته في كل خطوة.</p>
+      <form class="stack" id="hwForm">
+        <label class="drop" id="drop"><i data-ic="upload"></i><b>اسحب الصور هنا أو انقر للاختيار</b><span class="sub">صور أو PDF · حتى ٥ ملفات</span><input type="file" id="file" multiple accept="image/*,.pdf"></label>
+        <div class="files" id="files"></div>
+        <div class="field"><label class="lbl" for="notes">ملاحظاتك</label><textarea class="textarea" id="notes" placeholder="مثال: ذاب الملح في الماء أما الرمل فترسّب في القاع..."></textarea></div>
+        <div class="opt-row"><span>أشارك عملي مع زملائي في الفصل</span><button type="button" class="switch" role="switch" aria-checked="false" aria-label="المشاركة"></button></div>
+        <button class="btn lg" type="submit"><i data-ic="upload"></i>سلّم الواجب</button>
+      </form>
+    </section>
+    <aside class="stack">
+      <section class="card stack"><h2 class="h">معايير التقييم</h2>
+        <div class="between"><span>خطوات التجربة واضحة</span><b class="num">4</b></div>
+        <div class="between"><span>طريقتا الفصل صحيحتان</span><b class="num">4</b></div>
+        <div class="between"><span>الملاحظات والاستنتاج</span><b class="num">2</b></div>
+        <div class="between" style="border-top:1px solid var(--line);padding-top:8px"><b>المجموع</b><b class="num">10</b></div>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="foot">قالب الاختبارات والواجبات · نظام طبشورة · <a href="../">العودة إلى النظام</a></footer>
+</main>
+
+<nav class="nav mobile-only" style="--n:5" aria-label="التنقل">
+  <a href="landing.html"><span class="ni"><i data-ic="home"></i></span>الرئيسية</a>
+  <a href="profile.html"><span class="ni"><i data-ic="user"></i></span>الملف</a>
+  <a href="lessons.html"><span class="ni"><i data-ic="book"></i></span>الدروس</a>
+  <a href="quiz.html" aria-current="page"><span class="ni"><i data-ic="quiz"></i></span>الاختبار</a>
+  <a href="dashboard.html"><span class="ni"><i data-ic="chart"></i></span>اللوحة</a>
+</nav>
+</div>
+<script src="../tabshoura.js"></script>
+<script>
+(function(){
+  var finished=false;
+  TB.quiz(document.getElementById('quiz'),[
+    {q:'أيّ مما يلي يُعدّ محلولًا؟',opts:['ماء وزيت','ماء وسكر ذائب','رمل وحصى','ماء ورمل'],a:1,why:'السكر يذوب تمامًا فيتكوّن خليط متجانس.'},
+    {q:'يمكن فصل الملح عن الماء بالترشيح.',tf:true,a:false,why:'الملح ذائب فيمرّ من ورق الترشيح، ونفصله بالتبخير.'},
+    {q:'ما الطريقة الأنسب لفصل برادة الحديد عن الرمل؟',opts:['التبخير','الترشيح','المغناطيس','التقطير'],a:2,why:'الحديد يُجذب للمغناطيس والرمل لا.'},
+    {q:'في محلول السكر، الماء هو:',opts:['المذاب','المذيب','الراسب','المعلّق'],a:1,why:'المذيب هو المادة التي تُذيب غيرها.'},
+    {q:'تزداد سرعة ذوبان السكر عند تحريك المحلول.',tf:true,a:true,why:'التحريك يقرّب جزيئات الماء من السكر باستمرار.'},
+    {q:'خليط الماء والزيت يُعدّ:',opts:['محلولًا','مخلوطًا غير متجانس','مركّبًا','عنصرًا'],a:1,why:'لا يمتزجان وتبقى طبقتان منفصلتان.'}
+  ],{title:'اختبار المخاليط',onDone:function(){finished=true;}});
+
+  var T=600,left=T,el=document.querySelector('#timer span'),tw=document.getElementById('timer'),bar=document.getElementById('tbar');
+  var iv=setInterval(function(){if(finished){clearInterval(iv);return;}left--;var m=Math.floor(left/60),s=left%60;el.textContent=m+':'+(s<10?'0':'')+s;
+    bar.style.setProperty('--p',(left/T*100)+'%');tw.classList.toggle('low',left<60);if(left<=0){clearInterval(iv);TB.toast('انتهى الوقت وحُفظت إجاباتك',{icon:'clock'});}},1000);
+
+  var input=document.getElementById('file'),list=document.getElementById('files'),drop=document.getElementById('drop');
+  function show(fs){list.innerHTML=Array.prototype.slice.call(fs,0,5).map(function(f){return '<div>'+TB.I.task+'<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+f.name.replace(/[<>&]/g,'')+'</span><span class="sub">'+Math.max(1,Math.round(f.size/1024))+' ك.ب</span></div>';}).join('');}
+  input.addEventListener('change',function(){show(input.files);});
+  ['dragover','dragenter'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.add('over');});});
+  ['dragleave','drop'].forEach(function(t){drop.addEventListener(t,function(){drop.classList.remove('over');});});
+  drop.addEventListener('drop',function(e){e.preventDefault();show(e.dataTransfer.files);});
+  document.getElementById('hwForm').addEventListener('submit',function(e){e.preventDefault();
+    document.getElementById('hw').innerHTML='<div class="submitted"><span class="stamp in accent" style="--sz:120px">سُلِّم<small>بنجاح</small></span><h2 class="h-xl">وصل واجبك إلى أ. نورة</h2><p class="sub">ستصلك الدرجة والملاحظات خلال يومين دراسيين.</p><a class="btn soft" href="lessons.html">العودة إلى الدروس</a></div>';
+    TB.celebrate();TB.toast('تم تسليم الواجب',{gold:true});});
+})();
+</script>
+</body>
+</html>

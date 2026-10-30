@@ -1,0 +1,37 @@
+{
+ "name": "منصة أ. ثريا الخاطري · الرياضيات · مدرسة الرجاء للتعليم الأساسي",
+ "short_name": "منصة ثريا",
+ "description": "معلمة الرياضيات · الصفوف ٢-٤",
+ "lang": "ar",
+ "dir": "rtl",
+ "id": "./",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "any",
+ "background_color": "#EEF6FF",
+ "theme_color": "#1F8A6E",
+ "categories": [
+  "education"
+ ],
+ "icons": [
+  {
+   "src": "icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icons/maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

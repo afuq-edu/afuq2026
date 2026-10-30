@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>نظام طبشورة</title>
+</head>
+<body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#ECF4EF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&family=Tajawal:wght@400;500;700&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap">
+<link rel="stylesheet" href="design-system/tabshoura.css">
+<style>
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sky1)}
+  .sec{scroll-margin-top:90px}
+  .sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .sec-h h2{font-family:var(--f-disp);font-size:var(--fs-xl);font-weight:600}
+  .hero{display:grid;gap:22px;align-items:center;padding-block:34px 10px}
+  @media (min-width:900px){.hero{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
+  .hero .lead{margin-top:12px}
+  .hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .hero-board{position:relative;padding:22px;border-radius:var(--r)}
+  .hero-board .stamp{position:absolute;top:-22px;inset-inline-end:-6px}
+  .board{border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,color-mix(in srgb,var(--accent2) 92%,#000),color-mix(in srgb,var(--accent2) 70%,#000));color:#F4F1E6;box-shadow:inset 0 0 0 6px color-mix(in srgb,var(--gold) 55%,#5a3d1a),inset 0 0 40px rgba(0,0,0,.35)}
+  .board p{font-family:var(--f-hand);font-size:1.5rem;line-height:1.5}
+  .board small{font-family:var(--f-body);opacity:.75;font-size:.8rem}
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .demo{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .tpl{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:transform .25s var(--spring)}
+  .tpl:hover{transform:translateY(-4px)}
+  .tpl .shot{aspect-ratio:16/9;max-width:100%;border-radius:16px;overflow:hidden;background:linear-gradient(180deg,var(--sky1),var(--sky3));position:relative;border:1px solid var(--rim)}
+  .tpl .shot i{position:absolute;display:block;border-radius:6px;background:var(--glass2)}
+  .tpl .shot i.a{background:var(--accent2)} .tpl .shot i.g{background:var(--gold)} .tpl .shot i.t{background:var(--track)}
+  .tpl .go{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--accent-ink);font-size:.9rem}
+  .tpl .go svg{width:16px;height:16px}
+  .tokens{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+  .tokens div{display:flex;flex-direction:column;gap:4px;font-size:.72rem;color:var(--muted)}
+  .tokens i{height:42px;border-radius:12px;border:1px solid var(--line);background:var(--c)}
+  .tokens b{color:var(--ink);font-size:.78rem;direction:ltr;text-align:right}
+  .type-scale{display:flex;flex-direction:column;gap:6px}
+  .type-scale div{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:6px;min-width:0}
+  .type-scale small{width:84px;flex:none;color:var(--muted);font-size:.72rem;direction:ltr;text-align:right}
+  footer{text-align:center;color:var(--muted);font-size:.82rem;padding-block:24px}
+</style>
+
+<div class="app" dir="rtl" lang="ar">
+<main class="wrap stack lg">
+
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="logo"><i data-ic="logo"></i></span>طبشورة</a>
+    <nav class="links" aria-label="أقسام الصفحة">
+      <a href="#themes">الثيمات</a><a href="#components">المكونات</a><a href="#templates">القوالب</a><a href="#use">طريقة الاستخدام</a>
+    </nav>
+    <div class="tools">
+      <button class="round-btn" data-act="mode" aria-label="تبديل الفاتح والداكن"><i data-ic="moon"></i></button>
+      <button class="btn sm keep" data-act="studio"><i data-ic="palette"></i>المظهر</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero view" id="top">
+    <div>
+      <span class="eyebrow">نظام تصميم منصات المعلمين والمعلمات</span>
+      <h1 class="h-hero" style="margin-top:8px" data-type="منصتك التعليمية، بثيمها الخاص">منصتك التعليمية، بثيمها الخاص</h1>
+      <p class="hand" style="font-size:1.7rem;color:var(--accent-ink);margin-top:6px" data-type="تعلّمٌ ممتع|أثرٌ يبقى|إبداعٌ في كل درس" data-type-caret="chalk">تعلّمٌ ممتع</p>
+      <p class="lead">ثيمات هادئة وأخرى حيّة تتفاعل مع لمس الطالب وإنجازه، ومكونات جاهزة للدروس والاختبارات والواجبات، وقوالب كاملة لكل قسم من أقسام المنصة. كل ذلك يتبدّل بنقرة واحدة من استوديو المظهر.</p>
+      <div class="cta">
+        <button class="btn lg" data-act="studio"><i data-ic="palette"></i>افتح استوديو المظهر</button>
+        <a class="btn lg soft" href="#templates"><i data-ic="book"></i>تصفّح القوالب</a>
+      </div>
+    </div>
+    <div class="glass hero-board">
+      <span class="stamp in">ممتاز<small>١٠ / ١٠</small></span>
+      <div class="board">
+        <small>الحصة الثالثة · رياضيات · الصف الخامس</small>
+        <p>٣ × ٤ = ١٢ &nbsp;·&nbsp; الضرب جمعٌ متكرر</p>
+      </div>
+      <div class="stats" style="margin-top:14px">
+        <div class="tile"><small>الطلاب</small><b>128</b><span class="d up">+12 هذا الشهر</span></div>
+        <div class="tile"><small>نسبة الإنجاز</small><b>86<small>٪</small></b><span class="d up">+4٪</span></div>
+        <div class="tile"><small>الدروس</small><b>42</b><span class="d eq">7 وحدات</span></div>
+      </div>
+      <div style="margin-top:14px" class="stack">
+        <div class="between"><b style="font-size:.9rem">الوحدة الثالثة: الكسور</b><span class="chip good">٧٢٪</span></div>
+        <div class="track"><i style="--p:72%"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THEMES -->
+  <section class="sec" id="themes">
+    <div class="sec-h"><div><span class="eyebrow">18 ثيمًا · فاتح وداكن · لمعان</span><h2>الثيمات والمظهر</h2></div>
+      <button class="btn gold sm" data-act="celebrate"><i data-ic="spark"></i>جرّب احتفال الإنجاز</button></div>
+    <div class="split rev">
+      <div class="card stack">
+        <h3 class="h">ألوان الثيم الحالي</h3>
+        <p class="sub">18 لونًا لكل ثيم، بنفس صيغة تطبيق «وِرد»، فتنتقل أي ثيمة منه كما هي.</p>
+        <div class="tokens" id="tokens"></div>
+        <h3 class="h" style="margin-top:8px">الخطوط</h3>
+        <div class="type-scale">
+          <div><small>Reem Kufi 2.2</small><span class="disp" style="font-size:2.2rem;font-weight:700">عنوان العرض</span></div>
+          <div><small>Plex 1.6</small><span style="font-size:1.6rem;font-weight:700">عنوان القسم</span></div>
+          <div><small>Plex 1.1</small><span style="font-size:1.1rem;font-weight:600">عنوان البطاقة</span></div>
+          <div><small>Plex 1.0</small><span>نص الدرس والشرح</span></div>
+          <div><small>Aref Ruqaa</small><span class="hand" style="font-size:1.5rem">خط السبّورة والتعليقات</span></div>
+        </div>
+      </div>
+      <div class="card"><div id="studio"></div></div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="sec" id="components">
+    <div class="sec-h"><div><span class="eyebrow">مكونات تفاعلية</span><h2>المكونات</h2></div>
+      <div class="seg" data-tabs="cmp" role="tablist">
+        <button data-tab="basic" aria-selected="true" role="tab">الأساسية</button>
+        <button data-tab="learn" aria-selected="false" role="tab">التعلّم</button>
+        <button data-tab="data" aria-selected="false" role="tab">البيانات</button>
+      </div></div>
+
+    <div class="grid view" style="--min:300px" data-pane="cmp:basic">
+      <div class="card stack"><h3 class="h">الأزرار</h3>
+        <div class="demo"><button class="btn"><i data-ic="play"></i>ابدأ الدرس</button><button class="btn soft">حفظ كمسودة</button><button class="btn gold" data-act="celebrate"><i data-ic="award"></i>منح وسام</button></div>
+        <div class="demo"><button class="btn sm">صغير</button><button class="btn ghost sm">رابط نصي</button><button class="btn danger sm">حذف</button><button class="round-btn" aria-label="إشعارات"><i data-ic="bell"></i></button><button class="round-btn" aria-label="بحث"><i data-ic="search"></i></button></div>
+      </div>
+      <div class="card stack"><h3 class="h">الشارات والمرشّحات</h3>
+        <div class="chips"><span class="chip">رياضيات</span><span class="chip good">مكتمل</span><span class="chip warn">قيد المراجعة</span><span class="chip late">متأخر</span><span class="chip gold"><i data-ic="star"></i>متميّز</span><span class="chip c2">علوم</span></div>
+        <div class="chips" data-chips><button class="cb" aria-pressed="true">الكل</button><button class="cb" aria-pressed="false">الصف الرابع</button><button class="cb" aria-pressed="false">الصف الخامس</button><button class="cb" aria-pressed="false">الصف السادس</button></div>
+        <div class="seg" data-tabs="dmo"><button data-tab="a" aria-selected="true">اليوم</button><button data-tab="b" aria-selected="false">الأسبوع</button><button data-tab="c" aria-selected="false">الفصل</button></div>
+      </div>
+      <div class="card stack"><h3 class="h">الحقول</h3>
+        <div class="search"><i data-ic="search"></i><input class="input" id="s1" placeholder="ابحث عن درس أو طالب"></div>
+        <div class="field"><label class="lbl" for="f1">عنوان الواجب</label><input class="input" id="f1" value="حل تمارين صفحة ٤٢"></div>
+        <div class="field"><label class="lbl" for="f2">الصف</label><select class="select" id="f2"><option>الخامس أ</option><option>الخامس ب</option></select></div>
+        <div class="opt-row"><span>إرسال تذكير لأولياء الأمور</span><button class="switch" role="switch" aria-checked="true" aria-label="تذكير"></button></div>
+      </div>
+      <div class="card stack"><h3 class="h">الكتابة التفاعلية</h3>
+        <p class="sub">تُكتب العناوين حرفًا حرفًا عند فتح الصفحة، أو تتبدّل بين عدة جمل.</p>
+        <div class="stack" style="gap:6px;padding:14px;border-radius:16px;background:var(--glass2)">
+          <span class="eyebrow" id="tw1" data-type="مدرسة مزن المعرفة" data-type-on="view">مدرسة مزن المعرفة</span>
+          <b class="disp" style="font-size:1.6rem" id="tw2" data-type="منصة أ. نورة القحطاني" data-type-on="view" data-type-delay="1500">منصة أ. نورة القحطاني</b>
+          <span class="hand" style="font-size:1.4rem;color:var(--accent-ink)" data-type="جيلٌ مُجيدٌ|واعٍ|ومُنتمٍ" data-type-on="view" data-type-delay="3200" data-type-caret="chalk">جيلٌ مُجيدٌ</span>
+        </div>
+        <button class="btn soft sm" style="align-self:flex-start" onclick="TB.type(document.getElementById('tw1')).then(function(){return TB.type(document.getElementById('tw2'));})"><i data-ic="reset"></i>أعد الكتابة</button>
+      </div>
+      <div class="card stack"><h3 class="h">ختم المعلم والصور الرمزية</h3>
+        <div class="demo" style="gap:22px">
+          <span class="stamp">ممتاز</span><span class="stamp accent" style="--sz:80px">أحسنت</span><span class="stamp" style="--sz:70px;--c:var(--late)">راجِع</span>
+        </div>
+        <div class="row"><div class="avatars"><span class="avatar">س</span><span class="avatar c2">ر</span><span class="avatar gold">م</span><span class="avatar">ع</span></div><span class="sub">+24 طالبًا أنهوا الدرس</span></div>
+        <button class="btn soft sm" onclick="TB.toast('تم إرسال الواجب إلى ٢٨ طالبًا')"><i data-ic="msg"></i>أظهر إشعارًا</button>
+      </div>
+    </div>
+
+    <div class="grid view" style="--min:300px" data-pane="cmp:learn" hidden>
+      <a class="card lesson" href="design-system/templates/lessons.html" style="--cc:var(--c1)">
+        <div class="cover"><span class="chip">الوحدة ٣</span><i data-ic="calc"></i><span class="dur">١٢ د</span></div>
+        <div class="body"><b>جمع الكسور ذات المقامات المختلفة</b><div class="meta"><span>٨ فيديوهات</span><span>٣ تمارين</span></div><div class="track"><i style="--p:60%"></i></div></div>
+      </a>
+      <div class="card stack"><h3 class="h">وحدات المقرر</h3>
+        <div class="unit done"><span class="n"><i data-ic="check"></i></span><div><b>الأعداد الكبيرة</b><div class="sub">٦ دروس · مكتملة</div></div><span class="chip good">١٠٠٪</span></div>
+        <div class="unit now"><span class="n">٣</span><div><b>الكسور</b><div class="sub">الدرس ٤ من ٧</div></div><span class="chip">٥٧٪</span></div>
+        <div class="unit lock"><span class="n">٤</span><div><b>الهندسة</b><div class="sub">تُفتح بعد إنهاء الكسور</div></div><span class="chip">مقفلة</span></div>
+      </div>
+      <div class="card stack"><h3 class="h">جدول الحصص</h3>
+        <div class="periods">
+          <div class="period past" style="--cc:var(--c2)"><span class="t">7:15</span><span class="pc"></span><div><b>علوم</b><small>الخامس ب · المختبر</small></div><span class="chip good">تمت</span></div>
+          <div class="period now"><span class="t">8:05</span><span class="pc"></span><div><b>رياضيات</b><small>الخامس أ · فصل ١٢</small></div><span class="chip">الآن</span></div>
+          <div class="period" style="--cc:var(--gold)"><span class="t">9:40</span><span class="pc"></span><div><b>نشاط</b><small>الرابع · الساحة</small></div><span class="chip warn">بعد ٩٥ د</span></div>
+        </div>
+      </div>
+      <div class="stack"><h3 class="h">بطاقات المراجعة <span class="sub">(انقر للقلب)</span></h3>
+        <div class="grid" style="--min:140px">
+          <button class="flip" data-flip><div class="in"><div class="f"><span class="sub">ما ناتج</span><b>⅖ + ⅕</b></div><div class="b"><b style="font-size:1.6rem">⅗</b><span>نجمع البسطين لأن المقام واحد</span></div></div></button>
+          <button class="flip" data-flip><div class="in"><div class="f"><span class="sub">عاصمة</span><b>المغرب</b></div><div class="b"><b style="font-size:1.6rem">الرباط</b><span>على ساحل الأطلسي</span></div></div></button>
+        </div>
+      </div>
+      <div class="card" style="grid-column:1/-1"><div id="miniQuiz"></div></div>
+    </div>
+
+    <div class="grid view" style="--min:320px" data-pane="cmp:data" hidden>
+      <div class="card"><div class="between"><h3 class="h">متوسط الدرجات حسب الفصل</h3><span class="chip">الاختبار الأول</span></div>
+        <div class="plot">
+          <div class="gl" style="top:0"><span>100</span></div><div class="gl" style="top:50%"><span>50</span></div><div class="gl" style="top:100%"><span>0</span></div>
+          <div class="goal" style="top:25%"><span>الهدف 75</span></div>
+          <div class="bars"><div class="bar" style="--v:82%"><b>82</b><i></i></div><div class="bar" style="--v:74%"><b>74</b><i></i></div><div class="bar" style="--v:91%;--col:var(--gold)"><b>91</b><i></i></div><div class="bar" style="--v:68%"><b>68</b><i></i></div></div>
+        </div>
+        <div class="xl"><span>الخامس أ</span><span>الخامس ب</span><span>السادس أ</span><span>السادس ب</span></div>
+      </div>
+      <div class="card stack"><h3 class="h">الحضور هذا الأسبوع</h3>
+        <div class="week">
+          <div class="wd full"><i><b style="--p:100%"></b></i><small>أحد</small></div>
+          <div class="wd"><i><b style="--p:86%"></b></i><small>إثنين</small></div>
+          <div class="wd full"><i><b style="--p:100%"></b></i><small>ثلاثاء</small></div>
+          <div class="wd today"><i><b style="--p:64%"></b></i><small>أربعاء</small></div>
+          <div class="wd"><i><b style="--p:0%"></b></i><small>خميس</small></div>
+          <div class="wd off"><i></i><small>جمعة</small></div>
+          <div class="wd off"><i></i><small>سبت</small></div>
+        </div>
+        <div class="row" style="gap:18px;flex-wrap:wrap"><div class="ring" style="--p:86"><span>86٪</span></div><div class="ring gold" style="--p:64;--sz:70px"><span style="font-size:.95rem">64٪</span></div><p class="sub" style="flex:1;min-width:140px">الحلقة الذهبية تعني يومًا مكتملًا بحضور كل الطلاب.</p></div>
+      </div>
+      <div class="card" style="grid-column:1/-1"><div class="between"><h3 class="h">كشف الدرجات</h3><span class="chip">الخامس أ</span></div>
+        <div class="tbl-wrap" style="margin-top:8px"><table class="tbl">
+          <thead><tr><th>الطالب</th><th>الواجبات /20</th><th>المشاركة /10</th><th>الاختبار /30</th><th>المجموع</th><th>التقدير</th></tr></thead>
+          <tbody>
+            <tr><td><div class="row"><span class="avatar" style="--sz:30px">ي</span>يوسف الحربي</div></td><td>19</td><td>10</td><td>28</td><td><b>57</b>/60</td><td><span class="grade a">ممتاز</span></td></tr>
+            <tr><td><div class="row"><span class="avatar c2" style="--sz:30px">ل</span>ليان الشهري</div></td><td>17</td><td>9</td><td>25</td><td><b>51</b>/60</td><td><span class="grade b">جيد جدًا</span></td></tr>
+            <tr><td><div class="row"><span class="avatar gold" style="--sz:30px">ع</span>عبدالله الزهراني</div></td><td>14</td><td>7</td><td>21</td><td><b>42</b>/60</td><td><span class="grade c">جيد</span></td></tr>
+            <tr><td><div class="row"><span class="avatar" style="--sz:30px">ر</span>ريم العنزي</div></td><td>10</td><td>6</td><td>16</td><td><b>32</b>/60</td><td><span class="grade d">يحتاج دعمًا</span></td></tr>
+          </tbody></table></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATES -->
+  <section class="sec" id="templates">
+    <div class="sec-h"><div><span class="eyebrow">5 قوالب أمثلة · تتبع الثيم المختار</span><h2>قوالب الصفحات</h2></div></div>
+    <div class="grid" style="--min:250px">
+      <a class="card tpl" href="design-system/templates/landing.html"><div class="shot"><i style="inset:8% 6% auto 6%;height:9%"></i><i class="a" style="top:28%;inset-inline-end:8%;width:44%;height:9%"></i><i style="top:42%;inset-inline-end:8%;width:36%;height:5%"></i><i class="a" style="top:54%;inset-inline-end:8%;width:20%;height:9%;border-radius:99px"></i><i class="t" style="top:26%;inset-inline-start:8%;width:34%;height:46%"></i></div><b>الصفحة الرئيسية</b><p class="sub">تعريف بالمعلم ومنصته، المواد، المزايا، آراء الطلاب، والتسجيل.</p><span class="go">افتح القالب<i data-ic="next"></i></span></a>
+      <a class="card tpl" href="design-system/templates/profile.html"><div class="shot"><i class="a" style="inset:0 0 auto 0;height:34%;border-radius:0"></i><i class="g" style="top:24%;inset-inline-end:8%;width:16%;aspect-ratio:1;height:auto;border-radius:50%"></i><i style="top:58%;inset-inline:8%;height:7%"></i><i class="t" style="top:72%;inset-inline:8%;height:16%"></i></div><b>ملف المعلم / المعلمة</b><p class="sub">الغلاف، النبذة، المؤهلات، الجدول، والتقييمات.</p><span class="go">افتح القالب<i data-ic="next"></i></span></a>
+      <a class="card tpl" href="design-system/templates/lessons.html"><div class="shot"><i style="top:10%;inset-inline:6%;height:9%;border-radius:99px"></i><i class="a" style="top:28%;inset-inline-end:6%;width:28%;height:30%"></i><i class="t" style="top:28%;inset-inline-end:36%;width:28%;height:30%"></i><i style="top:28%;inset-inline-start:6%;width:26%;height:30%"></i><i class="t" style="top:66%;inset-inline:6%;height:22%"></i></div><b>مكتبة الدروس</b><p class="sub">الوحدات، الدروس، البحث والتصفية، ومشغّل الدرس.</p><span class="go">افتح القالب<i data-ic="next"></i></span></a>
+      <a class="card tpl" href="design-system/templates/quiz.html"><div class="shot"><i style="top:12%;inset-inline:16%;height:6%"></i><i style="top:26%;inset-inline:16%;height:11%"></i><i class="a" style="top:41%;inset-inline:16%;height:11%"></i><i style="top:56%;inset-inline:16%;height:11%"></i><i class="g" style="top:74%;inset-inline-end:16%;width:22%;height:10%;border-radius:99px"></i></div><b>الاختبارات والواجبات</b><p class="sub">أسئلة تفاعلية بتصحيح فوري وختم ونتيجة واحتفال.</p><span class="go">افتح القالب<i data-ic="next"></i></span></a>
+      <a class="card tpl" href="design-system/templates/dashboard.html"><div class="shot"><i style="top:6%;bottom:6%;inset-inline-end:4%;width:22%"></i><i class="t" style="top:8%;inset-inline-start:4%;width:20%;height:18%"></i><i class="t" style="top:8%;inset-inline-start:27%;width:20%;height:18%"></i><i class="t" style="top:8%;inset-inline-start:50%;width:20%;height:18%"></i><i class="a" style="top:34%;inset-inline-start:4%;width:66%;height:58%;opacity:.5"></i></div><b>لوحة تحكم المعلم</b><p class="sub">المؤشرات، الحصص، الواجبات المنتظرة، والدرجات.</p><span class="go">افتح القالب<i data-ic="next"></i></span></a>
+    </div>
+  </section>
+
+  <!-- USAGE -->
+  <section class="sec" id="use">
+    <div class="sec-h"><div><span class="eyebrow">لإعادة الاستخدام في كل منصة</span><h2>طريقة الاستخدام</h2></div></div>
+    <div class="split">
+      <div class="card stack">
+        <h3 class="h">صفحة جديدة في ثلاثة أسطر</h3>
+        <pre class="code" id="snip">&lt;html lang="ar" dir="rtl" data-skin-default="jouri"&gt;
+&lt;link rel="stylesheet" href="design-system/tabshoura.css"&gt;
+&lt;script src="design-system/tabshoura.js"&gt;&lt;/script&gt;
+
+&lt;main class="wrap stack"&gt;
+  &lt;section class="card"&gt;...&lt;/section&gt;
+&lt;/main&gt;
+
+TB.openStudio()          // استوديو المظهر
+TB.celebrate()           // احتفال الإنجاز
+TB.toast('تم الحفظ')
+TB.quiz(el, questions)   // اختبار تفاعلي</pre>
+        <button class="btn soft sm" data-copy="#snip" style="align-self:flex-start">نسخ الشيفرة</button>
+      </div>
+      <div class="card stack">
+        <h3 class="h">إضافة ثيم جديد</h3>
+        <p class="sub">كل ثيم مصفوفتان من 18 لونًا (فاتح L وداكن D) بنفس ترتيب «وِرد»: السماء ×3، الشمس، الظلال ×2، الأرض، الإطار، الحبر ×3، الأساسي ×3، المسار، الذهبي، لونان للمواد.</p>
+        <pre class="code">TB.addSkin('mint', {
+  n: 'نعناع', d: 'أخضر منعش', who: 'f',
+  L: [/* 18 لونًا */], D: [/* 18 لونًا */],
+  g: '10,40,34', g2: '14,50,42'
+})</pre>
+        <p class="note">أضف <b>fx:1</b> لثيم حي، و<b>who</b> بقيمة m أو f لاقتراحه للمعلمين أو المعلمات.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>طبشورة · نظام تصميم منصات المعلمين والمعلمات · الإصدار 1.0</footer>
+</main>
+
+<nav class="nav mobile-only" style="--n:4" aria-label="التنقل">
+  <a href="#themes"><span class="ni"><i data-ic="palette"></i></span>الثيمات</a>
+  <a href="#components"><span class="ni"><i data-ic="spark"></i></span>المكونات</a>
+  <a href="#templates"><span class="ni"><i data-ic="book"></i></span>القوالب</a>
+  <a href="#use"><span class="ni"><i data-ic="task"></i></span>الاستخدام</a>
+</nav>
+</div>
+
+<script src="design-system/tabshoura.js"></script>
+<script>
+(function(){
+  TB.studio(document.getElementById('studio'));
+  TB.quiz(document.getElementById('miniQuiz'),[
+    {q:'أيّ الكسور التالية يساوي النصف؟',opts:['⅓','²⁄₄','¾','⅕'],a:1,why:'٢ من ٤ تساوي نصف الكل.'},
+    {q:'الماء يغلي عند ١٠٠ درجة مئوية عند مستوى سطح البحر.',tf:true,a:true,why:'تنخفض درجة الغليان كلما ارتفعنا عن سطح البحر.'},
+    {q:'ما جمع كلمة «كتاب»؟',opts:['كتابات','كُتُب','كاتبون','مكتبة'],a:1,why:'«كُتُب» جمع تكسير.'}
+  ],{title:'الاختبار القصير'});
+  var names={sky1:'سماء ١',sky2:'الخلفية',sky3:'الأفق',sun:'الشمس',sil:'الظلال',sil2:'الظلال ٢',water:'الأرض',pillar:'الإطار',ink:'النص',ink2:'نص ثانوي',muted:'خافت',accent:'الأساسي',accent2:'الأساسي الغامق','accent-soft':'خلفية ناعمة',track:'المسار',gold:'الذهبي',c1:'مادة ١',c2:'مادة ٢'};
+  function tokens(){var s=getComputedStyle(document.documentElement);
+    document.getElementById('tokens').innerHTML=TB.SKK.map(function(k){var v=s.getPropertyValue('--'+k).trim();return '<div><i style="--c:'+v+'"></i><b>'+v+'</b>'+names[k]+'</div>';}).join('');}
+  document.addEventListener('tb:theme',function(){setTimeout(tokens,20);});
+  setTimeout(tokens,50);
+})();
+</script>
+
+</body>
+</html>

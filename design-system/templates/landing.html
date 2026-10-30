@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ECF4EF">
+<title>منصة أ. خالد للرياضيات</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&family=Tajawal:wght@400;500;700&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap">
+<link rel="stylesheet" href="../tabshoura.css">
+<style>
+  .hero{display:grid;gap:24px;align-items:center;padding-block:36px 8px}
+  @media (min-width:900px){.hero{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}}
+  .hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .teacher{position:relative;padding:20px;border-radius:var(--r)}
+  .teacher .stamp{position:absolute;top:-20px;inset-inline-start:-8px}
+  .plan{display:flex;flex-direction:column;gap:12px}
+  .plan .price{font-size:2rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .plan .price small{font-size:.85rem;font-weight:500;color:var(--muted)}
+  .plan ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:.92rem}
+  .plan li{display:flex;gap:8px;align-items:flex-start}
+  .plan li svg{width:18px;height:18px;color:var(--good);flex:none;margin-top:3px}
+  .plan .btn{margin-top:auto}
+</style>
+</head>
+<body>
+<div class="app">
+<main class="wrap stack lg">
+
+  <header class="topbar">
+    <a class="brand" href="landing.html"><span class="logo"><i data-ic="calc"></i></span>أ. خالد</a>
+    <nav class="links" aria-label="القوالب">
+      <a href="landing.html" aria-current="page">الرئيسية</a><a href="profile.html">ملف المعلمة</a><a href="lessons.html">الدروس</a><a href="quiz.html">الاختبارات</a><a href="dashboard.html">لوحة التحكم</a>
+    </nav>
+    <div class="tools">
+      <button class="round-btn" data-act="mode" aria-label="تبديل الفاتح والداكن"><i data-ic="moon"></i></button>
+      <button class="round-btn" data-act="studio" aria-label="المظهر والثيمات"><i data-ic="palette"></i></button>
+      <a class="btn sm" href="#join">سجّل الآن</a>
+    </div>
+  </header>
+
+  <section class="hero view">
+    <div>
+      <span class="eyebrow" data-type="منصة الرياضيات للصفوف الرابع إلى السادس" data-type-speed="40">منصة الرياضيات للصفوف الرابع إلى السادس</span>
+      <h1 class="h-hero" style="margin-top:8px" data-type="الرياضيات تصير لعبة يفهمها ابنك">الرياضيات تصير لعبة يفهمها ابنك</h1>
+      <p class="lead" style="margin-top:12px">دروس قصيرة مصوّرة، وتمارين تُصحَّح فورًا، وتقرير أسبوعي يصلك عن تقدّم ابنك. أكثر من ٣٤٠ طالبًا يتعلّمون معنا هذا الفصل.</p>
+      <div class="cta"><a class="btn lg" href="#join"><i data-ic="user"></i>سجّل ابنك الآن</a><a class="btn lg soft" href="lessons.html"><i data-ic="play"></i>شاهد درسًا مجانيًا</a></div>
+      <div class="row" style="margin-top:18px"><div class="avatars"><span class="avatar">س</span><span class="avatar c2">ف</span><span class="avatar gold">م</span><span class="avatar">ن</span></div><span class="sub"><b style="color:var(--ink)">٤٫٩</b> من ٥ في تقييم أولياء الأمور</span></div>
+    </div>
+    <div class="glass teacher">
+      <span class="stamp in">ممتاز</span>
+      <div class="board"><small>درس اليوم · الصف الخامس</small><p class="chalk" data-type="¼ + ¼ = ½ لأن ربعين يساويان نصفًا|٣ × ٤ = ١٢|الضرب جمعٌ متكرر" data-type-caret="chalk">¼ + ¼ = ½</p></div>
+      <div class="row" style="margin-top:14px"><span class="avatar" style="--sz:56px">خ</span><div><b>أ. خالد المنصور</b><div class="sub">معلم رياضيات · ١٢ عامًا في التدريس</div></div></div>
+    </div>
+  </section>
+
+  <section class="kpis">
+    <div class="tile"><small>سنوات الخبرة</small><b>12</b><span class="d eq">منذ 2014</span></div>
+    <div class="tile"><small>طلاب هذا الفصل</small><b>340</b><span class="d up">+58 عن الفصل الماضي</span></div>
+    <div class="tile"><small>درس مسجّل</small><b>180</b><span class="d eq">لكل الوحدات</span></div>
+    <div class="tile"><small>رضا أولياء الأمور</small><b>98<small>٪</small></b><span class="d up">من 212 تقييمًا</span></div>
+  </section>
+
+  <section class="stack">
+    <div class="page-h"><div><span class="eyebrow">ماذا ستجد في المنصة</span><h2 class="h-xl">كل ما يحتاجه الطالب في مكان واحد</h2></div></div>
+    <div class="grid" style="--min:250px">
+      <div class="card feat"><span class="fi"><i data-ic="play"></i></span><b>دروس مصوّرة قصيرة</b><p class="sub">كل درس بين ٨ و١٥ دقيقة، يركّز على فكرة واحدة ويمكن إعادته متى شاء الطالب.</p></div>
+      <div class="card feat"><span class="fi"><i data-ic="quiz"></i></span><b>اختبارات بتصحيح فوري</b><p class="sub">يعرف الطالب خطأه في لحظته مع شرح مختصر للإجابة الصحيحة.</p></div>
+      <div class="card feat"><span class="fi"><i data-ic="task"></i></span><b>واجبات ومتابعة</b><p class="sub">تسليم الواجبات بالصور أو الملفات، وتذكير قبل موعد التسليم بيوم.</p></div>
+      <div class="card feat"><span class="fi"><i data-ic="chart"></i></span><b>تقرير لولي الأمر</b><p class="sub">ملخص أسبوعي بالحضور والدرجات ونقاط القوة وما يحتاج إلى دعم.</p></div>
+      <div class="card feat"><span class="fi"><i data-ic="award"></i></span><b>أوسمة وتحفيز</b><p class="sub">نجوم وأختام «ممتاز» تُجمع مع كل إنجاز، ولوحة شرف شهرية.</p></div>
+      <div class="card feat"><span class="fi"><i data-ic="users"></i></span><b>حصص تقوية مباشرة</b><p class="sub">حصة أسبوعية مباشرة لكل صف، ومجموعات صغيرة قبل الاختبارات.</p></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="page-h"><div><span class="eyebrow">المنهج</span><h2 class="h-xl">وحدات كل صف</h2></div>
+      <div class="chips" data-chips="#units"><button class="cb" data-f="all" aria-pressed="true">الكل</button><button class="cb" data-f="g4" aria-pressed="false">الرابع</button><button class="cb" data-f="g5" aria-pressed="false">الخامس</button><button class="cb" data-f="g6" aria-pressed="false">السادس</button></div></div>
+    <div class="grid" id="units" style="--min:280px">
+      <div class="unit" data-cat="g4"><span class="n">١</span><div><b>القيمة المنزلية</b><div class="sub">الرابع · ٦ دروس</div></div><span class="chip">مجاني</span></div>
+      <div class="unit" data-cat="g4"><span class="n">٢</span><div><b>الضرب في رقمين</b><div class="sub">الرابع · ٨ دروس</div></div><span class="chip c2">جديد</span></div>
+      <div class="unit" data-cat="g5"><span class="n">١</span><div><b>الكسور العادية</b><div class="sub">الخامس · ٧ دروس</div></div><span class="chip">مجاني</span></div>
+      <div class="unit" data-cat="g5"><span class="n">٢</span><div><b>الكسور العشرية</b><div class="sub">الخامس · ٩ دروس</div></div><span class="chip gold">الأكثر مشاهدة</span></div>
+      <div class="unit" data-cat="g6"><span class="n">١</span><div><b>النسبة والتناسب</b><div class="sub">السادس · ٦ دروس</div></div><span class="chip">مجاني</span></div>
+      <div class="unit" data-cat="g6"><span class="n">٢</span><div><b>المساحة والحجم</b><div class="sub">السادس · ١٠ دروس</div></div><span class="chip c2">جديد</span></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="page-h"><div><span class="eyebrow">آراء أولياء الأمور</span><h2 class="h-xl">قالوا عن المنصة</h2></div></div>
+    <div class="grid" style="--min:260px">
+      <div class="card quote-card"><div class="stars-row" data-stars="5"></div><p>صار ابني يطلب حل التمارين بنفسه بعد ما كان يتهرّب من الرياضيات.</p><div class="row"><span class="avatar c2" style="--sz:36px">أ</span><div><b>أم فيصل</b><div class="sub">الصف الخامس</div></div></div></div>
+      <div class="card quote-card"><div class="stars-row" data-stars="5"></div><p>التقرير الأسبوعي يوضح لي بالضبط أين يحتاج ابني إلى مساعدة.</p><div class="row"><span class="avatar" style="--sz:36px">م</span><div><b>محمد العتيبي</b><div class="sub">الصف الرابع</div></div></div></div>
+      <div class="card quote-card"><div class="stars-row" data-stars="4"></div><p>الدروس قصيرة وواضحة، وحصص التقوية قبل الاختبار فرقت كثيرًا.</p><div class="row"><span class="avatar gold" style="--sz:36px">هـ</span><div><b>هند السبيعي</b><div class="sub">الصف السادس</div></div></div></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="page-h"><div><span class="eyebrow">الاشتراك</span><h2 class="h-xl">اختر الباقة المناسبة</h2></div></div>
+    <div class="grid" style="--min:250px">
+      <div class="card plan"><b>تجربة مجانية</b><div class="price">0 <small>ر.س</small></div><ul><li><i data-ic="check"></i>الوحدة الأولى من كل صف</li><li><i data-ic="check"></i>اختبار تحديد مستوى</li></ul><a class="btn soft" href="#join">ابدأ مجانًا</a></div>
+      <div class="card plan gold-rim"><div class="between"><b>فصلية</b><span class="chip gold">الأكثر اختيارًا</span></div><div class="price">149 <small>ر.س / الفصل</small></div><ul><li><i data-ic="check"></i>كل الدروس والتمارين</li><li><i data-ic="check"></i>تقرير أسبوعي لولي الأمر</li><li><i data-ic="check"></i>حصة تقوية أسبوعية</li></ul><a class="btn gold" href="#join">اشترك الآن</a></div>
+      <div class="card plan"><b>سنوية</b><div class="price">249 <small>ر.س / السنة</small></div><ul><li><i data-ic="check"></i>كل مزايا الباقة الفصلية</li><li><i data-ic="check"></i>مجموعات صغيرة قبل الاختبارات</li></ul><a class="btn" href="#join">اشترك الآن</a></div>
+    </div>
+  </section>
+
+  <section class="card pad-lg" id="join">
+    <div class="split">
+      <div class="stack"><span class="eyebrow">التسجيل</span><h2 class="h-xl">سجّل ابنك وابدأ الأسبوع القادم</h2><p class="lead">نتواصل معك خلال يوم عمل لتحديد مستوى الطالب واختيار الصف المناسب.</p></div>
+      <form class="stack" id="joinForm">
+        <div class="field"><label class="lbl" for="jn">اسم ولي الأمر</label><input class="input" id="jn" required placeholder="مثال: عبدالرحمن السالم"></div>
+        <div class="field"><label class="lbl" for="jp">رقم الجوال</label><input class="input ltr" id="jp" required inputmode="tel" placeholder="05XXXXXXXX" style="text-align:right"></div>
+        <div class="field"><label class="lbl" for="jg">صف الطالب</label><select class="select" id="jg"><option>الرابع</option><option selected>الخامس</option><option>السادس</option></select></div>
+        <button class="btn lg" type="submit">أرسل طلب التسجيل</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="foot">منصة أ. خالد للرياضيات · قالب من نظام طبشورة · <a href="../">العودة إلى النظام</a></footer>
+</main>
+
+<nav class="nav mobile-only" style="--n:5" aria-label="التنقل">
+  <a href="landing.html" aria-current="page"><span class="ni"><i data-ic="home"></i></span>الرئيسية</a>
+  <a href="profile.html"><span class="ni"><i data-ic="user"></i></span>الملف</a>
+  <a href="lessons.html"><span class="ni"><i data-ic="book"></i></span>الدروس</a>
+  <a href="quiz.html"><span class="ni"><i data-ic="quiz"></i></span>الاختبار</a>
+  <a href="dashboard.html"><span class="ni"><i data-ic="chart"></i></span>اللوحة</a>
+</nav>
+</div>
+<script src="../tabshoura.js"></script>
+<script>
+document.querySelectorAll('[data-stars]').forEach(function(el){var n=+el.dataset.stars;el.innerHTML=new Array(n+1).join(TB.I.star);});
+document.getElementById('joinForm').addEventListener('submit',function(e){e.preventDefault();var b=e.target.querySelector('button').getBoundingClientRect();
+  TB.celebrate(b.left+b.width/2,b.top);TB.toast('وصل طلبك. نتواصل معك خلال يوم عمل',{gold:true});e.target.reset();});
+</script>
+</body>
+</html>

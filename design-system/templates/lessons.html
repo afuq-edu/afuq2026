@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ECF4EF">
+<title>مكتبة دروس العلوم</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&family=Tajawal:wght@400;500;700&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap">
+<link rel="stylesheet" href="../tabshoura.css">
+<style>
+  .resume{display:grid;gap:18px;align-items:center}
+  @media (min-width:800px){.resume{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}}
+  .player{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(150deg,var(--accent),var(--accent2))}
+  .player::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 28px),repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 28px)}
+  .player .pb{position:relative;width:74px;height:74px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:var(--accent2);box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .2s var(--spring)}
+  .player .pb:hover{transform:scale(1.08)}
+  .player .pb svg{width:30px;height:30px;margin-inline-start:-4px}
+  .player .pbar{position:absolute;inset-inline:14px;bottom:14px}
+  .player .pbar .track{background:rgba(255,255,255,.3)}
+  .player .pbar .track>i{background:#fff}
+  .player .t{position:absolute;top:14px;inset-inline-start:14px;color:#fff;font-weight:600;font-size:.85rem;background:rgba(0,0,0,.22);padding:3px 10px;border-radius:99px}
+  .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .steps li{display:flex;align-items:center;gap:10px;font-size:.92rem}
+  .steps li i{width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;font-style:normal;font-size:.78rem;font-weight:700;background:var(--track);color:var(--muted)}
+  .steps li.done i{background:var(--accent2);color:var(--on-accent)}
+  .steps li.now{font-weight:700}
+  .steps li.now i{background:var(--gold);color:var(--on-gold)}
+  .steps li i svg{width:14px;height:14px}
+  button.lesson{text-align:start;width:100%}
+</style>
+</head>
+<body>
+<div class="app">
+<main class="wrap stack lg">
+
+  <header class="topbar">
+    <a class="brand" href="lessons.html"><span class="logo"><i data-ic="book"></i></span>الدروس</a>
+    <nav class="links" aria-label="القوالب">
+      <a href="landing.html">الرئيسية</a><a href="profile.html">ملف المعلمة</a><a href="lessons.html" aria-current="page">الدروس</a><a href="quiz.html">الاختبارات</a><a href="dashboard.html">لوحة التحكم</a>
+    </nav>
+    <div class="tools">
+      <button class="round-btn" data-act="mode" aria-label="تبديل الفاتح والداكن"><i data-ic="moon"></i></button>
+      <button class="round-btn" data-act="studio" aria-label="المظهر والثيمات"><i data-ic="palette"></i></button>
+    </div>
+  </header>
+
+  <div class="page-h view"><div><span class="eyebrow">العلوم · الصف الثاني المتوسط · الفصل الدراسي الأول</span><h1>مكتبة الدروس</h1></div>
+    <div class="search" style="flex:1;max-width:360px;min-width:220px"><i data-ic="search"></i><input class="input" id="q" placeholder="ابحث في الدروس"></div></div>
+
+  <section class="card pad-lg">
+    <div class="resume">
+      <div class="player"><span class="t">٦:٤٠ من ١٤:٠٠</span><button class="pb" id="play" aria-label="تشغيل الدرس"><i data-ic="play"></i></button><div class="pbar"><div class="track"><i style="--p:48%"></i></div></div></div>
+      <div class="stack">
+        <span class="chip" style="align-self:flex-start">تابع من حيث توقفت</span>
+        <h2 class="h-xl">المخاليط والمحاليل</h2>
+        <p class="sub">الوحدة الثانية · الدرس ٣ من ٥ · أ. نورة القحطاني</p>
+        <ol class="steps">
+          <li class="done"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12.5l4.2 4.2L19 7"/></svg></i>ما الفرق بين المخلوط والمحلول؟</li>
+          <li class="now"><i>٢</i>تجربة: ذوبان الملح والرمل في الماء</li>
+          <li><i>٣</i>طرق فصل المخاليط</li>
+          <li><i>٤</i>اختبار قصير · ٥ أسئلة</li>
+        </ol>
+        <div class="row" style="flex-wrap:wrap"><button class="btn" id="play2"><i data-ic="play"></i>أكمل الدرس</button><a class="btn soft" href="quiz.html"><i data-ic="quiz"></i>انتقل للاختبار</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="split">
+    <section class="stack">
+      <div class="between"><h2 class="h">كل الدروس</h2>
+        <div class="chips" data-chips="#lessons"><button class="cb" data-f="all" aria-pressed="true">الكل</button><button class="cb" data-f="u1" aria-pressed="false">المادة</button><button class="cb" data-f="u2" aria-pressed="false">المخاليط</button><button class="cb" data-f="u3" aria-pressed="false">الذرّة</button></div></div>
+      <div class="grid" id="lessons" style="--min:220px"></div>
+      <div class="empty card" id="none" hidden><i data-ic="search"></i><b>لا توجد دروس بهذا الاسم</b><span>جرّب كلمة أخرى، مثل «الذرّة» أو «الماء».</span></div>
+    </section>
+
+    <aside class="stack">
+      <section class="card stack"><div class="between"><h2 class="h">تقدّمك في المقرر</h2><div class="ring" style="--p:46;--sz:64px"><span style="font-size:.9rem">46٪</span></div></div>
+        <div class="unit done"><span class="n"><i data-ic="check"></i></span><div><b>المادة وخواصها</b><div class="sub">٤ دروس · مكتملة</div></div></div>
+        <div class="unit now"><span class="n">٢</span><div><b>المخاليط والمحاليل</b><div class="sub">الدرس ٣ من ٥</div></div></div>
+        <div class="unit lock"><span class="n">٣</span><div><b>تركيب الذرّة</b><div class="sub">تُفتح بعد الوحدة الثانية</div></div></div>
+      </section>
+      <section class="stack"><h2 class="h">راجع بسرعة <span class="sub">انقر البطاقة لترى الإجابة</span></h2>
+        <button class="flip" data-flip><div class="in"><div class="f"><span class="sub">مصطلح</span><b>المذيب</b></div><div class="b"><b style="font-size:1.3rem">المادة التي تُذيب غيرها</b><span>مثل الماء في محلول السكر</span></div></div></button>
+        <button class="flip" data-flip><div class="in"><div class="f"><span class="sub">سؤال</span><b>كيف نفصل الرمل عن الماء؟</b></div><div class="b"><b style="font-size:1.3rem">بالترشيح</b><span>ورق الترشيح يحجز الرمل ويمرّر الماء</span></div></div></button>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="foot">قالب مكتبة الدروس · نظام طبشورة · <a href="../">العودة إلى النظام</a></footer>
+</main>
+
+<nav class="nav mobile-only" style="--n:5" aria-label="التنقل">
+  <a href="landing.html"><span class="ni"><i data-ic="home"></i></span>الرئيسية</a>
+  <a href="profile.html"><span class="ni"><i data-ic="user"></i></span>الملف</a>
+  <a href="lessons.html" aria-current="page"><span class="ni"><i data-ic="book"></i></span>الدروس</a>
+  <a href="quiz.html"><span class="ni"><i data-ic="quiz"></i></span>الاختبار</a>
+  <a href="dashboard.html"><span class="ni"><i data-ic="chart"></i></span>اللوحة</a>
+</nav>
+</div>
+<script src="../tabshoura.js"></script>
+<script>
+(function(){
+  var L=[
+    {u:'u1',n:1,t:'ما هي المادة؟',ic:'atom',m:9,q:4,p:100,c:'c1'},
+    {u:'u1',n:2,t:'حالات المادة الثلاث',ic:'flask',m:12,q:5,p:100,c:'c2'},
+    {u:'u1',n:3,t:'الخواص الفيزيائية والكيميائية',ic:'flask',m:13,q:6,p:100,c:'gold'},
+    {u:'u2',n:1,t:'المخلوط والمحلول',ic:'flask',m:10,q:4,p:100,c:'c1'},
+    {u:'u2',n:2,t:'الذوبان وسرعته',ic:'clock',m:11,q:5,p:100,c:'c2'},
+    {u:'u2',n:3,t:'المخاليط والمحاليل',ic:'flask',m:14,q:5,p:48,c:'gold'},
+    {u:'u2',n:4,t:'طرق فصل المخاليط',ic:'spark',m:12,q:6,p:0,c:'c1'},
+    {u:'u3',n:1,t:'تركيب الذرّة',ic:'atom',m:11,q:4,p:0,c:'c2',lock:1},
+    {u:'u3',n:2,t:'الجدول الدوري',ic:'globe',m:15,q:7,p:0,c:'gold',lock:1}
+  ],U={u1:'المادة',u2:'المخاليط',u3:'الذرّة'};
+  var grid=document.getElementById('lessons');
+  grid.innerHTML=L.map(function(l,i){return '<button class="card lesson" data-i="'+i+'" data-cat="'+l.u+'" style="--cc:var(--'+l.c+')'+(l.lock?';opacity:.6':'')+'"><div class="cover"><span class="chip">'+U[l.u]+' · '+l.n+'</span>'+TB.I[l.ic]+'<span class="dur">'+l.m+' د</span></div><div class="body"><b>'+l.t+'</b><div class="meta"><span>'+l.q+' أسئلة</span><span>'+(l.lock?'مقفل':l.p===100?'مكتمل':l.p?'جارٍ':'لم يبدأ')+'</span></div><div class="track"><i style="--p:'+l.p+'%"></i></div></div></button>';}).join('');
+  grid.addEventListener('click',function(e){var b=e.target.closest('.lesson');if(!b)return;var l=L[+b.dataset.i];
+    if(l.lock){TB.toast('أكمل الوحدة الثانية أولًا لفتح هذا الدرس',{icon:'clock'});return;}
+    var s=TB.sheet('<div class="player" style="aspect-ratio:16/8"><button class="pb" data-start aria-label="ابدأ">'+TB.I.play+'</button></div>'+
+      '<div class="chips"><span class="chip">'+l.m+' دقيقة</span><span class="chip c2">'+l.q+' أسئلة</span>'+(l.p===100?'<span class="chip good">مكتمل</span>':'')+'</div>'+
+      '<p style="color:var(--ink2)">في هذا الدرس نتعرّف على '+l.t+' بأمثلة من المطبخ والمدرسة، ثم نختبر الفهم بأسئلة قصيرة.</p>'+
+      '<div class="row"><button class="btn block" data-start>'+TB.I.play+(l.p&&l.p<100?'أكمل الدرس':'ابدأ الدرس')+'</button></div>',{title:l.t,sub:'الوحدة: '+U[l.u]+' · الدرس '+l.n,icon:l.ic});
+    s.querySelectorAll('[data-start]').forEach(function(x){x.addEventListener('click',function(){TB.closeSheet();TB.toast('بدأ الدرس: '+l.t,{icon:'play'});});});});
+  function play(){TB.toast('نكمل من الدقيقة ٦:٤٠',{icon:'play'});}
+  document.getElementById('play').addEventListener('click',play);document.getElementById('play2').addEventListener('click',play);
+  document.getElementById('q').addEventListener('input',function(e){var v=e.target.value.trim(),n=0;
+    grid.querySelectorAll('.lesson').forEach(function(b){var ok=!v||L[+b.dataset.i].t.indexOf(v)>-1;b.hidden=!ok;if(ok)n++;});document.getElementById('none').hidden=n>0;});
+})();
+</script>
+</body>
+</html>

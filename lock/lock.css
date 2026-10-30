@@ -1,0 +1,17 @@
+/* صفحة القفل: ألوان الثيم فقط */
+body{min-height:100vh;min-height:100dvh;margin:0;display:grid;place-items:center;background:linear-gradient(180deg,var(--sky1),var(--sky2));font-family:var(--f-body);color:var(--ink)}
+.lk{width:100%;padding:24px 16px;box-sizing:border-box;display:grid;place-items:center}
+.lk-card{width:min(420px,100%);text-align:center;padding:30px 24px 24px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.lk-ic{width:96px;height:96px;border-radius:24px;object-fit:contain;background:#fff;box-shadow:var(--shadow)}
+.lk h1{margin:6px 0 0;font-family:var(--f-disp);font-size:1.35rem;line-height:1.5}
+.lk-sub{margin:0;color:var(--ink2);line-height:1.8;font-size:.93rem}
+.lk-lock{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;color:var(--accent-ink);background:var(--accent-soft);padding:4px 12px;border-radius:99px}
+.lk-lock svg{width:15px;height:15px}
+#lkForm{width:100%;display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.lk-row{position:relative}
+.lk-row .input{width:100%;box-sizing:border-box;text-align:center;font-size:1.15rem;letter-spacing:.08em;padding-inline:46px}
+.lk-eye{position:absolute;inset-inline-start:6px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;background:none;color:var(--muted);cursor:pointer;display:grid;place-items:center}
+.lk-eye svg{width:20px;height:20px}
+.lk-msg{min-height:1.4em;margin:0;font-size:.88rem;color:var(--ink2)}
+.lk-msg.bad{color:var(--late);font-weight:600}
+.lk-foot{margin:6px 0 0;font-size:.76rem;color:var(--muted)}
