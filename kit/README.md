@@ -17,7 +17,19 @@
    `pdftoppm -r 150 -png file.pdf p && convert p-1.png -resize '1600x1600>' -quality 80 pages/name-1.jpg`
    ومصغّرات بعرض 360 في `assets/thumbs/`.
 6. أيقونات: عدّل `icons/icon.svg` وولّد PNG بأحجام 512 و192 و180 و64.
-7. ادفع إلى `main`، فيصبح الرابط: `https://afuq-edu.github.io/afuq2026/<slug>/`
+7. ادمج في `main` هنا (مستودع afuq-source الخاص)، ثم انشر النسخة المشفّرة (القسم التالي). الرابط: `https://afuq-edu.github.io/afuq2026/<slug>/`
+
+## النشر المقفل (منذ 30 أكتوبر 2026)
+- هذا المستودع (afuq-edu/afuq-source) **خاص** وفيه المصدر. المستودع العام afuq-edu/afuq2026 فيه النسخة المنشورة فقط، وملفات كل منصة خاصة فيه مشفّرة.
+- كلمات المرور والملح في `/mnt/project-files/locks/keys.json` (لا تُرفع لأي مستودع). أضف المنصة الجديدة إليه بكلمة مرور، والملح يُنشأ تلقائيًا ولا يُغيّر أبدًا.
+- البناء والنشر:
+  ```
+  git clone https://github.com/afuq-edu/afuq2026 /tmp/pub
+  node tools/lock.mjs --src . --out /tmp/pub --keys /mnt/project-files/locks/keys.json
+  cd /tmp/pub && git add -A && git commit -m "نشر" && git push
+  ```
+- لا تدفع أي ملف غير مشفّر لمنصة خاصة إلى afuq2026. منصتا العرض `afuq` و`demo` تبقيان مفتوحتين.
+- القفل لا يحتاج أي تغيير في المحركات: `lock/lock-sw.js` يفك الملفات على جهاز المعلمة بعد إدخال كلمة المرور مرة واحدة.
 
 ## أنواع البنود في `content.js`
 | النوع | الحقول |
