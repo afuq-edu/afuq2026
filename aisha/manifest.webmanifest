@@ -1,0 +1,21 @@
+{
+  "name": "أ. عائشة السيابية · معلم أول المجال الأول",
+  "short_name": "أ. عائشة",
+  "description": "منصة المعلم الأول للمجال الأول · مدرسة الجفنين (1–6) · محافظة مسقط",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "background_color": "#0B0A24",
+  "theme_color": "#0B0A24",
+  "categories": ["education"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
