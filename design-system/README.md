@@ -83,3 +83,13 @@ TB.quiz(el,[{q,opts:[..],a:1,why},{q,tf:true,a:true,why}],{title,onDone})
 TB.addSkin(id,{n,d,who:'m'|'f',fx:0|1,L:[18],D:[18],g:'r,g,b',g2:'r,g,b'})
 document.addEventListener('tb:theme', e => e.detail)  // عند تغيّر المظهر
 ```
+
+## السجل PDF (`tabshoura-report.js`)
+يصدّر كل أعمال المنصة في سجل A4 جاهز للحفظ PDF: غلاف بألوان الثيم، لوحة إنجاز برسوم (نسبة الإنجاز العامة ولكل قسم)، فهرس، ثم كل قسم بجداوله ورسومه، وصفحة توقيع.
+- الألوان من الثيم الحالي للمنصة فقط (نسخته الفاتحة، لأن الورق أبيض). لا ألوان ثابتة.
+- يقرأ الحالة المحفوظة على الجهاز (تعديلات المعلمة وما أنجزته)، ويتخطى الجداول والأقسام الفارغة ويذكرها في «أقسام لم تُستكمل».
+- التفعيل في أي منصة على `/kit/`: أضف بعد `tabshoura.js` السطر
+  `<script src="../design-system/tabshoura-report.js"></script>` فيظهر في قائمة «المزيد» زر «تصدير سجل الأعمال PDF». أضفه أيضًا إلى `CORE` في `sw.js`.
+- اختياري في `content.js`: `reportTitle:'سجل أعمال …'` و`reportSign:[['الصفة','الاسم'],['مديرة المدرسة','الاسم']]`.
+- الأنواع الخاصة بمنصة: `TB.report.types.myType=function(it,R){return html}` و`.progress=function(it){return {d,n}}`. أدوات `R`: `kpis table donut hbars stack cols ring chip box pal mix`. مثال: `aisha/report.js` (مستويات الطلبة، الزيارات، تحليل الأعمال) ويصلح لمنصة `/suad/` كما هو.
+- برمجيًا: `TB.report.open({state,title,sign})` أو `TB.report.html(state,opts)` للتوليد الآلي (Playwright `page.pdf`).

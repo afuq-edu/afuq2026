@@ -576,6 +576,7 @@ function openPinSheet(){
 /* ---------- قائمة المزيد ---------- */
 function openMore(){
   var html='<div class="stack" data-pfmore>'+
+    (TB.report?'<button class="btn gold block" data-do="report">'+X.download+'تصدير سجل الأعمال PDF (جداول ورسوم بيانية)</button>':'')+
     '<button class="btn block '+(EDIT?'gold':'')+'" data-do="edit-toggle">'+I.pencil+(EDIT?'إنهاء التحرير':'تحرير المنصة (إضافة وحذف الأقسام والبنود)')+'</button>'+
     '<button class="btn soft block" data-act="studio">'+I.palette+'الثيمات والمظهر</button>'+
     '<button class="btn soft block" data-do="sound">'+(SND.on?X.sound:X.mute)+(SND.on?'الأصوات تعمل · إيقاف':'الأصوات متوقفة · تشغيل')+'</button>'+
@@ -629,6 +630,7 @@ document.addEventListener('click',function(e){
   if(a==='install'){install();return;}
   if(a==='inst-x'){try{localStorage.setItem('pf:inst-x','1');}catch(x){}var c=$('[data-install]');if(c)c.remove();return;}
   if(a==='share'){var u=location.href.split('#')[0];if(navigator.share)navigator.share({title:document.title,url:u}).catch(function(){});else if(navigator.clipboard)navigator.clipboard.writeText(u).then(function(){TB.toast('نُسخ رابط المنصة',{icon:'check'});});return;}
+  if(a==='report'){TB.closeSheet();if(EDIT)setEdit(false);setTimeout(function(){TB.report.open({state:S,title:DEF.reportTitle,sign:DEF.reportSign});},60);return;}
   if(a==='export'){exportData();return;}
   if(a==='import'){importData();return;}
   if(a==='reset'){if(CL&&!PIN){TB.toast('ادخلي التحرير أولًا',{icon:'x'});return;}if(!confirm(CL?'سيتم حذف كل تعديلاتك وإرجاع المنصة كما كانت لكل الزوار. هل أنتِ متأكدة؟':'سيتم حذف كل تعديلاتك على هذا الجهاز وإرجاع المنصة كما كانت. هل أنتِ متأكدة؟'))return;DB.del(KEY).then(function(){S=clone(DEF);render();if(CL&&PIN)cloudSave();TB.closeSheet();TB.toast('عادت المنصة إلى أصلها',{icon:'reset'});});return;}
@@ -736,5 +738,5 @@ function boot(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 window.PF={state:function(){return S;},sound:SND,lightbox:lightbox,render:function(){render();},
   /* أدوات للأنواع الإضافية */
-  esc:esc,G:G,head:head,hasText:hasText,uid:uid,today:today,edit:function(){return EDIT;},cur:function(){return CUR;},readImage:readImage,find:findItem,persist:persist,rerender:rerenderItem,refresh:refreshDerived,burst:burstAt};
+  esc:esc,G:G,head:head,hasText:hasText,uid:uid,today:today,edit:function(){return EDIT;},cur:function(){return CUR;},readImage:readImage,find:findItem,from:computeFrom,goalProg:goalProg,persist:persist,rerender:rerenderItem,refresh:refreshDerived,burst:burstAt};
 })();
