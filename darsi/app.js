@@ -102,6 +102,7 @@ function navList(){if(!PF.nav)return NAV;return PF.nav.map(function(id){return N
 
 /* ---------- الهيكل ---------- */
 function shell(){var app=$('#app');app.innerHTML='<header class="ds-top"><button class="ds-brand" data-go="home"><span class="ds-logo">'+(PF.emoji||'🍎')+'</span><span><b>منصة '+esc(S.settings.teacher)+'</b><small>'+esc(PF.title||'')+'</small></span></button><div class="ds-tools">'+
+  (dsStandalone()?'':'<button class="btn soft sm xi-btn" data-a="install" aria-label="تثبيت المنصة على الجهاز">'+X.install+'<span>تثبيت</span></button>')+
   '<button class="round-btn" data-a="theme" aria-label="الثيمات">'+I.palette+'</button><button class="round-btn" data-a="sound" aria-label="الصوت">'+(SND.on?ic('<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/>'):ic('<path d="M4 9v6h4l5 4V5L8 9z"/><path d="m17 9 5 6M22 9l-5 6"/>'))+'</button><button class="round-btn" data-a="more" aria-label="المزيد">'+X.more+'</button></div></header>'+
   '<main class="wrap stack lg ds-main" id="view"></main><nav class="ds-nav" aria-label="الأقسام">'+navList().map(function(n){return '<button data-go="'+n[0]+'">'+G(n[2])+'<span>'+n[1]+'</span></button>';}).join('')+'</nav>';}
 document.addEventListener('click',function(e){var g=e.target.closest&&e.target.closest('[data-go]');if(g){e.preventDefault();var v=g.dataset.go.split('/');go(v[0],v[1]);return;}
@@ -112,6 +113,8 @@ A.theme=function(){var dark=TB.isDark();TB.sheet('<div class="stack"><div class=
   '<div class="opt-row"><span>حجم الخط</span><div class="seg">'+[['m','عادي'],['l','كبير'],['xl','أكبر']].map(function(o){return '<button data-pref="font" data-v="'+o[0]+'" aria-pressed="'+(TB.prefs.font===o[0])+'">'+o[1]+'</button>';}).join('')+'</div></div></div>',{title:'الثيمات',sub:'ثلاثة ثيمات مختارة لهذه المنصة',icon:'palette'});};
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.sheet [data-pref]');if(!b)return;setTimeout(function(){var s=b.closest('.sheet');if(!s)return;$$('[data-pref="'+b.dataset.pref+'"]',s).forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});},30);});
 A.sound=function(b){SND.set(!SND.on);shell();render();};
+function dsStandalone(){return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;}
+window.addEventListener('appinstalled',function(){var x=document.querySelector('.ds-top .xi-btn');if(x)x.remove();});
 var deferredInstall=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstall=e;});
 A.more=function(){TB.sheet('<div class="stack">'+
   '<button class="btn soft block" data-a="settings">'+X.gear+'بيانات المعلمة والإعدادات</button>'+

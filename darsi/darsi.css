@@ -605,3 +605,7 @@ html.d-noscroll,html.d-noscroll body{overflow:hidden}
 .ds-qcard{padding:10px}
 .ds-student .ds-nav{display:none}
 @media (max-width:600px){.d-dot{width:8px;height:8px}.d-dots{gap:4px}.d-tk{display:none}.d-arrow{width:52px;height:52px}}
+.ds-tools .xi-btn{gap:6px;white-space:nowrap}.ds-tools .xi-btn svg{width:18px;height:18px}
+@media (max-width:420px){.ds-tools .xi-btn span{display:none}}
+.ds-brand>span:last-child{min-width:0;flex:1}
+@media (max-width:420px){.ds-tools{gap:4px}.ds-tools .round-btn,.ds-tools .xi-btn{width:38px;height:38px;min-width:38px;padding:0;justify-content:center}}
