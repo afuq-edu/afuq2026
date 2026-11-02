@@ -223,5 +223,9 @@ function open(opts){opts=opts||{};var st=opts.state||(window.PF&&window.PF.state
 function escClose(e){if(e.key==='Escape')close();}
 function close(){var o=document.getElementById('tbReport');if(o)o.remove();document.documentElement.classList.remove('tbr-on');document.removeEventListener('keydown',escClose);}
 
-TB.report={open:open,close:close,html:function(st,o){return build(st,o).html;},types:{},base:T,palette:palette,version:'1.0'};
+/* أدوات للمستندات المستقلة (ملف شامل يُبنى من ملفات المصدر لا من المنصة):
+   var K=TB.report.kit('majarra'); K.css(تذييل الصفحات) يعطي الأنماط، و K.R أدوات الرسم نفسها */
+function kit(skin){PAL=palette(skin);var R={esc:esc,ic:ic,kpis:kpis,table:table,donut:donut,hbars:hbars,stack:stack,cols:cols,ring:ring,chip:chip,box:box,pal:PAL,mix:mix,pct:pct,fmt:fmt,dshort:dshort,dlong:dlong,txt:txt,today:isoToday()};
+  return {R:R,pal:PAL,css:function(running){return css(PAL,running||'');},ready:ready};}
+TB.report={open:open,close:close,html:function(st,o){return build(st,o).html;},kit:kit,types:{},base:T,palette:palette,version:'1.1'};
 })();
