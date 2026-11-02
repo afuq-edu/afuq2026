@@ -1,0 +1,21 @@
+{
+  "name": "مختبر العلوم · أ. حمدة الوهيبي",
+  "short_name": "مختبر العلوم",
+  "description": "أوراق عمل تفاعلية في العلوم: سحب وإفلات، تجارب افتراضية، تصحيح فوري، ونجوم",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "background_color": "#0E2A2E",
+  "theme_color": "#0E2A2E",
+  "categories": ["education"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
