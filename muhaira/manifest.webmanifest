@@ -1,0 +1,20 @@
+{
+  "name": "أ. مهيرة الغنبوصي · تقنية المعلومات",
+  "short_name": "أ. مهيرة",
+  "description": "منصة تقنية المعلومات للصفين الأول والخامس",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FBF4F1",
+  "theme_color": "#FBF4F1",
+  "categories": ["education"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
