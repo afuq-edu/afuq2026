@@ -1,0 +1,20 @@
+{
+  "name": "طوق الياسمين · أ. زينب النوفلي",
+  "short_name": "طوق الياسمين",
+  "description": "منصة المعلمة الأولى للمجال الثاني: معايير التقييم والأدلة، خطة أبطال تيمز، خطة المادة، الإنماء المهني، والمبادرات",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#071224",
+  "theme_color": "#0E2748",
+  "categories": ["education","productivity"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
