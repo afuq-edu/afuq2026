@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3E2A1A"/><stop offset="1" stop-color="#140D07"/></linearGradient>
+<radialGradient id="gl" cx=".5" cy=".42" r=".5"><stop offset="0" stop-color="#F3D69A" stop-opacity=".55"/><stop offset="1" stop-color="#F3D69A" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="512" height="512" rx="112" fill="url(#bg)"/>
+<circle cx="256" cy="220" r="210" fill="url(#gl)"/>
+<path d="M256 112v44" stroke="#DDC6A8" stroke-width="6"/>
+<path d="M196 196q8-40 60-42q52 2 60 42z" fill="#7CC4B2"/>
+<rect x="192" y="192" width="128" height="10" rx="4" fill="#EFC56E"/>
+<circle cx="256" cy="212" r="11" fill="#F3D69A"/>
+<path d="M256 404c-44-18-94-18-140-4V300c46-14 96-14 140 4z" fill="#F6EBDD"/>
+<path d="M256 404c44-18 94-18 140-4V300c-46-14-96-14-140 4z" fill="#F6EBDD"/>
+<path d="M256 304v100" stroke="#C98E4C" stroke-width="5"/>
+<path d="M146 330h80M146 352h80M146 374h60M286 330h80M286 352h80M286 374h60" stroke="#A88F74" stroke-width="7" stroke-linecap="round"/>
+<path d="M104 408c50-14 102-14 152 6 50-20 102-20 152-6" fill="none" stroke="#E0A866" stroke-width="10" stroke-linecap="round"/>
+</svg>
