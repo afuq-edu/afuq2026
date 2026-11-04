@@ -1,3 +1,2 @@
-/* منصة مقفلة: الملفات مشفّرة ويفكها هذا العامل على جهاز المعلمة بعد إدخال كلمة المرور. */
-self.LOCK={slug:'majida-file',v:'majida-file-l87a126c1df',pub:['sw.js','lock.json','manifest.webmanifest']};
-importScripts('../lock/lock-sw.js');
+self.addEventListener('install',function(){self.skipWaiting();});
+self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n.indexOf('majida-file')===0;}).map(function(n){return caches.delete(n);}));}).then(function(){return self.registration.unregister();}).then(function(){return self.clients.matchAll();}).then(function(c){c.forEach(function(x){x.navigate('../majida/');});}));});
