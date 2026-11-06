@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // «نجم الأسبوع»: المعلمة حساب واحد بالبريد، والطالبات بدخول مجهول (Anonymous) من أي جهاز
+    function teacher() { return request.auth != null && request.auth.token.email == 'muallima@najm.ofuq.team'; }
+    function signed()  { return request.auth != null; }
+    function mine(id)  { return signed() && id.matches('.*_' + request.auth.uid); }
+    function q(id)     { return get(/databases/$(database)/documents/najm_q/$(id)); }
+
+    // إعدادات المنصة (اسم المدرسة والمعلمة والشعار) والأسئلة: يقرؤها الجميع وتكتبها المعلمة
+    match /najm_cfg/{id} { allow read: if true; allow write: if teacher(); }
+    match /najm_q/{id}   { allow read: if true; allow write: if teacher(); }
+
+    // الإجابة النموذجية والمفتاح: لا تظهر للطالبة إلا بعد أن تسلّم حلها
+    match /najm_key/{qid} {
+      allow read: if teacher() || (signed() && exists(/databases/$(database)/documents/najm_sub/$(qid + '_' + request.auth.uid)));
+      allow write: if teacher();
+    }
+
+    // تسليمات الطالبات: تسليم واحد لكل جهاز في كل سؤال، ولا تعديل بعده
+    match /najm_sub/{sid} {
+      allow get: if teacher() || mine(sid);
+      allow list, update, delete: if teacher();
+      allow create: if signed()
+        && request.resource.data.keys().hasOnly(['qid','uid','name','cls','answer','choice','at'])
+        && request.resource.data.uid == request.auth.uid
+        && sid == request.resource.data.qid + '_' + request.auth.uid
+        && request.resource.data.name is string && request.resource.data.name.size() > 5 && request.resource.data.name.size() < 120
+        && request.resource.data.answer is string && request.resource.data.answer.size() < 6000
+        && request.resource.data.at == request.time
+        && q(request.resource.data.qid).data.open == true;
+    }
+
+    // ملاحظة المعلمة الخاصة لكل طالبة وتقديرها
+    match /najm_fb/{sid} {
+      allow get: if teacher() || mine(sid);
+      allow list, write: if teacher();
+    }
+  }
+}
