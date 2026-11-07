@@ -1,0 +1,387 @@
+/* «هذا وطني» · هوية الملصق: رقّ كريمي، ذهبي، أحمر وأخضر العلم، قلاع ونخيل.
+   ثلاثة ثيمات من ألوان الملصق فقط: رَقّ (فاتح، الافتراضي)، لَيْلُ القِلاع (أخضر ليلي)، عُنّابي. */
+
+:root,html[data-skin="raqq"]{
+  color-scheme:light;
+  --bg:#F4EBD8;--bg2:#EFE2C6;--surface:rgba(255,251,242,.86);--surface2:#FBF4E4;--solid:#FFFBF2;
+  --ink:#2C2116;--ink2:#4A3B2A;--muted:#7D6B55;--line:rgba(140,104,48,.22);--line2:rgba(140,104,48,.4);
+  --red:#A3191F;--red2:#C0262D;--red-soft:rgba(163,25,31,.09);
+  --green:#1D6A3A;--green2:#2A8A4E;--green-soft:rgba(29,106,58,.1);
+  --gold:#B88A2E;--gold2:#E2C578;--gold3:#F6E7BC;--gold-soft:rgba(184,138,46,.13);
+  --hd:#7E1217;--on:#FFFBF2;
+  --sh:0 1px 0 rgba(255,255,255,.7) inset,0 14px 34px -20px rgba(92,62,20,.45);
+  --glow:0 0 0 1px rgba(184,138,46,.35),0 0 22px -6px rgba(184,138,46,.55);
+  --pat:rgba(184,138,46,.11);
+  --top1:#FFFBF2;--top2:#F6EBD3;
+}
+html[data-skin="layl"]{
+  color-scheme:dark;
+  --bg:#0A1C15;--bg2:#0E271D;--surface:rgba(16,42,31,.74);--surface2:rgba(22,54,40,.66);--solid:#12302A;
+  --ink:#F4ECD8;--ink2:#DCD0B4;--muted:#A9A086;--line:rgba(226,197,120,.18);--line2:rgba(226,197,120,.34);
+  --red:#E0575C;--red2:#F07A7E;--red-soft:rgba(224,87,92,.14);
+  --green:#7FCF9C;--green2:#9EDDB4;--green-soft:rgba(80,180,120,.14);
+  --gold:#E2C578;--gold2:#F3DF9F;--gold3:#F8EDC8;--gold-soft:rgba(226,197,120,.12);
+  --hd:#F3DF9F;--on:#0A1C15;
+  --sh:0 1px 0 rgba(255,255,255,.04) inset,0 18px 40px -22px rgba(0,0,0,.8);
+  --glow:0 0 0 1px rgba(226,197,120,.3),0 0 22px -4px rgba(226,197,120,.45);
+  --pat:rgba(226,197,120,.06);
+  --top1:#0F2A20;--top2:#0B2019;
+}
+html[data-skin="annabi"]{
+  color-scheme:dark;
+  --bg:#230A0D;--bg2:#2E0F13;--surface:rgba(58,17,22,.72);--surface2:rgba(72,24,29,.62);--solid:#3A1418;
+  --ink:#F7EDDA;--ink2:#E4D3B5;--muted:#B8A182;--line:rgba(226,197,120,.18);--line2:rgba(226,197,120,.34);
+  --red:#F08A8D;--red2:#F6A8AA;--red-soft:rgba(240,138,141,.13);
+  --green:#86CFA0;--green2:#A6DDB9;--green-soft:rgba(80,180,120,.14);
+  --gold:#E2C578;--gold2:#F3DF9F;--gold3:#F8EDC8;--gold-soft:rgba(226,197,120,.12);
+  --hd:#F3DF9F;--on:#230A0D;
+  --sh:0 1px 0 rgba(255,255,255,.04) inset,0 18px 40px -22px rgba(0,0,0,.8);
+  --glow:0 0 0 1px rgba(226,197,120,.3),0 0 22px -4px rgba(226,197,120,.45);
+  --pat:rgba(226,197,120,.06);
+  --top1:#3A1216;--top2:#2A0C10;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.7 "IBM Plex Sans Arabic",system-ui,sans-serif;min-height:100vh;position:relative;overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--green)}
+img{max-width:100%}
+.kufi{font-family:"Reem Kufi","IBM Plex Sans Arabic",sans-serif}
+.naskh{font-family:"Noto Naskh Arabic","IBM Plex Sans Arabic",serif}
+.muted{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ===== الخلفية ===== */
+.fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.fx .pat{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23B88A2E' stroke-width='1'%3E%3Cpath d='M36 14l6.4 15.6L58 36l-15.6 6.4L36 58l-6.4-15.6L14 36l15.6-6.4z'/%3E%3Crect x='22' y='22' width='28' height='28' transform='rotate(45 36 36)'/%3E%3Cpath d='M0 0l14 14M72 0L58 14M0 72l14-14M72 72L58 58'/%3E%3C/g%3E%3C/svg%3E");background-size:72px 72px;opacity:.16;mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 75%)}
+html[data-skin="layl"] .fx .pat,html[data-skin="annabi"] .fx .pat{opacity:.07}
+.fx .glow{position:absolute;border-radius:50%;filter:blur(90px)}
+.fx .g1{width:520px;height:520px;background:var(--gold2);opacity:.22;top:-200px;inset-inline-start:-120px}
+.fx .g2{width:460px;height:460px;background:var(--green);opacity:.10;bottom:-200px;inset-inline-end:-120px}
+html[data-skin="layl"] .fx .g1,html[data-skin="annabi"] .fx .g1{opacity:.10}
+.fx canvas{position:absolute;inset:0}
+/* شريط العلم المتموّج: اللمسة الجديدة لهذه المنصة */
+.flagband{position:absolute;inset-inline:0;top:0;height:120px;opacity:.9}
+.flagband path{fill:none;stroke-width:9;stroke-linecap:round}
+.flagband .fr{stroke:#C0262D}.flagband .fw{stroke:#FFFDF6}.flagband .fg{stroke:#1D7A40}
+html[data-skin="layl"] .flagband,html[data-skin="annabi"] .flagband{opacity:.45}
+.flagband g{animation:wave 9s ease-in-out infinite alternate;transform-origin:50% 0}
+@keyframes wave{to{transform:translateY(5px) scaleY(1.08)}}
+
+/* ===== الشريط العلوي ===== */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:10px max(14px,env(safe-area-inset-right)) 10px max(14px,env(safe-area-inset-left));padding-top:max(10px,env(safe-area-inset-top));background:linear-gradient(180deg,var(--top1),var(--top2));box-shadow:0 10px 26px -20px rgba(60,30,0,.6)}
+.top::after{content:"";position:absolute;inset-inline:0;bottom:-8px;height:8px;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8' viewBox='0 0 24 8'%3E%3Cpath d='M0 7.5V3h4V0.5h4V3h4v4.5' fill='none' stroke='%23B88A2E' stroke-width='1' opacity='.7'/%3E%3Cpath d='M12 7.5V3h4V0.5h4V3h4' fill='none' stroke='%23B88A2E' stroke-width='1' opacity='.7'/%3E%3C/svg%3E") repeat-x bottom/24px 8px}
+.top .emb{width:38px;height:38px;object-fit:contain;flex:none}
+.ttl{flex:1;min-width:0;line-height:1.25}
+.ttl b{display:block;font:700 19px "Reem Kufi",sans-serif;color:var(--hd);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ttl small{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbtn{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 12px;border-radius:12px;border:1px solid var(--line2);background:var(--surface);cursor:pointer;font-weight:600;font-size:14px;color:var(--ink2);flex:none}
+.tbtn svg{width:18px;height:18px}
+.tbtn:hover{border-color:var(--gold);box-shadow:var(--glow)}
+.tbtn.inst{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;border-color:transparent}
+html[data-skin="layl"] .tbtn.inst,html[data-skin="annabi"] .tbtn.inst{color:var(--on)}
+.is-installed .tbtn.inst{display:none}
+.tbtn.menu{display:none}
+@media (max-width:900px){.tbtn .lb{display:none}.tbtn{padding:0 9px}}
+
+/* ===== الهيكل ===== */
+.shell{position:relative;z-index:1;display:grid;grid-template-columns:240px 1fr;gap:22px;max-width:1320px;margin:0 auto;padding:22px max(16px,env(safe-area-inset-right)) 110px max(16px,env(safe-area-inset-left))}
+.nav{position:sticky;top:84px;align-self:start;display:flex;flex-direction:column;gap:4px;padding:10px;border-radius:20px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--ink2);font-weight:600;font-size:15px}
+.nav a svg{width:20px;height:20px;flex:none;color:var(--gold)}
+.nav a:hover{background:var(--gold-soft)}
+.nav a.on{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff}
+.nav a.on svg{color:var(--gold3)}
+html[data-skin="layl"] .nav a.on,html[data-skin="annabi"] .nav a.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--on)}
+html[data-skin="layl"] .nav a.on svg,html[data-skin="annabi"] .nav a.on svg{color:var(--on)}
+.nav hr{border:0;border-top:1px dashed var(--line2);margin:6px 4px}
+.main{min-width:0}
+.tabs{display:none}
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;padding-top:16px}
+  .nav{display:none}
+  body.nav-open .nav{display:flex;position:fixed;inset:auto 10px 82px 10px;top:auto;z-index:40;max-height:70vh;overflow:auto;background:var(--solid)}
+  body.nav-open .scrim{display:block}
+  .tabs{display:flex;position:fixed;z-index:30;bottom:0;inset-inline:0;justify-content:space-around;padding:6px 6px max(8px,env(safe-area-inset-bottom));background:linear-gradient(180deg,var(--top1),var(--top2));border-top:1px solid var(--line2);box-shadow:0 -10px 26px -20px rgba(60,30,0,.6)}
+  .tabs a,.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px;border:0;background:none;text-decoration:none;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer}
+  .tabs svg{width:22px;height:22px}
+  .tabs .on{color:var(--red)}
+  html[data-skin="layl"] .tabs .on,html[data-skin="annabi"] .tabs .on{color:var(--gold2)}
+}
+.scrim{display:none;position:fixed;inset:0;z-index:35;background:rgba(20,10,0,.35)}
+
+/* ===== البطاقات ===== */
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--sh);backdrop-filter:blur(10px) saturate(1.15);-webkit-backdrop-filter:blur(10px) saturate(1.15)}
+.card.corner::before{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(var(--gold),var(--gold)) top right/20px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) top right/2px 20px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) bottom left/20px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) bottom left/2px 20px no-repeat;opacity:.75}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.g3{grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr))}
+.g4{grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+.g6{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:600px){.g4,.g6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.view{display:flex;flex-direction:column;gap:18px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sec-head .h1{margin:0;font:700 28px/1.3 "Reem Kufi",sans-serif;color:var(--hd)}
+.sec-head p{margin:2px 0 0;color:var(--muted)}
+h2,h3{font-family:"Reem Kufi",sans-serif;color:var(--hd);margin:0 0 8px;line-height:1.35}
+h2{font-size:21px}h3{font-size:17px}
+.crenel{display:block;height:12px;width:100%;color:var(--gold);opacity:.8}
+
+/* ===== الأزرار ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:14px;border:1px solid var(--line2);background:var(--solid);color:var(--ink);font-weight:700;cursor:pointer;text-decoration:none;font-size:15px;transition:transform .12s,box-shadow .2s}
+.btn svg{width:19px;height:19px;flex:none}
+.btn:hover{box-shadow:var(--glow)}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-color:transparent}
+.btn.grn{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;border-color:transparent}
+.btn.gld{background:linear-gradient(135deg,#C9A045,#EBD08A 60%,#C9A045);color:#3A2808;border-color:transparent}
+html[data-skin="layl"] .btn.pri,html[data-skin="annabi"] .btn.pri{color:var(--on)}
+html[data-skin="layl"] .btn.grn,html[data-skin="annabi"] .btn.grn{color:var(--on)}
+.btn.ghost{background:transparent}
+.btn.sm{min-height:36px;padding:0 12px;font-size:14px;border-radius:11px}
+.btn.lg{min-height:56px;padding:0 26px;font-size:18px;border-radius:18px}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;border:1px solid var(--line2);background:var(--surface2);font-size:13px;font-weight:600;cursor:pointer;color:var(--ink2)}
+.chip.on{background:var(--hd);color:var(--solid);border-color:transparent}
+.tag{display:inline-block;padding:1px 9px;border-radius:999px;font-size:12px;font-weight:700;background:var(--gold-soft);color:var(--gold)}
+.tag.l1{background:var(--green-soft);color:var(--green)}
+.tag.l2{background:var(--gold-soft);color:var(--gold)}
+.tag.l3{background:var(--red-soft);color:var(--red)}
+html[data-skin="raqq"] .tag.l2{color:#8A6418}
+
+/* ===== البطل ===== */
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:10px;padding:0;overflow:hidden;min-height:330px}
+.hero .txt{padding:30px 30px 26px;display:flex;flex-direction:column;gap:12px;justify-content:center;position:relative;z-index:1}
+.hero .kick{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--green);font-size:14px}
+.hero .kick img{width:30px;height:30px}
+.hero h1{margin:0;font:700 clamp(38px,6vw,64px)/1.15 "Reem Kufi",sans-serif;color:var(--red)}
+html[data-skin="layl"] .hero h1,html[data-skin="annabi"] .hero h1{color:var(--gold2)}
+.hero .sub{font:700 17px "Reem Kufi",sans-serif;color:var(--green)}
+.hero .slogan{align-self:flex-start;padding:6px 22px;border-radius:999px;background:linear-gradient(135deg,var(--gold3),#FFF7E0);border:1px solid var(--gold2);color:#4A3108;font:700 19px "Noto Naskh Arabic",serif;box-shadow:0 8px 20px -14px rgba(120,80,0,.6)}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:14px}
+.hero .art{position:relative;min-height:260px}
+.hero .art img.fort{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 40%;mask-image:linear-gradient(to left,#000 55%,transparent),linear-gradient(to top,transparent,#000 22%);mask-composite:intersect;-webkit-mask-image:linear-gradient(to left,#000 55%,transparent);}
+html[data-skin="layl"] .hero .art img.fort,html[data-skin="annabi"] .hero .art img.fort{filter:saturate(.85) brightness(.82)}
+.hero .art .stripe{position:absolute;inset-block:0;inset-inline-end:0;width:12px;background:linear-gradient(#C0262D 0 33%,#FFFDF6 33% 66%,#1D7A40 66%)}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.hero .art{min-height:190px;order:-1}.hero .art img.fort{mask-image:linear-gradient(to top,transparent,#000 40%);-webkit-mask-image:linear-gradient(to top,transparent,#000 40%);object-position:50% 35%}.hero .txt{padding:6px 20px 22px}}
+
+/* إحصاءات */
+.stat{display:flex;flex-direction:column;gap:2px;padding:16px 18px}
+.stat b{font:700 30px "Reem Kufi",sans-serif;color:var(--hd);line-height:1.2}
+.stat span{color:var(--muted);font-size:14px}
+.stat .bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:6px}
+.stat .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--gold2));border-radius:9px;transition:width .8s}
+
+/* ===== الشعب ===== */
+.secard{display:flex;align-items:center;gap:12px;padding:14px}
+.badge{flex:none;width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font:700 20px "Reem Kufi",sans-serif;color:#fff;background:linear-gradient(135deg,var(--red),var(--red2));box-shadow:inset 0 -3px 0 rgba(0,0,0,.15)}
+.badge.g{background:linear-gradient(135deg,var(--green),var(--green2))}
+.badge.o{background:linear-gradient(135deg,#B88A2E,#E2C578);color:#3A2808}
+html[data-skin="layl"] .badge,html[data-skin="annabi"] .badge{color:var(--on)}
+.secard input{width:100%;border:1px dashed transparent;background:transparent;border-radius:8px;padding:2px 6px;font-weight:600}
+.secard input:hover,.secard input:focus{border-color:var(--line2);background:var(--surface2)}
+
+/* ===== التصفيات (الشجرة) ===== */
+.bracket{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px,1fr);gap:18px;overflow-x:auto;padding-bottom:8px}
+.stage{display:flex;flex-direction:column;gap:14px;justify-content:space-around}
+.stage>h3{text-align:center;margin:0;padding:6px;border-radius:12px;background:var(--gold-soft);font-size:16px}
+.match{padding:12px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh);display:flex;flex-direction:column;gap:6px}
+.match .mh{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);font-weight:700}
+.match .slot{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:11px;background:var(--surface2);border:1px solid transparent;font-weight:700}
+.match .slot .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.match .slot .s{font:700 18px "Reem Kufi",sans-serif;color:var(--hd)}
+.match .slot.win{border-color:var(--gold);background:linear-gradient(90deg,var(--gold-soft),transparent);box-shadow:var(--glow)}
+.match .slot.out{opacity:.5;text-decoration:line-through;text-decoration-color:var(--muted)}
+.match .slot.tbd{color:var(--muted);font-weight:500;font-style:normal}
+.match.final{border:1.5px solid var(--gold);background:linear-gradient(180deg,var(--gold-soft),var(--surface))}
+.match.live{border-color:var(--red);box-shadow:0 0 0 3px var(--red-soft)}
+
+/* ===== ساحة المنافسة ===== */
+.arena{display:flex;flex-direction:column;gap:16px}
+.arena-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between}
+.arena-top .st{font:700 22px "Reem Kufi",sans-serif;color:var(--hd)}
+.teams{display:grid;gap:14px;grid-template-columns:repeat(var(--n,2),minmax(0,1fr))}
+.team{position:relative;text-align:center;padding:16px 10px 12px;border-radius:22px;background:var(--surface);border:2px solid var(--line);box-shadow:var(--sh);transition:border-color .3s,box-shadow .3s,transform .3s}
+.team .nm{font:700 clamp(20px,3.2vw,34px) "Reem Kufi",sans-serif;color:var(--hd)}
+.team .nick{font-size:14px;color:var(--muted);min-height:1.4em}
+.team .sc{font:700 clamp(46px,8vw,88px)/1 "Reem Kufi",sans-serif;color:var(--green);margin:6px 0}
+.team.turn{border-color:var(--red);box-shadow:0 0 0 4px var(--red-soft),var(--sh);transform:translateY(-3px)}
+.team.turn::after{content:"الدَّوْر";position:absolute;top:-12px;inset-inline-start:50%;transform:translateX(50%);padding:1px 12px;border-radius:999px;background:var(--red);color:#fff;font-size:12px;font-weight:700}
+html[data-skin="layl"] .team.turn::after,html[data-skin="annabi"] .team.turn::after{color:var(--on)}
+.team.lead .sc{color:var(--red)}
+html[data-skin="layl"] .team.lead .sc,html[data-skin="annabi"] .team.lead .sc{color:var(--gold2)}
+.team .acts{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.team .bump{animation:bump .5s}
+@keyframes bump{40%{transform:scale(1.18)}}
+.qbox{padding:24px 26px;display:flex;flex-direction:column;gap:16px;min-height:240px}
+.qmeta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.qtext{font:700 clamp(22px,3vw,36px)/1.75 "Noto Naskh Arabic",serif;color:var(--ink);margin:0}
+.qimg{max-height:300px;border-radius:14px;align-self:center;border:1px solid var(--line)}
+.opts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:16px;background:var(--surface2);border:1.5px solid var(--line2);font:600 clamp(18px,2.2vw,26px)/1.6 "Noto Naskh Arabic",serif;text-align:start;cursor:default}
+.opt .l{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--gold-soft);color:var(--gold);font:700 18px "Reem Kufi",sans-serif}
+.opt.ok{border-color:var(--green);background:var(--green-soft);box-shadow:0 0 0 3px var(--green-soft)}
+.opt.ok .l{background:var(--green);color:#fff}
+.opt.dim{opacity:.5}
+.answer{padding:14px 18px;border-radius:16px;background:var(--green-soft);border:1.5px solid var(--green);font:700 clamp(18px,2.2vw,26px)/1.7 "Noto Naskh Arabic",serif;color:var(--ink)}
+.answer small{display:block;font:600 14px "IBM Plex Sans Arabic";color:var(--green)}
+.timer{position:relative;width:96px;height:96px;flex:none}
+.timer svg{width:100%;height:100%;transform:rotate(-90deg)}
+.timer circle{fill:none;stroke-width:8}
+.timer .bgc{stroke:var(--line)}
+.timer .fg{stroke:var(--green);stroke-linecap:round;transition:stroke-dashoffset .95s linear,stroke .3s}
+.timer.warn .fg{stroke:var(--red)}
+.timer b{position:absolute;inset:0;display:grid;place-items:center;font:700 32px "Reem Kufi",sans-serif;color:var(--hd)}
+.timer.warn b{color:var(--red);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.55}}
+.dots{display:flex;gap:5px;flex-wrap:wrap}
+.dots i{width:12px;height:12px;border-radius:50%;background:var(--line)}
+.dots i.d{background:var(--gold)}
+.dots i.c{background:var(--red);box-shadow:0 0 0 3px var(--red-soft)}
+body.stage-mode .top,body.stage-mode .nav,body.stage-mode .tabs,body.stage-mode .fab{display:none!important}
+body.stage-mode .shell{grid-template-columns:1fr;max-width:1500px;padding-top:14px}
+body.stage-mode .flagband{opacity:.35}body.stage-mode .shell{padding-top:44px}
+
+/* ===== بنك الأسئلة ===== */
+.qrow{display:flex;gap:12px;align-items:flex-start;padding:14px 16px}
+.qrow .qt{flex:1;min-width:0}
+.qrow .qt p{margin:4px 0 0;font:600 18px/1.8 "Noto Naskh Arabic",serif}
+.qrow .an{font-size:14px;color:var(--green);font-weight:600;margin-top:2px}
+.qrow .used{opacity:.6}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inp,select.inp,textarea.inp{width:100%;min-height:44px;padding:9px 12px;border-radius:12px;border:1px solid var(--line2);background:var(--solid);color:var(--ink)}
+textarea.inp{min-height:90px;resize:vertical;line-height:1.8}
+.inp.naskh{font:600 18px/1.8 "Noto Naskh Arabic",serif}
+label.f{display:flex;flex-direction:column;gap:5px;font-weight:700;font-size:14px;color:var(--ink2)}
+.form{display:grid;gap:12px}
+.optin{display:flex;gap:8px;align-items:center}
+.optin input[type=radio]{width:22px;height:22px;accent-color:var(--green);flex:none}
+.empty{text-align:center;padding:36px 20px;color:var(--muted)}
+.empty img{width:120px;opacity:.85}
+
+/* ===== المراجعة ===== */
+.flash{min-height:280px;display:flex;flex-direction:column;gap:14px;justify-content:center}
+
+/* ===== لوحة الشرف ===== */
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:14px;padding-top:20px}
+.pod{display:flex;flex-direction:column;align-items:center;gap:8px;width:min(30%,190px)}
+.pod .blk{width:100%;border-radius:18px 18px 6px 6px;display:grid;place-items:center;font:700 34px "Reem Kufi",sans-serif;color:#fff}
+.pod.p1 .blk{height:150px;background:linear-gradient(180deg,#E2C578,#B88A2E);color:#3A2808}
+.pod.p2 .blk{height:110px;background:linear-gradient(180deg,var(--green2),var(--green))}
+.pod.p3 .blk{height:80px;background:linear-gradient(180deg,var(--red2),var(--red))}
+html[data-skin="layl"] .pod.p2 .blk,html[data-skin="layl"] .pod.p3 .blk,html[data-skin="annabi"] .pod.p2 .blk,html[data-skin="annabi"] .pod.p3 .blk{color:var(--on)}
+.pod .nm{font:700 22px "Reem Kufi",sans-serif;color:var(--hd)}
+.pod img{width:90px}
+.gal{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr))}
+.ph{padding:0;overflow:hidden}
+.ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;cursor:zoom-in;background:var(--surface2)}
+.ph .cap{padding:12px 14px}
+.ph .cap b{display:block;font-family:"Reem Kufi";color:var(--hd)}
+.ph .cap p{margin:2px 0 0;color:var(--ink2);font-size:14px}
+.ph .x{position:absolute;top:8px;inset-inline-end:8px}
+
+/* ===== حوار ===== */
+.dlg{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(25,12,0,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fade .2s}
+.dlg .box{width:min(640px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--solid);border:1px solid var(--line2);border-radius:22px;padding:22px;box-shadow:0 30px 70px -30px rgba(0,0,0,.6);position:relative}
+.dlg .box.wide{width:min(980px,100%)}
+.dlg .x{position:absolute;top:12px;inset-inline-end:12px}
+.dlg h2{padding-inline-end:44px}
+.dlg .steps{padding-inline-start:22px;line-height:2}
+.icon-x{width:40px;height:40px;border-radius:12px;border:1px solid var(--line2);background:var(--surface2);display:grid;place-items:center;cursor:pointer;color:var(--ink2);font-size:18px}
+.icon-x:hover{border-color:var(--red);color:var(--red)}
+@keyframes fade{from{opacity:0}}
+.lightbox img{max-height:80vh;display:block;margin:0 auto;border-radius:14px}
+.toast{position:fixed;z-index:80;bottom:96px;inset-inline-start:50%;transform:translateX(50%);padding:10px 20px;border-radius:14px;background:var(--hd);color:var(--solid);font-weight:700;box-shadow:0 14px 30px -16px rgba(0,0,0,.6);animation:fade .2s}
+
+/* زر الإضافة العائم */
+.fab{position:fixed;z-index:25;bottom:24px;inset-inline-start:24px;display:inline-flex;align-items:center;gap:8px;height:54px;padding:0 20px;border-radius:999px;border:0;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 14px 30px -12px rgba(163,25,31,.7)}
+.fab svg{width:22px;height:22px}
+html[data-skin="layl"] .fab,html[data-skin="annabi"] .fab{background:linear-gradient(135deg,#C9A045,#EBD08A);color:#3A2808}
+@media (max-width:900px){.fab{bottom:86px;inset-inline-start:16px;height:50px}}
+
+/* ===== الترحيب ===== */
+.splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,var(--surface2),var(--bg) 70%);transition:opacity .7s;cursor:pointer;overflow:hidden}
+.splash.out{opacity:0;pointer-events:none}
+.splash .in{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px}
+.splash img{width:110px;opacity:0;animation:rise .9s .1s forwards}
+.splash .g{color:var(--green);font-weight:700;opacity:0;animation:rise .7s .7s forwards}
+.splash .t{font:700 clamp(46px,10vw,84px)/1.2 "Reem Kufi",sans-serif;color:var(--red);opacity:0;animation:rise .8s 1s forwards}
+html[data-skin="layl"] .splash .t,html[data-skin="annabi"] .splash .t{color:var(--gold2)}
+.splash .s{font:700 20px "Noto Naskh Arabic",serif;color:var(--hd);opacity:0;animation:rise .8s 1.4s forwards}
+.splash .sc{color:var(--muted);opacity:0;animation:rise .8s 1.7s forwards}
+.splash .crenel-wall{position:absolute;bottom:0;inset-inline:0;height:80px;color:var(--gold)}
+.splash .crenel-wall path{fill:none;stroke:currentColor;stroke-width:1.4;stroke-dasharray:3000;stroke-dashoffset:3000;animation:draw 2.4s .3s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes rise{from{opacity:0;transform:translateY(14px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+body.splashing #app{visibility:hidden}
+
+/* الظهور التدريجي */
+.rise{animation:rise .6s both;animation-delay:calc(var(--i,0)*80ms)}
+.wd{display:inline-block;animation:rise .6s both;animation-delay:calc(var(--w,0)*90ms)}
+
+/* احتفال */
+.confetti{position:fixed;inset:0;z-index:90;pointer-events:none}
+.winner{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.winner img{width:150px;filter:drop-shadow(0 10px 20px rgba(120,80,0,.35))}
+.winner .wn{font:700 clamp(40px,8vw,72px)/1.2 "Reem Kufi",sans-serif;color:var(--red)}
+html[data-skin="layl"] .winner .wn,html[data-skin="annabi"] .winner .wn{color:var(--gold2)}
+
+/* ===== الشهادات ===== */
+.cert-prev{overflow:auto;padding:10px;background:var(--surface2);border-radius:18px}
+.cert{width:297mm;height:210mm;position:relative;background:#FFFBF2;color:#2C2116;overflow:hidden;font-family:"IBM Plex Sans Arabic",sans-serif;transform-origin:top right}
+.cert .frame{position:absolute;inset:9mm;border:2.4px solid #B88A2E;border-radius:6mm}
+.cert .frame::before{content:"";position:absolute;inset:2.5mm;border:1px solid rgba(184,138,46,.6);border-radius:4mm}
+.cert .pat{position:absolute;inset:0;opacity:.1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23B88A2E' stroke-width='1'%3E%3Cpath d='M36 14l6.4 15.6L58 36l-15.6 6.4L36 58l-6.4-15.6L14 36l15.6-6.4z'/%3E%3Crect x='22' y='22' width='28' height='28' transform='rotate(45 36 36)'/%3E%3C/g%3E%3C/svg%3E");background-size:22mm}
+.cert .flag{position:absolute;top:0;bottom:0;inset-inline-end:0;width:7mm;background:linear-gradient(#C0262D 0 33.3%,#fff 33.3% 66.6%,#1D7A40 66.6%)}
+.cert .fort{position:absolute;bottom:9mm;inset-inline-start:9mm;width:62mm;height:80mm;object-fit:cover;opacity:.28;mask-image:linear-gradient(to top,#000 40%,transparent),linear-gradient(to left,#000 50%,transparent);-webkit-mask-image:linear-gradient(to left,#000 40%,transparent);border-radius:0 0 0 5mm}
+.cert .body{position:absolute;inset:16mm 22mm;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2.5mm}
+.cert .hdr{display:flex;width:100%;justify-content:space-between;align-items:flex-start;font-size:11.5pt;font-weight:600;line-height:1.6}
+.cert .hdr img{width:22mm}
+.cert .ct{font:700 36pt/1.2 "Reem Kufi",sans-serif;color:#7E1217;margin-top:2mm}
+.cert .cs{font:700 15pt "Reem Kufi",sans-serif;color:#1D6A3A}
+.cert .who{font:700 30pt/1.3 "Noto Naskh Arabic",serif;color:#2C2116;padding:0 14mm 1mm;border-bottom:1.5px solid #E2C578;min-width:120mm}
+.cert .txt{font:500 14pt/2 "Noto Naskh Arabic",serif;max-width:210mm}
+.cert .slog{font:700 13pt "Noto Naskh Arabic",serif;color:#7E1217;padding:1.5mm 8mm;border-radius:99px;background:#F6E7BC}
+.cert .sig{display:flex;justify-content:space-between;width:100%;margin-top:auto;font-size:12pt;font-weight:700}
+.cert .sig div{min-width:60mm;text-align:center}
+.cert .sig span{display:block;font-weight:500;color:#7D6B55;margin-top:9mm;border-top:1px dotted #B88A2E;padding-top:1mm}
+.cert .tro{position:absolute;bottom:14mm;inset-inline-start:50%;transform:translateX(50%);width:26mm;mix-blend-mode:multiply}
+.cert .rank{position:absolute;top:46mm;inset-inline-start:24mm;width:30mm;height:30mm;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#F6E7BC,#E2C578);border:2px solid #B88A2E;font:700 12pt/1.3 "Reem Kufi",sans-serif;color:#7E1217;box-shadow:0 0 0 2mm rgba(226,197,120,.3)}
+
+/* ===== الطباعة ===== */
+#print{display:none}
+@media print{
+  @page{size:A4 landscape;margin:0}
+  body{background:#fff}
+  body>*:not(#print){display:none!important}
+  #print{display:block}
+  #print .cert{page-break-after:always;break-after:page;transform:none!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;animation:none!important}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ===== جداول وأشرطة ===== */
+.shell.solo{grid-template-columns:1fr;max-width:1040px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th{font-size:13px;color:var(--muted);font-weight:700;text-align:start;padding:8px 10px;border-bottom:1.5px solid var(--line2);white-space:nowrap}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tr.dim td{opacity:.55}
+.tbl td .btn.sm{min-height:32px;padding:0 8px}
+.mini{display:inline-block;width:70px;height:6px;border-radius:9px;background:var(--line);overflow:hidden;vertical-align:middle}
+.mini i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--gold2))}
+.bars{display:flex;flex-direction:column;gap:8px}
+.brow{display:flex;align-items:center;gap:10px}
+.brow .bl{width:62px;flex:none;font-weight:700;font-family:"Reem Kufi"}
+.brow .bt{flex:1;height:14px;border-radius:9px;background:var(--line);overflow:hidden}
+.brow .bt i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--green),var(--green2));transition:width .8s}
+.brow .bt i.gold{background:linear-gradient(90deg,#B88A2E,#E2C578)}
+.brow b{width:48px;text-align:end;font-family:"Reem Kufi"}
+.brow small{width:28px}
+.qrow p{margin:4px 0}
+@media (max-width:600px){.teams{grid-template-columns:repeat(2,minmax(0,1fr))}.team .acts .btn{padding:0 8px}}
