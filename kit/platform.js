@@ -113,6 +113,7 @@ function merge(saved){
   });
   // حقول يفرض المحتوى الأصلي تحديثها (تصحيح معلومة مثلًا)
   if(DEF.force&&DEF.force.teacher&&saved.teacher)DEF.force.teacher.forEach(function(k){saved.teacher[k]=clone(DEF.teacher[k]);});
+  if(window.PF_MIGRATE)try{window.PF_MIGRATE(saved);}catch(e){} // ترحيل خاص بالمنصة (تغيير نوع بند مثلًا)
   return saved;
 }
 
@@ -200,6 +201,9 @@ var R={
       if(tg.indexOf(i)>-1){if(typeof c==='boolean')return '<td><button type="button" class="pf-dotb" data-tg="'+ri+','+i+'" aria-pressed="'+c+'" aria-label="تبديل"><span class="dotc'+(c?'':' off')+'"></span></button></td>';
         var ok=c===okv;return '<td><button type="button" class="pf-st '+(ok?'ok':'no')+'" data-tg="'+ri+','+i+'" title="اضغطي للتبديل">'+(ok?I.check+esc(okv):I.clock+esc(nov))+'</button></td>';}
       if(c===true)return '<td><span class="dotc"></span></td>';if(c===false)return '<td><span class="dotc off"></span></td>';
+      /* pick:{عمود:'اسم قائمة'|[خيارات]}: الخانة قائمة منسدلة (القوائم المسماة من window.PF_LISTS) */
+      if(it.pick&&it.pick[i]!=null){var pl=it.pick[i],ops=(typeof pl==='string'?((window.PF_LISTS||{})[pl]||[]):pl).slice();if(c&&ops.indexOf(c)<0)ops.unshift(c);
+        return '<td class="pf-pickc"><select class="select pf-pick" data-pk="'+ri+','+i+'" aria-label="'+esc((it.head||[])[i]||'اختيار')+'"><option value="">اختاري</option>'+ops.map(function(o){return '<option'+(o===c?' selected':'')+'>'+esc(o)+'</option>';}).join('')+'</select></td>';}
       return '<td data-c="'+ri+','+i+'"'+(ltr.indexOf(i)>-1?' class="ltr"':'')+(EDIT?' contenteditable="true"':'')+'>'+esc(c)+'</td>';}).join('')+
       (EDIT?'<td><button type="button" class="pf-mini danger" data-rowdel="'+ri+'" title="حذف الصف">'+I.x+'</button></td>':'')+'</tr>';}).join('')+'</tbody></table></div>'+
       (EDIT?'<button type="button" class="btn soft sm" data-rowadd style="margin-top:10px">'+I.plus+'إضافة صف</button>':'')+
@@ -243,7 +247,7 @@ function goalHTML(it,g,gi,td,gf){var pr=goalProg(g),st=goalState(g,td),tp=goalTi
     (EDIT?'<input class="input" type="date" data-gd="'+gi+',from" value="'+esc(g.from||'')+'" aria-label="من"><input class="input" type="date" data-gd="'+gi+',to" value="'+esc(g.to||'')+'" aria-label="إلى">':'<span class="dates">'+I.cal+esc(fmtD(g.from))+' – '+esc(fmtD(g.to))+'</span>')+'</div>'+
     '<p class="gt"'+(EDIT?' contenteditable data-gg="'+gi+',goal"':'')+'>'+esc(g.goal)+'</p><div class="pf-gbar sm" title="الإنجاز '+pr.p+'% · الوقت المنقضي '+tp+'%"><i style="--v:'+pr.p+'%"></i>'+(tp>0&&tp<100?'<u style="--t:'+tp+'%"></u>':'')+'</div></div>'+
     '<span class="pc"><b>'+pr.d+'/'+pr.n+'</b><small>نشاط</small></span>';
-  var body='<ol class="pf-acts">'+acts.map(function(a,ai){return '<li class="'+(a.done?'done':'')+'"><button type="button" class="pf-chk" data-ga="'+gi+','+ai+'" aria-pressed="'+!!a.done+'" aria-label="إنجاز النشاط">'+I.check+'</button><span class="tt"'+(EDIT?' contenteditable data-gat="'+gi+','+ai+'"':'')+'>'+esc(a.t)+(!EDIT&&hasText(a.m)?'<small class="am">'+esc(a.m)+'</small>':'')+'</span>'+
+  var body='<ol class="pf-acts">'+acts.map(function(a,ai){return '<li class="'+(a.done?'done':'')+'"><button type="button" class="pf-chk" data-ga="'+gi+','+ai+'" aria-pressed="'+!!a.done+'" aria-label="إنجاز النشاط">'+I.check+'</button><span class="tt"'+(EDIT?' contenteditable data-gat="'+gi+','+ai+'"':'')+'>'+esc(a.t)+'</span>'+
       (EDIT?'<button type="button" class="pf-mini danger" data-gdel="'+gi+','+ai+'" aria-label="حذف النشاط">'+I.x+'</button>':(a.done?'':'<button type="button" class="pf-today-b" data-gtoday="'+gi+','+ai+'" title="أضيفيه إلى مهام اليوم">'+I.plus+'<span>لمهام اليوم</span></button>'))+'</li>';}).join('')+'</ol>'+
     (EDIT?'<button type="button" class="btn soft sm" data-gadd="'+gi+'">'+I.plus+'إضافة نشاط</button>':'')+
     (EDIT||hasText(g.note)?'<p class="pf-gnote"'+(EDIT?' contenteditable data-gg="'+gi+',note" data-ph="ملاحظات على الهدف"':'')+'>'+esc(g.note||'')+'</p>':'');
@@ -695,6 +699,7 @@ document.addEventListener('focusout',function(e){var c=e.target.closest&&e.targe
 document.addEventListener('focusout',function(e){var c=e.target.closest&&e.target.closest('[data-gat],[data-gg]');if(!c)return;var art=c.closest('[data-id]'),fi=art&&findItem(art.dataset.id);if(!fi)return;var v=c.innerText.trim();
   if(c.dataset.gat){var p=c.dataset.gat.split(','),a=fi.item.items[+p[0]].acts[+p[1]];if(a&&a.t!==v){a.t=v;persist();}return;}
   var q=c.dataset.gg.split(','),g=fi.item.items[+q[0]];if(g&&g[q[1]]!==v){g[q[1]]=v;persist();if(q[1]==='dom')rerenderItem(fi.item.id);}});
+document.addEventListener('change',function(e){var s=e.target.closest&&e.target.closest('[data-pk]');if(!s)return;var art=s.closest('[data-id]'),fi=art&&findItem(art.dataset.id);if(!fi)return;var q=s.dataset.pk.split(','),row=fi.item.rows[+q[0]];if(!row)return;row[+q[1]]=s.value;persist();refreshDerived();SND.tap();});
 document.addEventListener('change',function(e){var c=e.target.closest&&e.target.closest('[data-gd]');if(!c)return;var art=c.closest('[data-id]'),fi=art&&findItem(art.dataset.id);if(!fi)return;var q=c.dataset.gd.split(',');fi.item.items[+q[0]][q[1]]=c.value;persist();});
 document.addEventListener('toggle',function(e){var d=e.target;if(d.matches&&d.matches('details.pf-goal')){if(d.open){GOPEN[d.dataset.g]=1;SND.page();}else delete GOPEN[d.dataset.g];}},true);
 document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.matches&&e.target.matches('[data-gat],[data-gg]:not([data-gg$=",note"])')){e.preventDefault();e.target.blur();return;}

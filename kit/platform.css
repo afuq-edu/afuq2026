@@ -386,7 +386,6 @@
 .pf-acts{list-style:none;margin:0;padding:4px 16px 14px;display:flex;flex-direction:column;gap:8px;counter-reset:a}
 .pf-acts li{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:var(--glass2);border:1px solid var(--rim);transition:opacity .3s,background .3s}
 .pf-acts li .tt{flex:1;min-width:0;line-height:1.7}
-.pf-acts li .tt .am{display:block;margin-top:2px;font-size:12px;line-height:1.6;color:var(--muted)}
 .pf-acts li.done{background:color-mix(in srgb,var(--good) 12%,var(--glass2))}
 .pf-acts li.done .tt{text-decoration:line-through;text-decoration-color:var(--good);color:var(--muted)}
 .pf-today-b{flex:none;display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:99px;border:1px dashed color-mix(in srgb,var(--accent) 55%,transparent);background:transparent;color:var(--accent-ink);font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .25s,transform .25s var(--spring)}
@@ -397,3 +396,7 @@
 .pf-gnote[contenteditable]:empty::before{content:attr(data-ph);color:var(--muted)}
 .pf-goal [contenteditable]{outline:1px dashed color-mix(in srgb,var(--accent) 45%,transparent);outline-offset:2px;border-radius:6px;cursor:text}
 @media (max-width:640px){.pf-goal>summary,.pf-goal>.sm-row{padding:12px;gap:10px}.pf-goal .num{width:32px;height:32px;border-radius:11px}.pf-acts{padding:4px 10px 12px}.pf-acts li{flex-wrap:wrap}.pf-today-b span{display:none}.pf-gsum{padding:12px}}
+/* خانة جدول بقائمة منسدلة (pick) */
+.pf-tbl td.pf-pickc{padding-block:4px}
+.pf-tbl .pf-pick{min-width:140px;padding-block:6px;background-color:transparent;border-color:color-mix(in srgb,var(--line) 70%,transparent);font:inherit}
+.pf-tbl .pf-pick:hover,.pf-tbl .pf-pick:focus{background-color:var(--glass2)}
