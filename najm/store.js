@@ -64,8 +64,13 @@ var Cloud={
   ready:function(){if(authReady)return authReady;
     authReady=new Promise(function(res){var off=auth.onAuthStateChanged(function(){off();res();});});return authReady;},
   uid:function(){return auth.currentUser&&auth.currentUser.uid;},
+  /* الطالبة: دخول مجهول إن كان مفعّلًا، وإلا حساب جهاز تلقائي بالبريد وكلمة سر عشوائية محفوظة على الجهاز */
   student:function(){return Cloud.ready().then(function(){if(auth.currentUser)return auth.currentUser.uid;
-    return auth.signInAnonymously().then(function(c){return c.user.uid;});});},
+    return auth.signInAnonymously().then(function(c){return c.user.uid;}).catch(function(){
+      var k='najm:dev',d=null;try{d=JSON.parse(localStorage.getItem(k)||'null');}catch(e){}
+      if(d&&d.e&&d.p)return auth.signInWithEmailAndPassword(d.e,d.p).then(function(c){return c.user.uid;});
+      d={e:'s'+rid()+rid().slice(-4)+'@talibat.najm.ofuq.team',p:rid()+rid()};try{localStorage.setItem(k,JSON.stringify(d));}catch(e){}
+      return auth.createUserWithEmailAndPassword(d.e,d.p).then(function(c){return c.user.uid;});});});},
   isTeacher:function(){return !!(auth.currentUser&&auth.currentUser.email===TEACHER);},
   hasTeacher:function(){return Promise.resolve(null);},
   login:function(pw){return auth.signInWithEmailAndPassword(TEACHER,pw).catch(function(e){var c=e&&e.code||'';
