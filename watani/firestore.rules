@@ -1,0 +1,34 @@
+    // ===== «هذا وطني»: مسابقة منهجية للصف الحادي عشر (مجموعات watani_) =====
+    // المعلمات حساب واحد بالبريد، والطالبات بحساب جهاز تلقائي (أو Anonymous)
+    function wTeacher() { return request.auth != null && request.auth.token.email == 'muallimat@watani.ofuq.team'; }
+    function wSigned()  { return request.auth != null; }
+    function wMine(id)  { return wSigned() && id.matches('.*_' + request.auth.uid); }
+    function wRound(id) { return get(/databases/$(database)/documents/watani_round/$(id)); }
+
+    // الإعدادات العامة ولوحة الشرف المنشورة
+    match /watani_cfg/{id}   { allow read: if true; allow write: if wTeacher(); }
+    // بنك الأسئلة بالإجابات، والشعب والتصفيات: للمعلمات فقط
+    match /watani_t/{id}     { allow read, write: if wTeacher(); }
+    match /watani_gal/{id}   { allow read, write: if wTeacher(); }
+    // الجولة المنشورة (بلا إجابات)
+    match /watani_round/{id} { allow read: if true; allow write: if wTeacher(); }
+    // مفتاح الإجابات: لا تراه الطالبة إلا بعد تسليمها
+    match /watani_key/{rid} {
+      allow read: if wTeacher() || (wSigned() && exists(/databases/$(database)/documents/watani_sub/$(rid + '_' + request.auth.uid)));
+      allow write: if wTeacher();
+    }
+    // تسليمات الطالبات: مرة واحدة لكل جهاز في كل جولة، ولا تعديل بعدها، وفي جولة مفتوحة لشعبتها فقط
+    match /watani_sub/{sid} {
+      allow get: if wTeacher() || wMine(sid);
+      allow list, update, delete: if wTeacher();
+      allow create: if wSigned()
+        && request.resource.data.keys().hasOnly(['rid','uid','name','sec','ans','tm','dur','at'])
+        && request.resource.data.uid == request.auth.uid
+        && sid == request.resource.data.rid + '_' + request.auth.uid
+        && request.resource.data.name is string && request.resource.data.name.size() > 4 && request.resource.data.name.size() < 120
+        && request.resource.data.sec is string && request.resource.data.sec.size() < 12
+        && request.resource.data.ans is map
+        && request.resource.data.at == request.time
+        && wRound(request.resource.data.rid).data.open == true
+        && request.resource.data.sec in wRound(request.resource.data.rid).data.secs;
+    }
