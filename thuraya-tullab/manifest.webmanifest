@@ -1,0 +1,14 @@
+{
+ "name": "واجباتي · الرياضيات · أ. ثريا الخاطري",
+ "short_name": "واجباتي",
+ "description": "ادخل برمزك وحلّ واجباتك",
+ "lang": "ar", "dir": "rtl", "id": "./", "start_url": "./", "scope": "./",
+ "display": "standalone", "orientation": "any",
+ "background_color": "#EEF6FF", "theme_color": "#3D9BE9",
+ "categories": ["education"],
+ "icons": [
+  {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+  {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+  {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+ ]
+}
