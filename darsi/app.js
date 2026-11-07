@@ -47,7 +47,7 @@ function fresh(){return {app:'darsi',pf:PF.id,v:1,
   classes:PF.grades.map(function(g){return {id:'c'+g,g:g,name:'الصف '+GR[g]};}),students:[],
   criteria:[{id:'k1',n:'المشاركة الصفية',w:25,src:'part',target:20},{id:'k2',n:'الواجبات',w:25,src:'hw'},{id:'k3',n:'الامتحانات',w:30,src:'ex'},{id:'k4',n:'الأنشطة والألعاب',w:10,src:'game',target:10},{id:'k5',n:'السلوك والانضباط',w:10,src:'manual'}],
   manual:{},att:{},points:[],results:[],taught:{},plans:{},objs:{},exams:[],sent:{},ui:{book:PF.books[0]}};}
-function persist(){clearTimeout(saveT);saveT=setTimeout(function(){S.saved=Date.now();D.DB.set(KEY,S);},200);}
+function persist(){clearTimeout(saveT);saveT=setTimeout(function(){S.saved=Date.now();D.DB.set(KEY,S);if(D.onPersist)D.onPersist(S);},200);}
 
 /* ---------- حسابات ---------- */
 function books(){return PF.books.map(function(b){return D.REG.books[b];}).filter(Boolean);}
@@ -183,8 +183,8 @@ V.plans=function(el,r){if(r.id){return planView(el,D.REG.lessons[r.id]);}var b=c
   el.innerHTML=head('plans','<div class="row"><button class="btn soft" data-a="printUnitAll">'+X.print+'طباعة تحاضير الكتاب</button><button class="btn soft" data-a="printUnitAll" data-m="pdf">'+X.dl+'PDF للكتاب</button></div>')+unitsHTML(b,function(L){return '<button class="ds-ls" data-go="plans/'+L.id+'" style="--sc:#2FA36B"><span class="em">📝</span><span><small>'+lessonMeta(L)+'</small><b>'+esc(L.t)+'</b><small>'+(S.plans[L.id]?'✎ عدّلتِه':'جاهز تلقائيًا')+'</small></span></button>';});};
 function planView(el,L){if(!L){el.innerHTML='<div class="ds-empty">الحصة غير موجودة</div>';return;}var p=plan(L);
   function chips(key,list){return '<div class="ds-checks" data-k="'+key+'">'+list.map(function(x){return '<button type="button" aria-pressed="'+(p[key].indexOf(x)>=0)+'">'+esc(x)+'</button>';}).join('')+'</div>';}
-  el.innerHTML='<div class="between"><button class="btn ghost sm" data-go="plans">'+I.next+'كل التحاضير</button><div class="row"><button class="btn soft sm" data-play="'+L.id+'">'+I.play+'العرض</button><button class="btn gold sm" data-a="printPlan" data-l="'+L.id+'">'+X.print+'طباعة</button><button class="btn gold sm" data-a="printPlan" data-m="pdf" data-l="'+L.id+'">'+X.dl+'تحميل PDF</button></div></div>'+
-   '<section class="card glass ds-plan"><p class="eyebrow">'+esc(bookLabel(D.REG.books[L.book]))+' · '+lessonMeta(L)+'</p><h1 class="h-xl" style="margin:0">'+esc(L.t)+'</h1><p class="sub" style="margin:0">'+esc(L.uname)+'</p>'+
+  el.innerHTML='<div class="between"><button class="btn ghost sm" data-go="'+(L.back||'plans')+'">'+I.next+(L.backT||'كل التحاضير')+'</button><div class="row">'+(L.noPlay?'':'<button class="btn soft sm" data-play="'+L.id+'">'+I.play+'العرض</button>')+'<button class="btn gold sm" data-a="printPlan" data-l="'+L.id+'">'+X.print+'طباعة</button><button class="btn gold sm" data-a="printPlan" data-m="pdf" data-l="'+L.id+'">'+X.dl+'تحميل PDF</button></div></div>'+
+   '<section class="card glass ds-plan"><p class="eyebrow">'+(L.eyebrow?esc(L.eyebrow):esc(bookLabel(D.REG.books[L.book]))+' · '+lessonMeta(L))+'</p><h1 class="h-xl" style="margin:0">'+esc(L.t)+'</h1><p class="sub" style="margin:0">'+esc(L.uname)+'</p>'+
    '<div class="pf">'+[['goalNo','رقم الهدف السنوي'],['month','الشهر'],['week','الأسبوع'],['start','تاريخ البدء بالهدف'],['end','تاريخ تحقيق الهدف']].map(function(f){return '<label class="field"><span class="lbl">'+f[1]+'</span><input class="input" data-f="'+f[0]+'" value="'+esc(p[f[0]]||'')+'"'+(f[0]==='start'||f[0]==='end'?' type="date"':'')+'></label>';}).join('')+'</div>'+
    '<label class="field"><span class="lbl">الهدف التعليمي العام (السنوي)</span><textarea class="textarea" data-f="annual" rows="2">'+esc(p.annual!=null?p.annual:L.annual)+'</textarea></label>'+
    '<label class="field"><span class="lbl">الأهداف التعليمية الفرعية</span><textarea class="textarea" data-f="goals" rows="3">'+esc(p.goals)+'</textarea></label>'+
@@ -196,7 +196,7 @@ function planView(el,L){if(!L){el.innerHTML='<div class="ds-empty">الحصة غ
    '<label class="field"><span class="lbl">ملاحظات المعلمة</span><textarea class="textarea" data-f="notes" rows="2">'+esc(p.notes)+'</textarea></label>'+
    '<div class="row"><button class="btn soft sm" data-a="planReset" data-l="'+L.id+'">'+I.reset+'إرجاع التحضير التلقائي</button><span class="note">يُحفظ كل تعديل تلقائيًا على هذا الجهاز</span></div></section>'+
    '<section class="card glass stack"><div class="between"><h2 class="h" style="margin:0">معاينة بنموذج الخطة التعليمية الفردية</h2><span class="note">هكذا يُطبع ويُحمَّل</span></div><div class="pp-prev" id="ppPrev"></div></section>';
-  var prev=$('#ppPrev',el);function pv(){if(!prev.isConnected)return window.removeEventListener('resize',pv);prev.innerHTML=planPrintHTML(L);prev.style.setProperty('--z',Math.min(1,(prev.clientWidth-2)/1060));}pv();window.addEventListener('resize',pv);
+  var prev=$('#ppPrev',el);function pv(){if(!prev.isConnected)return window.removeEventListener('resize',pv);prev.innerHTML=planPrintHTML(L,L.sname);prev.style.setProperty('--z',Math.min(1,(prev.clientWidth-2)/1060));}pv();window.addEventListener('resize',pv);
   function save(){var cur=S.plans[L.id]||{};$$('[data-f]',el).forEach(function(i){cur[i.dataset.f]=i.value;});$$('[data-k]',el).forEach(function(g){cur[g.dataset.k]=$$('button[aria-pressed="true"]',g).map(function(b){return b.textContent;});});var r1=$('[data-one] button[aria-pressed="true"]',el);cur.res=r1?r1.textContent:'';S.plans[L.id]=cur;persist();pv();}
   $$('[data-f]',el).forEach(function(i){i.addEventListener('input',save);});
   $$('.ds-checks button',el).forEach(function(b){b.addEventListener('click',function(){var one=b.parentNode.dataset.one;if(one)$$('button',b.parentNode).forEach(function(x){if(x!==b)x.setAttribute('aria-pressed','false');});b.setAttribute('aria-pressed',String(b.getAttribute('aria-pressed')!=='true'));save();});});}
@@ -214,7 +214,7 @@ function planPrintHTML(L,stName){var p=plan(L),s=S.settings,nl=function(t){retur
   var r=p.res||'',lv={'حقق الهدف بمستوى جيد':'جيد','حقق الهدف بمستوى متوسط':'متوسط','حقق الهدف بمستوى ضعيف':'ضعيف'}[r]||'';
   return '<div class="pp"><div class="ttl">الخطة التعليمية الفردية</div>'+
    '<table class="hd"><colgroup><col style="width:17%"><col style="width:19%"><col style="width:30%"><col style="width:15%"><col style="width:19%"></colgroup><tbody>'+
-   '<tr><td>الفصل الدراسي: <b>الأول</b></td><td>العام الدراسي: <b>'+esc(s.year)+'</b></td><td>الاسم: <b>'+esc(stName||'')+'</b></td><td>المادة: <b>'+esc(D.SUBJ[L.subj].n)+'</b></td><td>الصف: <b>'+GR[L.grade]+'</b></td></tr>'+
+   '<tr><td>الفصل الدراسي: <b>'+(L.semT||'الأول')+'</b></td><td>العام الدراسي: <b>'+esc(s.year)+'</b></td><td>الاسم: <b>'+esc(stName||'')+'</b></td><td>المادة: <b>'+esc(D.SUBJ[L.subj].n)+'</b></td><td>الصف: <b>'+(L.gradeT||GR[L.grade])+'</b></td></tr>'+
    '<tr><td colspan="2">المدرسة: <b>'+esc(sv('school'))+'</b></td><td>المحافظة: <b>'+esc(sv('region'))+'</b></td><td colspan="2">رقم الهدف السنوي / طويل المدى: <b>'+esc(p.goalNo||'')+'</b></td></tr>'+
    '<tr><td colspan="5" class="tall">الهدف التعليمي العام: <b>'+nl(p.annual!=null?p.annual:L.annual)+'</b></td></tr>'+
    '<tr><td>الشهر: <b>'+esc(p.month||'')+'</b></td><td>الأسبوع: <b>'+esc(p.week||'')+'</b></td><td>تاريخ البدء بالهدف: <b>'+dt(p.start)+'</b></td><td colspan="2">تاريخ تحقيق الهدف: <b>'+dt(p.end)+'</b></td></tr></tbody></table>'+
@@ -237,6 +237,7 @@ function savePDF(html,name,land){var host;TB.toast('جارٍ تجهيز ملف P
   }).then(function(){if(host)host.remove();TB.toast('حُفظ ملف PDF في التنزيلات',{gold:true,icon:'check'});},function(){if(host)host.remove();TB.toast('تعذّر إنشاء PDF الآن، جرّبي زر الطباعة ثم «حفظ بصيغة PDF»');});}
 function out(mode,html,name,land){return mode==='pdf'?savePDF(html,name,land):doPrint(html);}
 A.printPlan=function(b){var L=D.REG.lessons[b.dataset.l],list=studentsOf(L.grade),m=b.dataset.m||'print',nm='تحضير '+L.t;
+  if(L.sname)return out(m,planPrintHTML(L,L.sname),nm+' - '+L.sname);
   if(!list.length)return out(m,planPrintHTML(L),nm);
   TB.sheet('<div class="stack"><button class="btn gold block" data-pp="">نسخة واحدة بلا اسم</button><button class="btn soft block" data-pp="*">نسخة لكل طالب ('+ar(list.length)+')</button>'+list.map(function(s){return '<button class="btn ghost block" data-pp="'+s.id+'">'+esc(s.name)+'</button>';}).join('')+'</div>',{title:m==='pdf'?'تحميل التحضير PDF':'طباعة التحضير',icon:m==='pdf'?'download':'book'});
   $$('[data-pp]').forEach(function(x){x.onclick=function(){var v=x.dataset.pp;TB.closeSheet();out(m,v==='*'?list.map(function(s){return planPrintHTML(L,s.name);}).join(''):planPrintHTML(L,v?stu(v).name:''),nm+(v&&v!=='*'?' - '+stu(v).name:''));};});};
@@ -461,19 +462,19 @@ function student(r){document.body.classList.add('ds-student');var app=$('#app'),
   start();}
 
 /* ---------- العرض ---------- */
-function render(){var r=route();if(r.stu)return;var v=V[r.v]?r.v:'home',el=$('#view');if(!el){shell();el=$('#view');}
+function render(o){var r=route();if(r.stu)return;var v=V[r.v]?r.v:'home',el=$('#view');if(!el){shell();el=$('#view');}
   $$('.ds-nav button').forEach(function(b){b.setAttribute('aria-current',b.dataset.go===v?'page':'false');});
-  el.classList.remove('view','enter');V[v](el,r);void el.offsetWidth;el.classList.add('view','enter');if(!r.keep)window.scrollTo(0,0);
+  el.classList.remove('view','enter');V[v](el,r);void el.offsetWidth;el.classList.add('view','enter');if(!r.keep&&!(o&&o.keep))window.scrollTo(0,0);
   $$('[data-type]',el).forEach(function(t){if(TB.type)TB.type(t);});}
 window.addEventListener('hashchange',function(){var r=route();if(r.stu)return location.reload();TB.closeSheet();render();});
 
 /* ---------- البدء ---------- */
 document.title=PF.title?('منصة '+PF.teacher+' · '+PF.title):document.title;
 /* إضافات خاصة بمنصة (window.DARSI_EXT): أقسام جديدة تُسجَّل في NAV وSEC وV */
-(window.DARSI_EXT||[]).forEach(function(f){try{f({NAV:NAV,SEC:SEC,V:V,A:A,X:X,G:G,ic:ic,head:head,go:go,route:route,render:function(){render();},shell:function(){shell();},persist:persist,
-  get S(){return S;},books:books,curBook:curBook,bookLabel:bookLabel,clsOf:clsOf,stu:stu,pts:pts,addPoint:addPoint,av:av,sexOf:sexOf,REASONS:REASONS,out:out,doPrint:doPrint,base:base,copy:copy,waShare:waShare,BASE:BASE});}catch(e){console.error(e);}});
+(window.DARSI_EXT||[]).forEach(function(f){try{f({NAV:NAV,SEC:SEC,V:V,A:A,X:X,G:G,ic:ic,head:head,go:go,route:route,render:function(o){render(o);},shell:function(){shell();},persist:persist,
+  get S(){return S;},setS:function(d){S=Object.assign(fresh(),d);S.ui=S.ui||{};},KEY:KEY,fresh:fresh,planView:planView,planPrintHTML:planPrintHTML,plan:plan,savePDF:savePDF,studentsOf:studentsOf,total:total,level:level,critPct:critPct,attStats:attStats,hwItems:hwItems,sv:sv,GR:GR,unitsHTML:unitsHTML,lessonMeta:lessonMeta,books:books,curBook:curBook,bookLabel:bookLabel,clsOf:clsOf,stu:stu,pts:pts,addPoint:addPoint,av:av,sexOf:sexOf,REASONS:REASONS,out:out,doPrint:doPrint,base:base,copy:copy,waShare:waShare,BASE:BASE});}catch(e){console.error(e);}});
 var r0=route();
 if(r0.stu){S=fresh();student(r0);}
-else D.DB.get(KEY).then(function(d){S=d&&d.app==='darsi'?Object.assign(fresh(),d):fresh();S.ui=S.ui||{};D.autoRead=!!S.settings.autoRead;shell();render();});
+else D.DB.get(KEY).then(function(d){S=d&&d.app==='darsi'?Object.assign(fresh(),d):fresh();S.ui=S.ui||{};D.autoRead=!!S.settings.autoRead;(D.onLoad||[]).forEach(function(f){try{f(S);}catch(e){console.error(e);}});shell();render();});
 if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(function(){});
 })();

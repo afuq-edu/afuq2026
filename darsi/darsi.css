@@ -609,3 +609,128 @@ html.d-noscroll,html.d-noscroll body{overflow:hidden}
 @media (max-width:420px){.ds-tools .xi-btn span{display:none}}
 .ds-brand>span:last-child{min-width:0;flex:1}
 @media (max-width:420px){.ds-tools{gap:4px}.ds-tools .round-btn,.ds-tools .xi-btn{width:38px;height:38px;min-width:38px;padding:0;justify-content:center}}
+
+/* =====================================================================
+   المستويات والخطط الفردية وواجبات الطلاب والتقارير (darsi/levels.js)
+   ===================================================================== */
+.lv-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:.74rem;font-weight:700;color:var(--ink);background:color-mix(in srgb,var(--lc,var(--accent)) 18%,var(--glass2));border:1px solid color-mix(in srgb,var(--lc,var(--accent)) 45%,transparent);white-space:nowrap}
+.lv-chip.none{--lc:var(--muted);opacity:.8;font-weight:500}
+.ds-st .lv-chip{font-size:.66rem;padding:2px 8px}
+.lv-seg button[aria-pressed="true"]{background:color-mix(in srgb,var(--lc,var(--accent)) 26%,var(--glass2));border-color:var(--lc,var(--accent));font-weight:700}
+.lv-note{border-color:color-mix(in srgb,var(--gold,#F2B134) 60%,var(--line))}
+.lv-code{font:800 1.5rem/1.1 "IBM Plex Sans Arabic",sans-serif;letter-spacing:.18em;direction:ltr;display:block;color:var(--accent)}
+.lv-code.sm{font-size:1.05rem;display:inline;letter-spacing:.12em}
+.lv-prof{padding:12px;border-radius:var(--r);background:var(--glass2);border:1px solid var(--line)}
+.lv-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.lv-sum>div{padding:12px 8px;border-radius:var(--r);text-align:center;background:color-mix(in srgb,var(--lc) 14%,var(--glass));border:1px solid color-mix(in srgb,var(--lc) 35%,var(--line))}
+.lv-sum b{display:block;font-size:1.7rem;line-height:1.1;color:var(--ink)}.lv-sum small{color:var(--muted);font-weight:600}
+@media (max-width:520px){.lv-sum{grid-template-columns:repeat(2,1fr)}}
+.lv-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.lv-st{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r);border:1px solid var(--line);background:var(--glass);color:inherit;font:inherit;text-align:start;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.lv-st:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.lv-st .av{width:52px;height:52px;flex:none;border-radius:50%;overflow:hidden;background:color-mix(in srgb,var(--accent) 14%,#fff)}
+.lv-st .grow{display:grid;gap:4px;justify-items:start;min-width:0}.lv-st .grow small{color:var(--muted);font-size:.78rem}
+.lv-pr{display:grid;gap:4px;min-width:96px;text-align:center}.lv-pr small{color:var(--muted);font-size:.74rem}
+.lv-pr i{display:block;height:7px;border-radius:9px;background:var(--track);position:relative;overflow:hidden}
+.lv-pr i::after{content:"";position:absolute;inset:0 auto 0 0;inset-inline-start:0;width:var(--p);background:var(--good,#2FA36B);border-radius:9px}
+.lv-head{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.lv-head .av.big{width:92px;height:92px;border-radius:50%;overflow:hidden;flex:none;background:color-mix(in srgb,var(--accent) 14%,#fff)}
+.lv-head .av img,.lv-st .av img{width:100%;height:100%;object-fit:cover}
+.lv-head .ds-kpi{flex-basis:100%}
+.lv-row{padding:0;overflow:hidden;border-inline-start:5px solid var(--lc)}
+.lv-row>header{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:color-mix(in srgb,var(--lc) 9%,transparent);border-bottom:1px solid var(--line)}
+.lv-row>header .grow{display:grid;gap:3px;flex:1;min-width:0}
+.lv-row>header small{color:var(--muted);font-size:.78rem}.lv-row>header b{font-size:1.02rem;line-height:1.5}
+.lv-row>header .pg{color:var(--muted);font-size:.74rem;line-height:1.5}
+.lv-row .no,.lv-q .no,.lv-ans .no{flex:none;width:34px;height:34px;border-radius:12px;display:grid;place-items:center;font-weight:800;background:var(--lc,var(--accent));color:#fff}
+.lv-goals{list-style:none;margin:0;padding:6px 10px 10px;display:grid;gap:4px}
+.lv-goals li{display:flex;align-items:flex-start;gap:10px;padding:9px 8px;border-radius:12px;line-height:1.6}
+.lv-goals li.on{background:color-mix(in srgb,var(--lc) 8%,var(--glass2))}
+.lv-goals li.ok{background:color-mix(in srgb,#2FA36B 12%,var(--glass2))}.lv-goals li.no{background:color-mix(in srgb,#E85D75 10%,var(--glass2))}
+.lv-goals li .grow{flex:1;min-width:0;display:grid;gap:8px}
+.lv-row:not(:has(.lv-ck)) .lv-goals{list-style:arabic-indic;padding-inline-start:34px}.lv-row:not(:has(.lv-ck)) .lv-goals li{display:list-item;padding:5px 2px}
+.lv-ck{flex:none;width:28px;height:28px;margin-top:1px;border-radius:9px;border:2px solid var(--line);background:var(--glass);cursor:pointer;display:grid;place-items:center;padding:0;color:#fff;font:700 16px/1 sans-serif}
+.lv-ck[aria-pressed="true"]{background:var(--lc,var(--accent));border-color:var(--lc,var(--accent))}.lv-ck[aria-pressed="true"]::after{content:"✓"}
+.lv-act{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.lv-act .input.sm{width:auto;padding:6px 10px;min-height:0;font-size:.85rem}
+.lv-homecard .lv-sum b{font-size:1.4rem}
+.lv-cloud i{width:12px;height:12px;flex:none;border-radius:50%;background:var(--muted)}
+.lv-cloud[data-st="ok"] i{background:#2FA36B;box-shadow:0 0 0 4px color-mix(in srgb,#2FA36B 25%,transparent)}
+.lv-cloud[data-st="wait"] i{background:#F2B134;animation:lvPulse 1s infinite alternate}.lv-cloud[data-st="err"] i{background:#E85D75}
+.lv-cloud small span{word-break:break-all}
+@keyframes lvPulse{to{opacity:.35}}
+.lv-hw{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border-radius:var(--r);border:1px solid var(--line);background:var(--glass);color:inherit;font:inherit;text-align:start;cursor:pointer}
+.lv-hw:hover{box-shadow:var(--shadow)}.lv-hw.closed{opacity:.7}
+.lv-hw .em{font-size:30px}.lv-hw .grow{flex:1;display:grid;gap:4px;min-width:0}.lv-hw small{color:var(--muted);font-size:.8rem}.lv-hw .lv-pr{text-align:start;max-width:320px}
+.lv-q{padding:14px 16px;display:grid;gap:10px;--lc:var(--accent)}
+.lv-q>header{display:flex;align-items:center;gap:10px}
+.lv-opt{flex-wrap:nowrap}.lv-opt .input{flex:1}
+.lv-qimg{max-height:120px;max-width:200px;border-radius:12px;border:1px solid var(--line)}
+.lv-add{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.lv-add .ds-sec{min-height:0;padding:14px}
+.lv-to{display:grid;gap:6px;padding:8px 0;border-top:1px dashed var(--line)}
+.lv-to>[data-tocls]{justify-self:start;font-weight:700;color:var(--ink);gap:6px}.lv-to>[data-tocls]::after{content:"· تحديد الفصل";font-weight:500;color:var(--muted);font-size:.9em}
+.lv-ft td,.lv-ft th{white-space:nowrap}
+.lv-ans{display:flex;align-items:flex-start;gap:10px;padding:10px;border-radius:12px;background:var(--glass2);--lc:var(--accent)}
+.lv-ans .grow{flex:1;display:grid;gap:8px;min-width:0}
+.lv-sc{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--track)}
+.lv-sc.ok{background:#2FA36B;color:#fff}.lv-sc.mid{background:#F2B134;color:#fff}.lv-sc.no{background:#E85D75;color:#fff}
+.lv-txt{white-space:pre-wrap;margin:0;padding:8px 10px;border-radius:10px;background:var(--glass);border:1px solid var(--line)}
+.lv-aimg{max-width:100%;max-height:420px;border-radius:12px;border:1px solid var(--line)}
+/* التقرير على الشاشة وفي الطباعة */
+.lv-rep{display:grid;gap:10px}
+.lv-rep h3{margin:8px 0 0;font-size:1.02rem}
+.lv-rep table{width:100%;border-collapse:collapse}
+.lv-rep th,.lv-rep td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}.lv-rep td.c,.lv-rep th{text-align:center}
+.lv-rh{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.lv-rh h2{margin:2px 0;font-size:1.35rem}.lv-rh small{color:var(--muted)}
+.lv-badge{flex:none;width:92px;height:92px;border-radius:50%;display:grid;place-content:center;text-align:center;background:color-mix(in srgb,var(--accent) 16%,var(--glass2));border:2px solid var(--accent)}
+.lv-badge b{font-size:1.8rem;line-height:1}.lv-badge small{font-size:.72rem;font-weight:700}
+.lv-kp{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.lv-kp>div{padding:10px 6px;border-radius:12px;text-align:center;background:var(--glass2);border:1px solid var(--line)}
+.lv-kp b{display:block;font-size:1.25rem}.lv-kp small{font-size:.72rem;color:var(--muted)}
+@media (max-width:520px){.lv-kp{grid-template-columns:repeat(2,1fr)}.lv-rh{flex-direction:column-reverse;align-items:flex-start}}
+.pp.lv-rep{--line:#999;--muted:#444;--glass2:#f4f6f8;--accent:#1F8A6E;color:#000;font-size:10pt}
+.pp.lv-rep th{background:#eef3f1!important}.pp.lv-rep td,.pp.lv-rep th{border:1px solid #999}
+.pp.lv-rep .lv-rh{border-bottom:2px solid #1F8A6E;padding-bottom:8px}
+/* طباعة الخطة الفردية والأهداف */
+.pp.lv-print .lv-ph{display:grid;justify-items:center;gap:8px;margin-bottom:8px}
+.pp.lv-print .lv-ph>div:first-child{display:grid;justify-items:center;font:600 9pt/1.5 "Noto Naskh Arabic",serif}
+.pp.lv-print .ttl{font-size:15pt;margin-bottom:6px}
+.pp.lv-print .lv-lv{font-weight:800;font-size:12pt;margin:0 0 6px}
+.pp .lv-info{margin-bottom:8px}.pp .lv-info td{border:1.4px solid #000;padding:5px 8px;font-size:10pt}
+.pp .lv-pt th{background:#ffff99!important;text-align:center;vertical-align:middle;font-size:9.5pt}
+.pp .lv-pt td{font-size:9.4pt;line-height:1.5}.pp .lv-pt td.c{text-align:center;vertical-align:middle}.pp .lv-pt td.big{font-size:15pt;font-weight:800}
+.pp .lv-pt tr{break-inside:avoid;page-break-inside:avoid}
+.pp.port,.pp-host.port .pp{width:780px}
+@page port{size:A4 portrait;margin:10mm}
+@media print{#dsPrint .pp.port{page:port}}
+.lv-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lv-card{display:grid;justify-items:center;gap:3px;padding:12px 8px;border:1.5px dashed #555;border-radius:14px;text-align:center;break-inside:avoid}
+.lv-card b{font-size:13pt}.lv-card span{font-size:9pt;color:#444}.lv-card i{font:800 20pt/1.1 sans-serif;font-style:normal;letter-spacing:.15em;direction:ltr}.lv-card small{font-size:8pt;word-break:break-all;color:#333}
+
+/* ---------- واجهة الطلاب (darsi/portal.js) ---------- */
+.pt .pt-top{display:flex;align-items:center;gap:12px;padding:8px 4px}
+.pt .pt-top .ds-logo{width:52px;height:52px;font-size:28px;border-radius:16px;display:grid;place-items:center;background:var(--glass);border:1px solid var(--line)}
+.pt .pt-top>div{flex:1;display:grid}.pt .pt-top b{font-size:1.1rem}.pt .pt-top small{color:var(--muted)}
+.pt-center{display:grid;justify-items:center;text-align:center;gap:12px;align-content:center}
+.pt-code{display:flex;gap:8px;direction:ltr}
+.pt-code i{width:46px;height:58px;border-radius:14px;border:2px solid var(--line);background:var(--glass);display:grid;place-items:center;font:800 1.7rem/1 sans-serif;font-style:normal;color:var(--ink)}
+.pt-code i.on{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 20%,transparent)}
+.pt-pad{max-width:340px;width:100%}
+.pt-err{color:#E85D75;font-weight:700;margin:0}
+.pt-spin{width:54px;height:54px;border-radius:50%;border:6px solid var(--track);border-top-color:var(--accent);animation:ptSpin 1s linear infinite}
+@keyframes ptSpin{to{transform:rotate(360deg)}}
+.pt-hello{display:flex;align-items:center;gap:16px;min-height:0}
+.pt-hello h1{margin:0;font-size:clamp(1.4rem,5vw,2rem)}.pt-hello p{margin:4px 0 0;color:var(--muted);font-weight:700}
+.pt-av{width:96px;height:96px;border-radius:50%;object-fit:cover;flex:none;background:color-mix(in srgb,var(--accent) 14%,#fff);border:3px solid var(--glass)}
+.pt-h{margin:8px 4px 0}
+.pt-hw{display:flex;align-items:center;gap:14px;width:100%;padding:16px;border-radius:var(--r);border:2px solid color-mix(in srgb,var(--accent) 40%,var(--line));background:var(--glass);box-shadow:var(--shadow);color:inherit;font:inherit;text-align:start;cursor:pointer}
+.pt-hw .em{font-size:38px}.pt-hw .grow{flex:1;display:grid;gap:3px;min-width:0}.pt-hw b{font-size:1.2rem}.pt-hw small{color:var(--muted)}.pt-hw .nt{color:var(--ink)}
+.pt-hw.done{border-color:color-mix(in srgb,#2FA36B 45%,var(--line));box-shadow:none}
+.pt-stars{font-size:1.3rem;white-space:nowrap}
+.pt-empty{min-height:220px}
+.pt-qimg{display:block;max-width:100%;max-height:340px;margin:0 auto 12px;border-radius:14px}
+.pt-txt{font-size:1.15rem;margin:12px 0}
+.pt-ph{display:grid;justify-items:center;gap:10px;margin:12px 0}.pt-ph img{max-width:100%;max-height:300px;border-radius:14px;border:1px solid var(--line)}
+.pt-fin{margin-top:8px}
