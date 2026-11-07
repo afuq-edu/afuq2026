@@ -8,7 +8,7 @@ var G=W.G={site:{},comp:null,bank:null,rounds:[],subs:[],gal:[],ready:false,offs
 
 /* ---------- الإعدادات الافتراضية للمسابقة ---------- */
 W.defComp=function(){return {v:1,secs:W.SECS.map(function(s){return {id:s.id,nick:''};}),fmt:'g3',br:null,
-  set:{pts:{1:1,2:2,3:3},t:{mc:30,tf:20,fl:30,sa:75},bonus:1,teachers:'معلمات الدراسات الاجتماعية',principal:'',school:'مدرسة نسيبة بنت كعب (١١–١٢)',year:'٢٠٢٦ / ٢٠٢٧م',month:'نوفمبر ٢٠٢٦م'},honors:[],arena:{},used:{}};};
+  set:{pts:{1:1,2:2,3:3},t:{mc:30,tf:20,fl:30,sa:75},bonus:1,teachers:'معلمات الدراسات الاجتماعية',lead:'أ. عائشة الجبري',principal:'',school:'مدرسة نسيبة بنت كعب (١١–١٢)',year:'٢٠٢٦ / ٢٠٢٧م',month:'نوفمبر ٢٠٢٦م'},honors:[],arena:{},used:{}};};
 W.nick=function(id){var s=G.comp&&G.comp.secs.filter(function(x){return x.id===id;})[0];return s&&s.nick||'';};
 W.set=function(){return (G.comp&&G.comp.set)||W.defComp().set;};
 var ct=null,bt=null;
@@ -95,7 +95,7 @@ function me(){return W.lsg('me',null);}
 W.studentURL=function(){return location.href.split('#')[0];};
 W.routes['']=function(){var main=W.shell('s','');DB.ready();var m=me();
   var hero='<section class="card hero corner"><div class="txt"><span class="kick"><img src="img/emblem.webp" alt="">وزارة التعليم · '+esc(G.site.school||'مدرسة نسيبة بنت كعب (١١–١٢)')+'</span><span class="sub">مُسَابَقَةٌ مَنْهَجِيَّةٌ</span><h1>هٰذَا وَطَنِي</h1><span class="slogan">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</span><div class="meta"><span>الصف الحادي عشر (١١/١ – ١١/١٢)</span><span>الدرسان الأول والثاني · الفصل الأول</span><span>'+esc(G.site.year||'٢٠٢٦ / ٢٠٢٧م')+'</span></div></div><div class="art"><img class="fort" src="img/fort.webp" alt="قلعة عُمانية بين النخيل"><span class="stripe"></span></div></section>';
-  var v=W.view(main,hero+'<div id="board"></div><section class="card corner" id="who"></section><div id="rl"></div>'+W.crenel()+'<p class="muted" style="text-align:center;margin:0">بادري بالمشاركة .. وكوني من المتميزات</p>');
+  var v=W.view(main,hero+'<div id="board"></div><section class="card corner" id="who"></section><div id="rl"></div>'+W.crenel()+'<p class="muted" style="text-align:center;margin:0">بادري بالمشاركة .. وكوني من المتميزات</p><footer class="schoolfoot"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><small>إشراف '+esc(G.site.lead||'أ. عائشة الجبري')+' · معلمات الدراسات الاجتماعية</small></footer>');
   drawWho();
   var offs=[];W.cleanup=function(){offs.forEach(function(f){f();});};
   offs.push(DB.watchSite(function(s){G.site=s||{};drawBoard();}));

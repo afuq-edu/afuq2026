@@ -351,7 +351,7 @@ html[data-skin="layl"] .winner .wn,html[data-skin="annabi"] .winner .wn{color:va
 .cert .sig div{min-width:60mm;text-align:center}
 .cert .sig span{display:block;font-weight:500;color:#7D6B55;margin-top:9mm;border-top:1px dotted #B88A2E;padding-top:1mm}
 .cert .tro{position:absolute;bottom:14mm;inset-inline-start:50%;transform:translateX(50%);width:26mm;mix-blend-mode:multiply}
-.cert .rank{position:absolute;top:46mm;inset-inline-start:24mm;width:30mm;height:30mm;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#F6E7BC,#E2C578);border:2px solid #B88A2E;font:700 12pt/1.3 "Reem Kufi",sans-serif;color:#7E1217;box-shadow:0 0 0 2mm rgba(226,197,120,.3)}
+.cert .rank{position:absolute;top:46mm;inset-inline-end:24mm;width:30mm;height:30mm;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#F6E7BC,#E2C578);border:2px solid #B88A2E;font:700 12pt/1.3 "Reem Kufi",sans-serif;color:#7E1217;box-shadow:0 0 0 2mm rgba(226,197,120,.3)}
 
 /* ===== الطباعة ===== */
 #print{display:none}
@@ -385,3 +385,9 @@ html[data-skin="layl"] .winner .wn,html[data-skin="annabi"] .winner .wn{color:va
 .brow small{width:28px}
 .qrow p{margin:4px 0}
 @media (max-width:600px){.teams{grid-template-columns:repeat(2,minmax(0,1fr))}.team .acts .btn{padding:0 8px}}
+
+.schoolfoot{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0 4px;text-align:center}
+.schoolfoot img{width:min(260px,70%);height:auto}
+.schoolfoot small{color:var(--muted)}
+[data-skin="layl"] .schoolfoot img,[data-skin="annabi"] .schoolfoot img{background:#fff;border-radius:14px;padding:8px 12px}
+.cert .hdr img.sch{width:50mm;margin-bottom:1mm}

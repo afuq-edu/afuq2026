@@ -1,7 +1,7 @@
 /* عامل الخدمة: تعمل الواجهة دون إنترنت بعد أول زيارة. ارفعي رقم الإصدار عند تحديث الملفات. */
-var V='watani-v2';
+var V='watani-v3';
 var CORE=['./','index.html','watani.css','firebase-config.js','store.js','bank.js','vendor/qrcode.js','core.js','app.js','teacher.js','comp.js','manifest.webmanifest',
-  'img/emblem.webp','img/fort.webp','img/trophy.webp','icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','icons/favicon-64.png'];
+  'img/emblem.webp','img/school.webp','img/fort.webp','img/trophy.webp','icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','icons/favicon-64.png'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return Promise.all(CORE.map(function(u){return c.add(u).catch(function(){});}));}).then(function(){return self.skipWaiting();}));});
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k.indexOf('watani-')===0&&k!==V;}).map(function(k){return caches.delete(k);}));}).then(function(){return self.clients.claim();}));});
 self.addEventListener('fetch',function(e){var r=e.request;if(r.method!=='GET')return;var u=new URL(r.url);
