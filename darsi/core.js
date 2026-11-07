@@ -172,10 +172,13 @@ ACT.count=function(it,el,cx){var n=it.n,c=0,r=rng(it.e+n);var o=numOpts(r,n,2,1)
   $$('.d-obj',el).forEach(function(b){b.addEventListener('click',function(){if(b.classList.contains('on'))return;b.classList.add('on');c++;b.setAttribute('data-n',ar(c));tally.textContent=ar(c);SND.play('pop');VOICE.say(String(c));});});
   var box=h('div','');el.appendChild(box);ACT.mcq({k:'mcq',o:o.map(ar),a:o.indexOf(n)},box,cx);box.querySelector('.d-opts').classList.add('short');};
 /* المقارنة > < = */
+/* إشارات المقارنة كما تُرى: العدد الأول على اليمين، وفم الإشارة نحو الأكبر.
+   معزولة باتجاه LTR فلا يعكسها أي متصفح. الترتيب: [الأول أكبر، الأول أصغر، متساويان] */
+var CMPV=['\u2066<\u2069','\u2066>\u2069','='];
 ACT.cmp=function(it,el,cx){var ans=it.a>it.b?0:it.a<it.b?1:2;
   el.innerHTML='<div class="d-q">'+sayBtn('قارن بين العددين')+'<span>'+esc(it.q||'ضَعِ الإِشارَةَ المُناسِبَةَ')+'</span></div><div class="d-cmp"><b>'+ar(it.a)+'</b><i class="d-croc">؟</i><b>'+ar(it.b)+'</b></div>';
   var box=h('div','');el.appendChild(box);
-  ACT.mcq({k:'mcq',o:['>','<','='],a:ans},box,{mode:cx.mode,right:function(b){$('.d-croc',el).textContent=['>','<','='][ans];$('.d-croc',el).classList.add('ok');cx.right(b);},wrong:cx.wrong,done:cx.done});
+  ACT.mcq({k:'mcq',o:CMPV,a:ans},box,{mode:cx.mode,right:function(b){$('.d-croc',el).textContent=CMPV[ans];$('.d-croc',el).classList.add('ok');cx.right(b);},wrong:cx.wrong,done:cx.done});
   box.querySelector('.d-opts').classList.add('short','cmp');};
 /* إدخال عدد بلوحة أرقام كبيرة */
 ACT.num=function(it,el,cx){var v='',wrong=0,done=false;
@@ -260,7 +263,7 @@ function toMCQ(it){switch(it.k){
   case 'tf':return {q:it.q,o:['صَحٌّ','خَطَأٌ'],a:it.a?0:1,e:it.e};
   case 'fill':return {q:it.s.replace('_','___'),o:it.o,a:it.a,e:it.e};
   case 'count':var o=[it.n-1,it.n,it.n+1].filter(function(x){return x>0;});return {q:'كَمْ؟ '+Array(it.n+1).join(it.e),o:o.map(ar),a:o.indexOf(it.n)};
-  case 'cmp':return {q:ar(it.a)+' ؟ '+ar(it.b),o:['>','<','='],a:it.a>it.b?0:it.a<it.b?1:2};
+  case 'cmp':return {q:ar(it.a)+' ؟ '+ar(it.b),o:CMPV,a:it.a>it.b?0:it.a<it.b?1:2};
   case 'num':return null;
   default:return null;}}
 function atoms(items){var out=[];(items||[]).forEach(function(it){if(!it)return;
@@ -274,5 +277,5 @@ function atoms(items){var out=[];(items||[]).forEach(function(it){if(!it)return;
 window.DARSI=window.DARSI||{};
 Object.assign(window.DARSI,{$:$,$$:$$,esc:esc,h:h,uid:uid,ar:ar,ymd:ymd,fdate:fdate,norm:norm,plain:plain,hash:hash,rng:rng,shuffle:shuffle,
   DB:DB,lsGet:lsGet,lsSet:lsSet,SND:SND,VOICE:VOICE,sayBtn:sayBtn,SPK:SPK,praise:praise,retry:retry,boom:boom,
-  REG:REG,SUBJ:SUBJ,book:book,bookA:bookA,lessonsOf:lessonsOf,GEN:GEN,expand:expand,render:render,ACT:ACT,toMCQ:toMCQ,atoms:atoms,RMQ:RMQ});
+  REG:REG,SUBJ:SUBJ,book:book,bookA:bookA,lessonsOf:lessonsOf,GEN:GEN,expand:expand,render:render,CMPV:CMPV,ACT:ACT,toMCQ:toMCQ,atoms:atoms,RMQ:RMQ});
 })();

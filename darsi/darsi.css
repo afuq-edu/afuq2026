@@ -388,7 +388,8 @@ html.d-noscroll,html.d-noscroll body{overflow:hidden}
 .d-arr{display:grid;grid-template-columns:repeat(var(--c),auto);gap:6px;justify-content:center;font-size:clamp(24px,4.4vw,38px);direction:ltr}
 .d-arr i{font-style:normal}
 .d-arr.big{font-size:clamp(30px,6vw,50px)}
-.d-cmp{display:flex;align-items:center;justify-content:center;gap:20px;direction:ltr}
+.d-cmp{display:flex;align-items:center;justify-content:center;gap:20px;direction:rtl}
+.d-croc,.d-opts.cmp .d-opt{unicode-bidi:isolate}
 .d-cmp b{font-size:clamp(3rem,10vw,5.5rem);font-weight:900;color:#3D7BE0;min-width:1.6em;text-align:center;padding:4px 14px;border-radius:20px;background:#EEF5FF}
 .d-croc{font-style:normal;width:clamp(70px,14vw,110px);height:clamp(70px,14vw,110px);border-radius:50%;display:grid;place-items:center;font-size:clamp(2.4rem,7vw,4rem);font-weight:900;background:#E3F7E8;color:#2F8F45;border:5px dashed #5BBF6A}
 .d-croc.ok{border-style:solid;background:#5BBF6A;color:#fff;animation:dsPulse .5s var(--spring)}
