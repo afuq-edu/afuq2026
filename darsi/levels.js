@@ -48,6 +48,11 @@ function ensure(st){st.iep=st.iep||{};st.ehw=st.ehw||[];st.esub=st.esub||{};st.r
       c.n.forEach(function(n){if(!st.students.some(function(s){return D.norm(s.name)===D.norm(n)&&s.cls===cl.id;}))st.students.push({id:D.uid('s'),name:n,cls:cl.id});});});
     /* الصفوف الافتراضية الفارغة (الصف الثاني…) تُحذف إن لم يكن فيها طلاب */
     st.classes=st.classes.filter(function(c){return !/^c\d$/.test(c.id)||st.students.some(function(s){return s.cls===c.id;});});st.seeded=1;}
+  /* رموز ثابتة من ملف المنصة: تُطبَّق مرة واحدة فتكون الرموز نفسها على كل الأجهزة */
+  if(PF.seed&&PF.seedCodes&&st.codesV!==PF.seedCodes){var ch=0;PF.seed.forEach(function(c){if(!c.k)return;var cl=st.classes.filter(function(x){return D.norm(x.name)===D.norm(c.c);})[0];if(!cl)return;
+      c.n.forEach(function(n,i){var s=st.students.filter(function(x){return x.cls===cl.id&&D.norm(x.name)===D.norm(n);})[0];if(s&&c.k[i]&&s.code!==c.k[i]){st.students.forEach(function(o){if(o!==s&&o.code===c.k[i])o.code='';});s.code=c.k[i];ch=1;}});});
+    if(ch)st.ehw.forEach(function(h){if(h.sids)h.to=h.sids.map(function(id){var s=st.students.filter(function(x){return x.id===id;})[0];return s&&s.code;}).filter(Boolean);h.v=(h.v||0)+1;});
+    st.codesV=PF.seedCodes;setTimeout(function(){try{persist();}catch(e){}},50);}
   var used={};st.students.forEach(function(s){if(!s.code||used[s.code]){var c;do{c=String(100000+Math.floor(Math.random()*900000));}while(used[c]);s.code=c;}used[s.code]=1;});
   return st;}
 (D.onLoad=D.onLoad||[]).push(function(st){ensure(st);});
