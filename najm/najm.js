@@ -270,21 +270,22 @@ function drawCard(sub,g){var F='"IBM Plex Sans Arabic"';
   return c;});}
 
 /* ===================== المعلمة: الدخول ===================== */
-function vLogin(){var mode='in';
+function vLogin(){var mode='in',locked=!!G.cfg.teacherSet;
+ DB.cfg().then(function(c){if(c&&c.teacherSet&&!locked){locked=true;mode='in';draw();}}).catch(function(){});
  function draw(){var m=render('<section class="card" style="max-width:480px;margin:0 auto"><div style="text-align:center">'+compassSVG().replace('class="compass ','style="width:86px;height:86px" class="compass ')+'</div><h2 class="h2" style="text-align:center">'+(mode==='in'?'دخول المعلمة':'إنشاء كلمة سر المعلمة')+'</h2>'+
   '<p class="sub" style="text-align:center">'+(mode==='in'?'اكتبي كلمة سر لوحة المتابعة. تبقين مسجّلة على هذا الجهاز.':'أول مرة فقط: اختاري كلمة سر من 6 أحرف أو أكثر، وتُستخدم بعدها للدخول من أي جهاز.')+'</p>'+
   '<form data-f style="margin-top:14px" novalidate><label class="field"><span class="lbl">كلمة السر</span><input class="input" type="password" name="pw" dir="ltr" autocomplete="'+(mode==='in'?'current':'new')+'-password"></label>'+
   (mode==='up'?'<label class="field"><span class="lbl">تأكيد كلمة السر</span><input class="input" type="password" name="pw2" dir="ltr" autocomplete="new-password"></label>':'')+
   '<span class="err" data-e hidden></span><button class="btn gold block" type="submit" style="margin-top:6px">'+I('lock')+(mode==='in'?'دخول':'حفظ كلمة السر والدخول')+'</button></form>'+
-  '<div class="row" style="justify-content:center;margin-top:12px"><button class="btn ghost sm" data-sw>'+(mode==='in'?'أول مرة؟ أنشئي كلمة السر':'لديّ كلمة سر، العودة إلى الدخول')+'</button><a class="btn ghost sm" href="#/">الرئيسية</a></div></section>');
-  $('[data-sw]',m).onclick=function(){mode=mode==='in'?'up':'in';draw();};
+  '<div class="row" style="justify-content:center;margin-top:12px">'+(locked?'':'<button class="btn ghost sm" data-sw>'+(mode==='in'?'أول مرة؟ أنشئي كلمة السر':'لديّ كلمة سر، العودة إلى الدخول')+'</button>')+'<a class="btn ghost sm" href="#/">الرئيسية</a></div></section>');
+  if($('[data-sw]',m))$('[data-sw]',m).onclick=function(){mode=mode==='in'?'up':'in';draw();};
   $('[data-f]',m).onsubmit=function(e){e.preventDefault();var pw=this.pw.value,er=$('[data-e]',m),bt=$('button[type=submit]',m);er.hidden=true;
    function bad(t){er.hidden=false;er.textContent=t;bt.disabled=false;}
    if(pw.length<6)return bad('كلمة السر 6 أحرف على الأقل.');if(mode==='up'&&pw!==this.pw2.value)return bad('كلمتا السر غير متطابقتين.');bt.disabled=true;
-   (mode==='in'?DB.login(pw):DB.signup(pw)).then(function(){toast('أهلًا بكِ في لوحة المتابعة');brand();route();}).catch(function(x){var c=x&&x.message||'';
+   (mode==='in'?DB.login(pw):DB.signup(pw)).then(function(){if(!G.cfg.teacherSet){G.cfg.teacherSet=true;DB.saveCfg({teacherSet:true}).catch(function(){});}toast('أهلًا بكِ في لوحة المتابعة');brand();route();}).catch(function(x){var c=x&&x.message||'';
     if(c==='no-account')return bad('لم تُنشأ كلمة سر بعد. اضغطي «أول مرة؟ أنشئي كلمة السر».');
     if(c==='wrong')return bad('كلمة السر غير صحيحة. إن كانت هذه أول مرة فاضغطي «أول مرة؟».');
-    if(c==='exists')return bad('كلمة السر منشأة مسبقًا. ادخلي بها من «العودة إلى الدخول».');
+    if(c==='exists'){locked=true;mode='in';draw();var e2=$('[data-e]');if(e2){e2.hidden=false;e2.textContent='حساب المعلمة منشأ مسبقًا، فلا يمكن إنشاؤه مرة أخرى. ادخلي بكلمة السر التي اخترتِها أول مرة.';}return;}
     if(/too-many/.test(x&&x.code||''))return bad('محاولات كثيرة. انتظري دقائق ثم أعيدي المحاولة.');
     if(/operation-not-allowed|configuration-not-found/.test(x&&x.code||''))return bad('خدمة الدخول بكلمة السر غير مفعّلة في مشروع Firebase بعد.');
     bad('تعذّر الدخول، تأكدي من الإنترنت.');});};}
