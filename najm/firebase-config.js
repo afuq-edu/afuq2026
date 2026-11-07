@@ -1,3 +1,2 @@
-/* إعداد مشروع Firebase لمزامنة «نجم الأسبوع». المفاتيح عامة؛ الحماية في قواعد Firestore (firestore.rules).
-   إن بقي null تعمل المنصة على هذا الجهاز فقط. */
-window.NAJM_FIREBASE=null;
+/* إعداد مشروع Firebase لمزامنة «نجم الأسبوع» (مشروع najm-alusbu-8613). المفاتيح عامة؛ الحماية في قواعد Firestore (firestore.rules). */
+window.NAJM_FIREBASE={apiKey:"AIzaSyD36s5fxlmZG81sKmpcdBJM8OrTXd0_tYo",authDomain:"najm-alusbu-8613.firebaseapp.com",projectId:"najm-alusbu-8613",storageBucket:"najm-alusbu-8613.firebasestorage.app",messagingSenderId:"133814050788",appId:"1:133814050788:web:74fba9d603434670fb31f1"};
