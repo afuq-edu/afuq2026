@@ -301,7 +301,8 @@ V.home=function(el){origHome(el);var st=S().students;if(!st.length)return;var pe
 var C=PF.cloud;if(!C||!window.firebase)return;
 var DEV=D.lsGet('darsi:dev:'+PF.id,'');if(!DEV){DEV=Math.random().toString(36).slice(2)+Date.now().toString(36);D.lsSet('darsi:dev:'+PF.id,DEV);}
 var app,auth,db;try{app=firebase.initializeApp(C.fb,'darsi-'+PF.id);auth=app.auth();db=app.firestore();if(C.emu){auth.useEmulator('http://127.0.0.1:9099');db.useEmulator('127.0.0.1',8080);}}catch(e){console.error(e);return;}
-var FS='darsi:synced:'+PF.id,ns=C.ns,user=null,pushT=null,lastT=0,applying=false,rosterSig='',inited=false,CH=250000;
+var ns=C.ns,user=null,pushT=null,lastT=0,applying=false,rosterSig='',CH=250000,BK=E.KEY+':base',base=null,synced=false,syncing=false,nextMeta=null,seen=null,dirty=false,pendT=0;
+var baseP=D.DB.get(BK).then(function(b){base=b||null;},function(){});
 var CL=D.CLOUD={st:'wait',msg:'جارٍ الاتصال بالمزامنة…',subs:{},
   putHw:function(h,id){return ready().then(function(){var x=JSON.parse(JSON.stringify(h));x.items=JSON.stringify(h.items||[]);return db.collection(ns+'_hw').doc(id).set(x);}).catch(function(e){console.error('putHw',e);throw e;});},
   delHw:function(id){return ready().then(function(){return db.collection(ns+'_hw').doc(id).delete();}).catch(function(){});}};
@@ -311,28 +312,68 @@ function login(){auth.signInWithEmailAndPassword(C.email,C.pw).catch(function(e)
   if(/user-not-found|invalid-credential|invalid-login-credentials/.test(c))return auth.createUserWithEmailAndPassword(C.email,C.pw).catch(function(e2){status('err','تعذّر تجهيز حساب المزامنة');throw e2;});
   status('err',navigator.onLine?'تعذّر الاتصال بالمزامنة؛ ستُعاد المحاولة':'لا يوجد إنترنت؛ تعملين على هذا الجهاز وتُزامن البيانات عند الاتصال');setTimeout(login,30000);});}
 auth.onAuthStateChanged(function(u){user=u&&u.email===C.email?u:null;if(!user)return;rdyOk();status('wait','جارٍ المزامنة…');
-  db.collection(ns+'_t').doc('state').onSnapshot(function(d){var meta=d.exists?d.data():null;inited=true;var st=S();if(!st)return;
-      if(!meta){D.lsSet(FS,1);push(true);return;}if(meta.dev===DEV&&meta.t<=lastT){ok();return;}
-      if(!D.lsGet(FS,0)){pull(meta);return;}
-      if(meta.t>(st.saved||0)+500)pull(meta);else if((st.saved||0)>meta.t+500)push(true);else ok();},
+  db.collection(ns+'_t').doc('state').onSnapshot(function(d){var meta=d.exists?d.data():null;if(!S())return;
+      if(!meta){synced=true;push(true);return;}
+      if(meta.dev===DEV&&(meta.t===lastT||meta.t===pendT)){seen=meta;synced=true;if(!dirty)ok();return;}
+      if(synced&&seen&&meta.t===seen.t&&meta.dev===seen.dev){if(dirty)push(true);else ok();return;}
+      sync(meta);},
     function(e){status('err',/permission/i.test(e&&e.code||'')?'قواعد المزامنة لم تُفعَّل بعد على Firebase':'انقطعت المزامنة؛ ستعود تلقائيًا');});
   db.collection(ns+'_sub').onSnapshot(function(q){var list=[];q.forEach(function(doc){var x=doc.data();x.id=doc.id;x.at=x.at&&x.at.toMillis?x.at.toMillis():(x.ts||Date.now());CL.subs[doc.id]=x;list.push(x);});mergeSubs(list);},function(){});
   roster(true);resendHws();});
 function ok(){status('ok','متزامنة · '+new Date().toLocaleTimeString('ar-OM',{hour:'numeric',minute:'2-digit'}));}
-function pull(meta){status('wait','جارٍ تنزيل التعديلات…');var ps=[];for(var i=0;i<meta.n;i++)ps.push(db.collection(ns+'_t').doc('s'+i).get());
-  Promise.all(ps).then(function(ds){var j=ds.map(function(x){return x.exists?x.data().d:'';}).join(''),d;try{d=JSON.parse(j);}catch(e){status('err','تعذّر قراءة نسخة السحابة');return;}
-    apply(d,meta);}).catch(function(){status('err','تعذّر تنزيل التعديلات؛ ستُعاد المحاولة');});}
-function apply(d,meta){if(busy()){setTimeout(function(){apply(d,meta);},2500);return;}var ui=S().ui;applying=true;E.setS(Object.assign(d,{ui:ui,saved:meta.t}));ensure(E.S);D.DB.set(E.KEY,E.S);applying=false;lastT=meta.t;D.lsSet(FS,1);render();ok();TB.toast('وصلت تعديلات من جهازك الآخر',{icon:'check'});}
-function push(now){clearTimeout(pushT);pushT=setTimeout(function(){if(!user||!inited)return;var st=S();var o={};Object.keys(st).forEach(function(k){if(k!=='ui')o[k]=st[k];});
-  var j=JSON.stringify(o),n=Math.ceil(j.length/CH)||1,t=st.saved||Date.now(),b=db.batch();for(var i=0;i<n;i++)b.set(db.collection(ns+'_t').doc('s'+i),{d:j.slice(i*CH,(i+1)*CH)});
-  b.set(db.collection(ns+'_t').doc('state'),{n:n,t:t,dev:DEV});status('wait','جارٍ رفع التعديلات…');lastT=t;
-  b.commit().then(ok).catch(function(e){status('err',/permission/i.test(e&&e.code||'')?'قواعد المزامنة لم تُفعَّل بعد على Firebase':'تعذّر الرفع الآن؛ ستُعاد المحاولة');setTimeout(function(){push(true);},20000);});},now?50:2500);}
+/* ---- الدمج: لا تُستبدل نسخة بأخرى أبدًا، بل تُجمع إضافات الجهازين ويُحترم الحذف منذ آخر مزامنة ---- */
+function isO(x){return !!x&&typeof x==='object'&&!Array.isArray(x);}
+function sj(x){if(Array.isArray(x))return '['+x.map(sj).join(',')+']';if(isO(x))return '{'+Object.keys(x).sort().map(function(k){return JSON.stringify(k)+':'+sj(x[k]);}).join(',')+'}';return JSON.stringify(x===undefined?null:x);}
+function eq(a,b){return sj(a)===sj(b);}
+function cp(x){return x===undefined?undefined:JSON.parse(JSON.stringify(x));}
+function ik(x){return isO(x)&&x.id!=null?'#'+x.id:sj(x);}
+function m3(b,l,r,lw){if(eq(l,r))return l;var hb=b!==undefined;if(hb&&eq(l,b))return r;if(hb&&eq(r,b))return l;
+  if(isO(l)&&isO(r)){var bo=isO(b)?b:{},o={},ks={};Object.keys(l).concat(Object.keys(r)).forEach(function(k){ks[k]=1;});
+    Object.keys(ks).forEach(function(k){var iL=k in l,iR=k in r,iB=k in bo;
+      if(iL&&iR)o[k]=m3(iB?bo[k]:undefined,l[k],r[k],lw);
+      else if(iL){if(!(iB&&eq(bo[k],l[k])))o[k]=l[k];}
+      else if(!(iB&&eq(bo[k],r[k])))o[k]=r[k];});return o;}
+  if(Array.isArray(l)&&Array.isArray(r)){var ba=Array.isArray(b)?b:[],bm={},lm={},rm={},out=[];ba.forEach(function(x){bm[ik(x)]=x;});l.forEach(function(x){lm[ik(x)]=x;});r.forEach(function(x){rm[ik(x)]=x;});
+    function take(k,src){var iL=k in lm,iR=k in rm,iB=k in bm;if(iL&&iR)return m3(iB?bm[k]:undefined,lm[k],rm[k],lw);var v=iL?lm[k]:rm[k];if(iB&&eq(bm[k],v))return undefined;return v;}
+    var done={};r.concat(l).forEach(function(x){var k=ik(x);if(done[k])return;done[k]=1;var v=take(k);if(v!==undefined)out.push(v);});return out;}
+  return lw?l:r;}
+/* أول مزامنة لجهاز: يُوحَّد رمز كل طالب وصف مع نسخة السحابة بالاسم، حتى لا يتكرر الطلاب */
+function remap(loc,rem){var mp={},rc={};(rem.classes||[]).forEach(function(c){rc[D.norm(c.name)]=c.id;});
+  (loc.classes||[]).forEach(function(c){var id=rc[D.norm(c.name)];if(id&&id!==c.id)mp[c.id]=id;});
+  var rs={},cn=function(st,id){var c=(st.classes||[]).filter(function(x){return x.id===id;})[0];return c?D.norm(c.name):'';};
+  (rem.students||[]).forEach(function(s){rs[D.norm(s.name)+'|'+cn(rem,s.cls)]=s.id;});
+  (loc.students||[]).forEach(function(s){var id=rs[D.norm(s.name)+'|'+cn(loc,s.cls)];if(id&&id!==s.id)mp[s.id]=id;});
+  if(!Object.keys(mp).length)return loc;
+  function w(x){if(typeof x==='string')return mp[x]||x;if(Array.isArray(x))return x.map(w);if(isO(x)){var o={};Object.keys(x).forEach(function(k){o[mp[k]||k]=w(x[k]);});return o;}return x;}
+  return w(loc);}
+function strip(st){var o={};Object.keys(st).forEach(function(k){if(k!=='ui')o[k]=st[k];});return cp(o);}
+function noSaved(x){var o=Object.assign({},x);delete o.saved;return o;}
+function sync(meta){if(syncing){nextMeta=meta;return;}syncing=true;status('wait','جارٍ مزامنة التعديلات…');
+  baseP.then(function(){var ps=[];for(var i=0;i<meta.n;i++)ps.push(db.collection(ns+'_t').doc('s'+i).get());return Promise.all(ps);}).then(function(ds){
+    var j=ds.map(function(x){return x.exists?x.data().d:'';}).join(''),d;try{d=JSON.parse(j);}catch(e){throw new Error('parse');}merge(d,meta);})
+  .catch(function(e){console.error('sync',e);syncing=false;status('err','تعذّر تنزيل التعديلات؛ ستُعاد المحاولة');setTimeout(function(){sync(meta);},15000);});}
+function merge(d,meta){if(busy()){setTimeout(function(){merge(d,meta);},2500);return;}
+  var st=S(),loc=strip(st),rem=d;delete rem.ui;if(!base)loc=remap(loc,rem);
+  var m=m3(base?noSaved(base):undefined,noSaved(loc),noSaved(rem),(loc.saved||0)>=(meta.t||0));m.saved=Math.max(loc.saved||0,meta.t||0);
+  var chL=!eq(noSaved(m),noSaved(strip(st))),chR=!eq(noSaved(m),noSaved(rem));
+  if(chL){D.DB.set(E.KEY+':bak',strip(st));applying=true;E.setS(Object.assign(cp(m),{ui:st.ui}));ensure(E.S);D.DB.set(E.KEY,E.S);applying=false;render();if(!eq(noSaved(m),noSaved(loc))||!base)TB.toast('وصلت تعديلات من جهازك الآخر',{icon:'check'});}
+  seen=meta;synced=true;syncing=false;
+  if(chR||dirty)push(true);else{base=noSaved(rem);D.DB.set(BK,base);ok();}
+  if(nextMeta){var n=nextMeta;nextMeta=null;if(!(n.t===meta.t&&n.dev===meta.dev))sync(n);}}
+function push(now){clearTimeout(pushT);pushT=setTimeout(doPush,now?50:2500);}
+function doPush(){if(!user||!synced)return;if(syncing){pushT=setTimeout(doPush,1500);return;}
+  var o=strip(S()),j=JSON.stringify(o),n=Math.ceil(j.length/CH)||1,t=Date.now(),ref=db.collection(ns+'_t').doc('state'),stale=null;dirty=false;pendT=t;status('wait','جارٍ رفع التعديلات…');
+  db.runTransaction(function(tx){return tx.get(ref).then(function(d){var meta=d.exists?d.data():null;stale=null;
+      if(meta&&!(seen&&meta.t===seen.t&&meta.dev===seen.dev)&&!(meta.dev===DEV&&meta.t===lastT)){stale=meta;return;}
+      for(var i=0;i<n;i++)tx.set(db.collection(ns+'_t').doc('s'+i),{d:j.slice(i*CH,(i+1)*CH)});tx.set(ref,{n:n,t:t,dev:DEV});});})
+  .then(function(){if(stale){dirty=true;sync(stale);return;}lastT=t;seen={n:n,t:t,dev:DEV};base=noSaved(o);D.DB.set(BK,base);if(!dirty)ok();})
+  .catch(function(e){dirty=true;status('err',/permission/i.test(e&&e.code||'')?'قواعد المزامنة لم تُفعَّل بعد على Firebase':'تعذّر الرفع الآن؛ ستُعاد المحاولة');setTimeout(function(){push(true);},20000);});}
 function roster(force){if(!user)return;var m={};S().students.forEach(function(s){m[s.code]={n:first(s.name),lv:s.lv||0,c:clsName(s),sx:E.sexOf(s)};});var sig=JSON.stringify(m);if(!force&&sig===rosterSig)return;
   var old=rosterSig?JSON.parse(rosterSig):null;rosterSig=sig;var b=db.batch();Object.keys(m).forEach(function(k){if(!old||JSON.stringify(old[k])!==JSON.stringify(m[k]))b.set(db.collection(ns+'_st').doc(k),m[k]);});
   if(old)Object.keys(old).forEach(function(k){if(!m[k])b.delete(db.collection(ns+'_st').doc(k));});b.commit().catch(function(){rosterSig='';});}
 function resendHws(){S().ehw.forEach(function(h){if(!h.cloudV||h.cloudV<h.v){CL.putHw({t:h.t,due:h.due,note:h.note,to:h.to,items:h.items,open:h.open,at:h.at,v:h.v,tn:PF.teacher},h.id).then(function(){h.cloudV=h.v;persist();});}});}
 var origPush=CL.putHw;CL.putHw=function(h,id){return origPush(h,id).then(function(){var x=S().ehw.filter(function(q){return q.id===id;})[0];if(x){x.cloudV=h.v;persist();}});};
-D.onPersist=function(){if(applying)return;push();roster();};
+D.onPersist=function(){if(applying)return;dirty=true;push();roster();};
 addEventListener('online',function(){if(user)push(true);else login();});
 login();
 });
