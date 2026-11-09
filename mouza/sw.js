@@ -1,3 +1,3 @@
 /* منصة مقفلة: الملفات مشفّرة ويفكها هذا العامل على جهاز المعلمة بعد إدخال كلمة المرور. */
-self.LOCK={slug:'mouza',v:'mouza-l0596e82a03',pub:['sw.js','lock.json','manifest.webmanifest']};
+self.LOCK={slug:'mouza',v:'mouza-lcc022d0b0f',pub:['sw.js','lock.json','manifest.webmanifest']};
 importScripts('../lock/lock-sw.js');

@@ -328,6 +328,7 @@ auth.onAuthStateChanged(function(u){user=u&&u.email===C.email?u:null;if(!user)re
 function rd(refs){return db.runTransaction(function(tx){return Promise.all(refs.map(function(r){return tx.get(r);}));});}
 function cloudCheck(){if(!user||!CL.seenMeta||document.hidden)return;rd([db.collection(ns+'_t').doc('state')]).then(function(r){var d=r[0];CL.seenMeta(d.exists?d.data():null);}).catch(function(){});}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)cloudCheck();});addEventListener('focus',cloudCheck);setInterval(cloudCheck,20000);
+addEventListener('afuq:flush',function(){if(dirty)push(true);});
 var lastKey=0;document.addEventListener('input',function(){lastKey=Date.now();},true);document.addEventListener('keydown',function(){lastKey=Date.now();},true);
 function busyNow(){return busy()&&Date.now()-lastKey<8000;}
 function ok(){status('ok','متزامنة · '+new Date().toLocaleTimeString('ar-OM',{hour:'numeric',minute:'2-digit'}));}
