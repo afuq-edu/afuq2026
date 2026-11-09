@@ -259,7 +259,7 @@ V.table=function(el){var t=TT();
    '<section class="card glass stack"><div class="between"><div class="row"><span>عدد الحصص في اليوم</span><div class="seg"><button data-a="ttN" data-d="-1" aria-label="أقل">−</button><button aria-pressed="true">'+ar(t.n)+'</button><button data-a="ttN" data-d="1" aria-label="أكثر">+</button></div></div><button class="btn ghost sm" data-a="ttClear">'+X.trash+'مسح الجدول</button></div>'+
    '<p class="note" style="margin:0">انقري أي خانة لتكتبي الصف والمادة. اكتبي وقت كل حصة تحت رقمها. يظهر جدول اليوم في الرئيسية.</p>'+
    '<div class="ds-tt-wrap">'+ttGrid()+'</div></section>';
-  $$('[data-time]',el).forEach(function(i){i.addEventListener('input',function(){t.times[+i.dataset.time]=i.value.trim();persist();});});};
+  $$('[data-time]',el).forEach(function(i){i.addEventListener('input',function(){t=TT();t.times[+i.dataset.time]=i.value.trim();persist();});});};
 A.ttN=function(b){var t=TT();t.n=Math.max(1,Math.min(10,t.n+(+b.dataset.d)));persist();render();};
 A.ttClear=function(){if(!confirm('مسح كل خانات الجدول؟'))return;S.tt={n:TT().n,times:TT().times,cells:{}};persist();render();};
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-cell]');if(!b||!S)return;var k=b.dataset.cell,t=TT(),c=t.cells[k]||{},p=k.split('-');
@@ -270,8 +270,8 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
    '<label class="field"><span class="lbl">ملاحظة (الدرس، القاعة، أسماء الطلاب…)</span><input class="input" name="note" value="'+esc(c.note||'')+'"></label>'+
    '<button class="btn gold block" type="submit">'+I.check+'حفظ</button>'+(t.cells[k]?'<button class="btn ghost block" type="button" id="ttDel">'+X.trash+'إفراغ الخانة</button>':'')+'</form>',{title:DAYS[+p[0]]+' · الحصة '+ar(+p[1]+1),icon:'cal'});
   var f=$('#ttF');$$('[data-one] button',f).forEach(function(x){x.onclick=function(){var g=x.parentNode,on=x.getAttribute('aria-pressed')!=='true';$$('button',g).forEach(function(y){y.setAttribute('aria-pressed','false');});x.setAttribute('aria-pressed',String(on));f.elements[g.dataset.one].value=on?x.textContent:'';};});
-  f.onsubmit=function(ev){ev.preventDefault();var v={cls:f.elements.cls.value.trim(),subj:f.elements.subj.value.trim(),note:f.elements.note.value.trim()};if(v.cls||v.subj||v.note)t.cells[k]=v;else delete t.cells[k];persist();TB.closeSheet();render();};
-  var del=$('#ttDel');if(del)del.onclick=function(){delete t.cells[k];persist();TB.closeSheet();render();};});
+  f.onsubmit=function(ev){ev.preventDefault();t=TT();var v={cls:f.elements.cls.value.trim(),subj:f.elements.subj.value.trim(),note:f.elements.note.value.trim()};if(v.cls||v.subj||v.note)t.cells[k]=v;else delete t.cells[k];persist();TB.closeSheet();render();};
+  var del=$('#ttDel');if(del)del.onclick=function(){t=TT();delete t.cells[k];persist();TB.closeSheet();render();};});
 A.ttPrint=function(b){var s=S.settings;out(b.dataset.m||'print','<div class="pp tt"><div class="ttl">جدول الحصص الأسبوعي</div><div class="tth"><span>'+esc(sv('teacher'))+'</span><span>'+esc(sv('school'))+'</span><span>العام الدراسي '+esc(s.year)+' · الفصل الدراسي الأول</span></div>'+ttGrid(true)+'</div>','جدول الحصص - '+mr(sv('teacher')));};
 
 /* ---------- حضور الطلاب وغيابهم ---------- */
