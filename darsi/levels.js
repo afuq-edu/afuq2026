@@ -301,7 +301,7 @@ V.home=function(el){origHome(el);var st=S().students;if(!st.length)return;var pe
 var C=PF.cloud;if(!C||!window.firebase)return;
 var DEV=D.lsGet('darsi:dev:'+PF.id,'');if(!DEV){DEV=Math.random().toString(36).slice(2)+Date.now().toString(36);D.lsSet('darsi:dev:'+PF.id,DEV);}
 var app,auth,db;try{app=firebase.initializeApp(C.fb,'darsi-'+PF.id);auth=app.auth();db=app.firestore();if(C.emu){auth.useEmulator('http://127.0.0.1:9099');db.useEmulator('127.0.0.1',8080);}}catch(e){console.error(e);return;}
-var CV=2,ns=C.ns,user=null,pushT=null,lastT=0,applying=false,rosterSig='',CH=250000,BK=E.KEY+':base',base=null,synced=false,syncing=false,nextMeta=null,seen=null,dirty=false,pendT=0;
+var CV=3,ns=C.ns,user=null,pushT=null,lastT=0,applying=false,rosterSig='',CH=250000,BK=E.KEY+':base',base=null,synced=false,syncing=false,nextMeta=null,seen=null,dirty=false,pendT=0;
 var baseP=D.DB.get(BK).then(function(b){base=b||null;},function(){});
 var CL=D.CLOUD={st:'wait',msg:'جارٍ الاتصال بالمزامنة…',subs:{},
   putHw:function(h,id){return ready().then(function(){var x=JSON.parse(JSON.stringify(h));x.items=JSON.stringify(h.items||[]);return db.collection(ns+'_hw').doc(id).set(x);}).catch(function(e){console.error('putHw',e);throw e;});},
@@ -356,6 +356,13 @@ function remap(loc,rem){var mp={},rc={};(rem.classes||[]).forEach(function(c){rc
   if(!Object.keys(mp).length)return loc;
   function w(x){if(typeof x==='string')return mp[x]||x;if(Array.isArray(x))return x.map(w);if(isO(x)){var o={};Object.keys(x).forEach(function(k){o[mp[k]||k]=w(x[k]);});return o;}return x;}
   return w(loc);}
+/* تحديث البيانات في مكانها: النوافذ المفتوحة (خانة الجدول، الخطة…) تبقى مرتبطة بالبيانات نفسها فلا يضيع ما تكتبه المعلمة أثناء وصول تحديث */
+function patch(t,s){Object.keys(t).forEach(function(k){if(k!=='ui'&&!(k in s))delete t[k];});
+  Object.keys(s).forEach(function(k){var a=t[k],b=s[k];
+    if(isO(a)&&isO(b))patch(a,b);
+    else if(Array.isArray(a)&&Array.isArray(b)){var by={};a.forEach(function(x){if(isO(x)&&x.id!=null)by[x.id]=x;});
+      var nw=b.map(function(x){var o=isO(x)&&x.id!=null&&by[x.id];if(o){patch(o,x);return o;}return x;});a.length=0;nw.forEach(function(x){a.push(x);});}
+    else t[k]=b;});}
 function strip(st){var o={};Object.keys(st).forEach(function(k){if(k!=='ui')o[k]=st[k];});return cp(o);}
 function noSaved(x){var o=Object.assign({},x);delete o.saved;return o;}
 function sync(meta){if(syncing){nextMeta=meta;return;}syncing=true;status('wait','جارٍ مزامنة التعديلات…');
@@ -366,7 +373,7 @@ function merge(d,meta){if(busyNow()){setTimeout(function(){merge(d,meta);},2500)
   var st=S(),loc=strip(st),rem=d;delete rem.ui;if(!base)loc=remap(loc,rem);
   var m=m3(base?noSaved(base):undefined,noSaved(loc),noSaved(rem),(loc.saved||0)>=(meta.t||0));m.saved=Math.max(loc.saved||0,meta.t||0);
   var chL=!eq(noSaved(m),noSaved(strip(st))),chR=!eq(noSaved(m),noSaved(rem));
-  if(chL){D.DB.set(E.KEY+':bak',strip(st));applying=true;E.setS(Object.assign(cp(m),{ui:st.ui}));ensure(E.S);D.DB.set(E.KEY,E.S);applying=false;render();if(!eq(noSaved(m),noSaved(loc))||!base)TB.toast('وصلت تعديلات من جهازك الآخر',{icon:'check'});}
+  if(chL){D.DB.set(E.KEY+':bak',strip(st));applying=true;patch(st,cp(m));ensure(st);D.DB.set(E.KEY,E.S);applying=false;render();if(!eq(noSaved(m),noSaved(loc))||!base)TB.toast('وصلت تعديلات من جهازك الآخر',{icon:'check'});}
   seen=meta;synced=true;syncing=false;
   if(chR||dirty)push(true);else{base=noSaved(rem);D.DB.set(BK,base);ok();}
   if(nextMeta){var n=nextMeta;nextMeta=null;if(!(n.t===meta.t&&n.dev===meta.dev))sync(n);}}
