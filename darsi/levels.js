@@ -301,7 +301,7 @@ V.home=function(el){origHome(el);var st=S().students;if(!st.length)return;var pe
 var C=PF.cloud;if(!C||!window.firebase)return;
 var DEV=D.lsGet('darsi:dev:'+PF.id,'');if(!DEV){DEV=Math.random().toString(36).slice(2)+Date.now().toString(36);D.lsSet('darsi:dev:'+PF.id,DEV);}
 var app,auth,db;try{app=firebase.initializeApp(C.fb,'darsi-'+PF.id);auth=app.auth();db=app.firestore();if(C.emu){auth.useEmulator('http://127.0.0.1:9099');db.useEmulator('127.0.0.1',8080);}}catch(e){console.error(e);return;}
-var CV=3,ns=C.ns,user=null,pushT=null,lastT=0,applying=false,rosterSig='',CH=250000,BK=E.KEY+':base',base=null,synced=false,syncing=false,nextMeta=null,seen=null,dirty=false,pendT=0;
+var CV=4,ns=C.ns,user=null,pushT=null,lastT=0,applying=false,rosterSig='',CH=250000,BK=E.KEY+':base',base=null,synced=false,syncing=false,nextMeta=null,seen=null,dirty=false,pendT=0;
 var baseP=D.DB.get(BK).then(function(b){base=b||null;},function(){});
 var CL=D.CLOUD={st:'wait',msg:'جارٍ الاتصال بالمزامنة…',subs:{},
   putHw:function(h,id){return ready().then(function(){var x=JSON.parse(JSON.stringify(h));x.items=JSON.stringify(h.items||[]);return db.collection(ns+'_hw').doc(id).set(x);}).catch(function(e){console.error('putHw',e);throw e;});},
@@ -347,6 +347,8 @@ function m3(b,l,r,lw){if(eq(l,r))return l;var hb=b!==undefined;if(hb&&eq(l,b))re
   if(Array.isArray(l)&&Array.isArray(r)){var ba=Array.isArray(b)?b:[],bm={},lm={},rm={},out=[];ba.forEach(function(x){bm[ik(x)]=x;});l.forEach(function(x){lm[ik(x)]=x;});r.forEach(function(x){rm[ik(x)]=x;});
     function take(k,src){var iL=k in lm,iR=k in rm,iB=k in bm;if(iL&&iR)return m3(iB?bm[k]:undefined,lm[k],rm[k],lw);var v=iL?lm[k]:rm[k];if(iB&&eq(bm[k],v))return undefined;return v;}
     var done={};r.concat(l).forEach(function(x){var k=ik(x);if(done[k])return;done[k]=1;var v=take(k);if(v!==undefined)out.push(v);});return out;}
+  /* جهاز بلا نسخة مشتركة سابقة (أول مزامنة له): السحابة تغلب، ولا تغلب قيمةٌ فارغة قيمةً مكتوبة */
+  var eL=l===''||l==null,eR=r===''||r==null;if(eL!==eR)return eL?r:l;if(!hb)return r;
   return lw?l:r;}
 /* أول مزامنة لجهاز: يُوحَّد رمز كل طالب وصف مع نسخة السحابة بالاسم، حتى لا يتكرر الطلاب */
 function remap(loc,rem){var mp={},rc={};(rem.classes||[]).forEach(function(c){rc[D.norm(c.name)]=c.id;});
