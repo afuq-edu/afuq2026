@@ -92,7 +92,7 @@ var Cloud={
   watchSite:function(cb){return doc('watani_cfg','site').onSnapshot(function(s){cb(s.exists?s.data():{});},function(){cb({});});},
   getT:function(k){return doc('watani_t',k).get().then(function(s){return s.exists?s.data():null;});},
   saveT:function(k,o){return doc('watani_t',k).set(clone(o));},
-  watchT:function(k,cb,err){return doc('watani_t',k).onSnapshot(function(s){if(s.metadata&&s.metadata.hasPendingWrites)return;cb(s.exists?s.data():null);},function(e){if(err)err(e);});},
+  watchT:function(k,cb,err){return doc('watani_t',k).onSnapshot(function(s){if(s.metadata&&s.metadata.hasPendingWrites)return;/* «غير موجود» من ذاكرة الجهاز وحدها لا يُعتمد، حتى لا يكتب جهاز بلا اتصال المحتوى الأصلي فوق السحابة */if(!s.exists&&s.metadata&&s.metadata.fromCache)return;cb(s.exists?s.data():null);},function(e){if(err)err(e);});},
   watchOpen:function(cb,err){return db.collection('watani_round').where('open','==',true).onSnapshot(function(qs){cb(list(qs));},function(e){if(err)err(e);});},
   watchRounds:function(cb,err){return db.collection('watani_round').onSnapshot(function(qs){cb(list(qs).sort(function(a,b){return (b.created||0)-(a.created||0);}));},function(e){if(err)err(e);});},
   round:function(id){return doc('watani_round',id).get().then(dat);},
