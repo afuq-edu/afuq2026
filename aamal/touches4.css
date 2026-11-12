@@ -1,0 +1,98 @@
+/* =====================================================================
+   «لمسات المجلدات ٢» · touches4.css — 20 لمسة إضافية (41–60) فوق touches3
+   هادئة، بألوان الثيم ولون المجلد فقط. تُطفأ مع prefers-reduced-motion وعند الطباعة.
+   ===================================================================== */
+
+/* (41) خطوط شجرة المجلدات: خيط رفيع يصل المجلد الفرعي بأبيه في القائمة */
+.kz-tree a{position:relative}
+.kz-tree a[style*="--lv:1"]::before,.kz-tree a[style*="--lv:2"]::before,.kz-tree a[style*="--lv:3"]::before{content:"";position:absolute;top:-4px;bottom:50%;inset-inline-start:calc(var(--lv) * 16px - 2px);width:9px;border-inline-start:1px dashed color-mix(in srgb,var(--fc) 55%,var(--line));border-bottom:1px dashed color-mix(in srgb,var(--fc) 55%,var(--line));border-end-start-radius:6px;pointer-events:none}
+
+/* (42) درزة متقطعة تظهر داخل حافة المجلد عند المرور */
+.kz-fold:not(.add)::before{content:"";position:absolute;inset:7px;border:1px dashed color-mix(in srgb,var(--fc) 40%,transparent);border-radius:4px calc(var(--r) - 5px) calc(var(--r) - 5px) calc(var(--r) - 5px);opacity:0;transition:opacity .4s,inset .4s;pointer-events:none;z-index:0}
+.kz-fold:not(.add):hover::before,.kz-fold:not(.add):focus-visible::before{opacity:1;inset:5px}
+
+/* (43) ثقب الملف: حلقة معدنية صغيرة على لسان المجلد */
+.kz-fold:not(.add) .tab::after{content:"";position:absolute;top:3px;inset-inline-start:14px;width:7px;height:7px;border-radius:50%;background:var(--surface);box-shadow:inset 0 1px 2px rgba(0,0,0,.35),0 0 0 1.5px color-mix(in srgb,var(--a) 70%,transparent)}
+
+/* (44) علامة مائية كبيرة لأيقونة المجلد في رأس صفحته */
+.kz-fhead{position:relative;overflow:hidden}
+.kz-fhead>.t4-wm{position:absolute;inset-inline-end:-18px;bottom:-30px;width:120px;height:120px;color:var(--fc);opacity:.08;transform:rotate(-12deg);pointer-events:none}
+.kz-fhead>.t4-wm svg{width:100%;height:100%}
+.kz-fhead>.row,.kz-fhead>.tx,.kz-fhead>.fi{position:relative;z-index:1}
+
+/* (45) خط حبر متموّج يُرسم تحت عناوين الأقسام */
+.kz-sec .sec-head .h1{position:relative;padding-bottom:8px}
+.kz-sec .sec-head .h1::after{content:"";position:absolute;bottom:0;inset-inline-start:0;width:84px;height:7px;
+  background:var(--a);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 7'%3E%3Cpath d='M1 4c7-4 13-4 20 0s13 4 20 0 13-4 20 0 13 4 22 0' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 7'%3E%3Cpath d='M1 4c7-4 13-4 20 0s13 4 20 0 13-4 20 0 13 4 22 0' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+  opacity:.75;clip-path:inset(0 0 0 100%);animation:t4ink 1.1s .25s cubic-bezier(.4,.1,.2,1) forwards}
+[dir=rtl] .kz-sec .sec-head .h1::after{clip-path:inset(0 100% 0 0)}
+@keyframes t4ink{to{clip-path:inset(0 0 0 0)}}
+
+/* (46) زاوية مطوية على غلاف العمل عند المرور، كورقة تُقلب */
+.kz-wk .cover{position:relative}
+.kz-wk .cover::after{content:"";position:absolute;top:0;inset-inline-end:0;width:0;height:0;z-index:2;
+  background:linear-gradient(225deg,var(--solid) 50%,color-mix(in srgb,var(--a) 30%,var(--surface2)) 50%);border-end-start-radius:6px;box-shadow:-2px 2px 5px rgba(0,0,0,.18);transition:width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1)}
+[dir=rtl] .kz-wk .cover::after{background:linear-gradient(135deg,var(--solid) 50%,color-mix(in srgb,var(--a) 30%,var(--surface2)) 50%);box-shadow:2px 2px 5px rgba(0,0,0,.18)}
+.kz-wk:hover .cover::after,.kz-wk:focus-visible .cover::after{width:26px;height:26px}
+
+/* (47) أيقونات أنواع الملفات على الغلاف بزجاج ضبابي */
+.kz-wk .cover .kinds i{backdrop-filter:blur(6px) saturate(1.3);-webkit-backdrop-filter:blur(6px) saturate(1.3);background:color-mix(in srgb,var(--solid) 62%,transparent)!important;border:1px solid rgba(255,255,255,.35)}
+
+/* (48) زر «أضيفي عملًا» في المجلد الفارغ يتنفّس كل بضع ثوانٍ */
+.kz-drop-empty .btn.gold{animation:t4call 5s 2s ease-in-out infinite}
+@keyframes t4call{0%,82%,100%{box-shadow:0 0 0 0 rgba(var(--a-rgb),0)}88%{box-shadow:0 0 0 7px rgba(var(--a-rgb),.22)}94%{box-shadow:0 0 0 12px rgba(var(--a-rgb),0)}}
+
+/* (49) المجلد الحالي في المسار رقاقة بلون المجلد */
+.kz-crumbs b{background:color-mix(in srgb,var(--fc,var(--a)) 14%,transparent);border:1px solid color-mix(in srgb,var(--fc,var(--a)) 30%,transparent);padding:2px 12px;border-radius:999px;color:color-mix(in srgb,var(--fc,var(--a)) 65%,var(--hd))}
+
+/* (50) الصورة الوحيدة في العارض داخل إطار ورقي بظل ناعم */
+.kz-gal.one button{background:var(--solid);padding:10px;border-radius:6px;box-shadow:0 1px 0 var(--line),0 22px 40px -26px rgba(0,0,0,.55);transform:rotate(-.4deg)}
+.kz-gal.one img{border-radius:3px}
+
+/* (51) مقياس امتلاء المجلد مقارنةً بأكبر مجلد */
+.kz-fold .t4-fill{position:absolute;inset-inline:16px;bottom:9px;height:3px;border-radius:3px;background:color-mix(in srgb,var(--fc) 14%,transparent);overflow:hidden;z-index:1}
+.kz-fold .t4-fill i{display:block;height:100%;width:var(--p,0%);border-radius:inherit;background:linear-gradient(90deg,color-mix(in srgb,var(--fc) 60%,#fff),var(--fc));transform-origin:right;animation:t4grow 1s .3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes t4grow{from{transform:scaleX(0)}}
+
+/* (52) مؤشر منزلق في أزرار التصفية */
+.seg.t4-seg{position:relative;isolation:isolate}
+.seg.t4-seg button.on{background:transparent;box-shadow:none}
+.seg.t4-seg .t4-pill{position:absolute;z-index:-1;top:4px;bottom:4px;border-radius:calc(var(--r2) - 2px);background:var(--on);box-shadow:inset 0 -2px 0 var(--a);transition:left .38s cubic-bezier(.3,.9,.3,1),width .38s cubic-bezier(.3,.9,.3,1)}
+
+/* (53) تاريخ اليوم بالهجري والميلادي تحت التحية */
+.kz-hero .t4-date{display:block;margin-top:2px;font-size:12.5px;opacity:.72;letter-spacing:.01em}
+.kz-hero .t4-date i{font-style:normal;color:var(--a);margin:0 6px}
+
+/* (54) شارة «اليوم» بجوار «كل الأعمال» */
+.nav .t4-today{margin-inline-start:auto;font-size:11px;font-weight:700;min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-grid;place-items:center;background:rgba(var(--a-rgb),.16);color:var(--a2);box-shadow:0 0 0 1px rgba(var(--a-rgb),.3)}
+
+/* (55) تظليل كلمات البحث */
+mark.t4-hl{background:linear-gradient(transparent 55%,rgba(var(--a-rgb),.38) 55%);color:inherit;padding:0 1px;border-radius:2px}
+
+/* (56) أسهم التنقل بين الأعمال في العارض */
+.t4-nav{display:flex;gap:6px;position:absolute;top:14px;inset-inline-end:58px;z-index:3}
+.t4-nav button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink2);display:grid;place-items:center;cursor:pointer;transition:background .25s,color .25s,transform .25s}
+.t4-nav button:hover{background:var(--a-soft,rgba(var(--a-rgb),.15));color:var(--a2);transform:scale(1.06)}
+.t4-nav button:disabled{opacity:.3;pointer-events:none}
+.t4-nav svg{width:16px;height:16px}
+.t4-nav .pos{align-self:center;font-size:12px;color:var(--muted);min-width:42px;text-align:center}
+
+/* (57) لون المجلد يتّسع من بطاقته عند فتحه */
+.t4-open{position:fixed;z-index:60;pointer-events:none;border-radius:var(--r);background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--fc) 35%,transparent),color-mix(in srgb,var(--fc) 12%,transparent) 70%)}
+
+/* (58) زر نسخ رابط المجلد */
+.kz-fhead .t4-link.ok{color:var(--a2);box-shadow:0 0 0 2px rgba(var(--a-rgb),.35)}
+
+/* (59) توهج بطاقة العمل بلون صورتها */
+.kz-wk.t4-c{transition:box-shadow .45s,transform .45s}
+.kz-wk.t4-c:hover{box-shadow:0 22px 40px -22px rgb(var(--wc)),0 0 0 1px rgba(var(--wc),.28),var(--sh)}
+
+/* (60) احتفال هادئ ببلوغ عدد من الأعمال */
+.t4-ms{position:fixed;inset-inline:0;top:22%;margin:auto;width:max-content;max-width:calc(100% - 32px);z-index:70;pointer-events:none;text-align:center;padding:18px 28px;border-radius:var(--r);background:color-mix(in srgb,var(--solid) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(var(--a-rgb),.45);box-shadow:var(--glow),var(--sh);animation:t4ms 4.2s cubic-bezier(.2,.8,.2,1) forwards}
+.t4-ms b{display:block;font-family:var(--fh);font-size:clamp(30px,6vw,44px);color:var(--a2);line-height:1.2}
+.t4-ms span{font-size:14px;color:var(--ink2)}
+@keyframes t4ms{0%{opacity:0;transform:translateY(14px) scale(.96)}10%,78%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-10px)}}
+
+@media (max-width:560px){.t4-nav{inset-inline-end:50px;top:12px}.t4-nav .pos{display:none}.kz-fhead>.t4-wm{width:96px;height:96px}}
+@media (prefers-reduced-motion:reduce){.kz-sec .sec-head .h1::after{animation:none;clip-path:none}.kz-drop-empty .btn.gold,.kz-fold .t4-fill i{animation:none}.seg.t4-seg .t4-pill{transition:none}.t4-ms{animation-duration:.01s}}
+@media print{.t4-nav,.t4-open,.t4-ms,.t4-fill,.t4-wm,.t4-today{display:none!important}}

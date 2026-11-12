@@ -1,6 +1,6 @@
 /* عامل الخدمة لـ«منصة الأعمال»: تعمل الواجهة دون إنترنت بعد أول زيارة. ارفعي رقم الإصدار عند تحديث الملفات. */
-var V='aamal-v2';
-var CORE=['./','index.html','app.css','gh.css','aamal.css','touches3.css','touches3.js','core.js','fx.js','sounds.js','safe-sync.js','app.js','touches.js','touches.css','touches2.js','touches2.css','manifest.webmanifest',
+var V='aamal-v3';
+var CORE=['./','index.html','app.css','gh.css','aamal.css','touches3.css','touches3.js','touches4.css','touches4.js','core.js','fx.js','sounds.js','safe-sync.js','app.js','touches.js','touches.css','touches2.js','touches2.css','manifest.webmanifest',
   'icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','icons/favicon-64.png','media/brand/mark.png','media/brand/logo.png'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return Promise.all(CORE.map(function(u){return c.add(u).catch(function(){});}));}).then(function(){return self.skipWaiting();}));});
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return (k.indexOf('aamal-')===0||k.indexOf('khizana-')===0)&&k!==V;}).map(function(k){return caches.delete(k);}));}).then(function(){return self.clients.claim();}));});
