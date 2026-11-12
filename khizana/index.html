@@ -1,45 +1,8 @@
 <!doctype html>
-<html lang="ar" dir="rtl" data-skin="raheeq" data-mode="light">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>خزانة الأعمال</title>
-<meta name="description" content="«خزانة الأعمال»: أعمال الطلاب والمدرسة في مجلدات، متزامنة بين أجهزة المعلمات.">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#1E3B36">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" href="icons/favicon-64.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="خزانة الأعمال">
-<script>try{var h=document.documentElement,s=localStorage.getItem('khizana:skin');if(s){s=JSON.parse(s);h.setAttribute('data-skin',s);h.setAttribute('data-mode',(s==='raheeq'||s==='duha'||s==='qalaa')?'light':'dark');}}catch(e){}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&family=Amiri:wght@400;700&family=El+Messiri:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap">
-<link rel="stylesheet" href="app.css?v=1">
-<link rel="stylesheet" href="touches.css?v=1">
-<link rel="stylesheet" href="touches2.css?v=1">
-<link rel="stylesheet" href="gh.css?v=1">
-<link rel="stylesheet" href="khizana.css?v=1">
-</head>
-<body>
-<div id="app"><p style="text-align:center;padding:40px;color:#1E3B36">جارٍ فتح الخزانة…</p></div>
-<noscript><p style="text-align:center;padding:24px">يلزم تفعيل JavaScript لعرض المنصة.</p></noscript>
-<script src="core.js?v=1"></script>
-<script src="fx.js?v=1"></script>
-<script src="sounds.js?v=1"></script>
-<script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore-compat.js"></script>
-<script>/* المزامنة الآمنة (kit/sync): دخول المعلمات المشترك أو دخول صاحبة المنصة؛ لا كلمات مرور في الملف */
-window.SAFE_SYNC={prefix:"khizana",fb:{apiKey:"AIzaSyD36s5fxlmZG81sKmpcdBJM8OrTXd0_tYo",authDomain:"najm-alusbu-8613.firebaseapp.com",projectId:"najm-alusbu-8613",storageBucket:"najm-alusbu-8613.firebasestorage.app",messagingSenderId:"133814050788",appId:"1:133814050788:web:74fba9d603434670fb31f1"}};
-if(/[?&]emu=1/.test(location.search))window.SAFE_SYNC.emu=1;</script>
-<script src="safe-sync.js?v=1"></script>
-<script src="app.js?v=1"></script>
-<script>window.TOUCH_OPT={quotes:['Every child is an artist. — Pablo Picasso','Creativity is intelligence having fun. — Albert Einstein','Education is not the filling of a pail, but the lighting of a fire. — W. B. Yeats','The expert in anything was once a beginner. — Helen Hayes','Quality is not an act, it is a habit. — Aristotle']};</script>
-<script src="touches.js?v=1"></script>
-<script src="touches2.js?v=1"></script>
-<script src="../lock/live.js?v=1"></script>
-</body>
-</html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>منصة الأعمال</title>
+<script>/* انتقلت المنصة إلى رابط جديد؛ الدخول والبيانات تبقى كما هي لأن الموقع نفسه */
+try{if(navigator.serviceWorker)navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){if(/\/khizana\/$/.test(r.scope))r.unregister();});});}catch(e){}
+location.replace('../aamal/'+location.hash);</script>
+<meta http-equiv="refresh" content="1;url=../aamal/">
+</head><body style="font-family:system-ui;text-align:center;padding:40px;background:#F5F1E8;color:#1E3B36">انتقلت المنصة إلى <a href="../aamal/">رابطها الجديد</a>…</body></html>

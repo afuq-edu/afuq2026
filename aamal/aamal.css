@@ -1,5 +1,5 @@
 /* =====================================================================
-   «خزانة الأعمال» · مكوّنات المجلدات والأعمال والدخول
+   «منصة الأعمال» · مكوّنات المجلدات والأعمال والدخول
    فوق app.css (مدار + اللمسات) وgh.css (ثيم رحيق). كل الألوان متغيرات الثيم.
    ===================================================================== */
 .sdot .dot[data-st="ok"]{background:var(--good)}.sdot .dot[data-st="wait"]{background:var(--warn);animation:pul 1s infinite}.sdot .dot[data-st="err"]{background:var(--bad)}.sdot .dot[data-st="off"]{background:var(--muted)}
@@ -153,3 +153,6 @@
   .kz-tools .seg{order:3;width:100%;overflow-x:auto}
 }
 @media (prefers-reduced-motion:reduce){.hexes,.kz-lmark{animation:none}}
+.kz-hero h1{font-size:clamp(26px,3.1vw,38px);line-height:1.35}
+.kz-hero .hx{min-width:min(360px,100%)}
+@media (min-width:761px){.polar{width:220px}.polar figure{width:150px}}
