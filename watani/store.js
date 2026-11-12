@@ -49,6 +49,8 @@ var Local={
   watchRounds:function(cb){return on('round',function(){cb(arr(lg('round',{})).sort(function(a,b){return (b.created||0)-(a.created||0);}));});},
   round:function(id){return Promise.resolve(lg('round',{})[id]||null);},
   saveRound:function(r,key){var all=lg('round',{}),ks=lg('key',{});if(!r.id){r.id=rid();r.created=Date.now();}all[r.id]=clone(r);ks[r.id]=key;ls('key',ks);ls('round',all);return Promise.resolve(r.id);},
+  updRound:function(id,o){var all=lg('round',{});if(all[id]){Object.keys(o).forEach(function(k){all[id][k]=(k==='qAt'&&o[k]==='now')?Date.now():o[k];});ls('round',all);}return Promise.resolve();},
+  watchRound:function(id,cb){return on('round',function(){cb(lg('round',{})[id]||null);});},
   setOpen:function(id,o){var all=lg('round',{});if(all[id]){all[id].open=!!o;ls('round',all);}return Promise.resolve();},
   delRound:function(id){var all=lg('round',{}),ks=lg('key',{}),s=lg('sub',{});delete all[id];delete ks[id];Object.keys(s).forEach(function(k){if(s[k].rid===id)delete s[k];});ls('sub',s);ls('key',ks);ls('round',all);return Promise.resolve();},
   key:function(id){return Promise.resolve(lg('key',{})[id]||null);},
@@ -99,6 +101,9 @@ var Cloud={
   saveRound:function(r,key){if(!r.id){r.id=rid();r.created=Date.now();}var id=r.id,b=db.batch(),pub=clone(r);delete pub.id;
     b.set(doc('watani_round',id),pub);b.set(doc('watani_key',id),key||{});return b.commit().then(function(){return id;});},
   setOpen:function(id,o){return doc('watani_round',id).update({open:!!o});},
+  /* المنافسة المباشرة: تحديث حقول وثيقة التحكم (qAt:'now' = وقت الخادم) ومتابعتها */
+  updRound:function(id,o){var x=clone(o);if(x.qAt==='now')x.qAt=fb.firestore.FieldValue.serverTimestamp();return doc('watani_round',id).update(x);},
+  watchRound:function(id,cb,err){return doc('watani_round',id).onSnapshot(function(s){var d=dat(s);if(d&&d.qAt)d.qAt=ts(d.qAt);cb(d);},function(e){if(err)err(e);});},
   delRound:function(id){return db.collection('watani_sub').where('rid','==',id).get().then(function(qs){var b=db.batch();qs.forEach(function(s){b.delete(s.ref);});
     b.delete(doc('watani_round',id));b.delete(doc('watani_key',id));return b.commit();});},
   key:function(id){return doc('watani_key',id).get().then(function(s){return s.exists?s.data():null;});},
