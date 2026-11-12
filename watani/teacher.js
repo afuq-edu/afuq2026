@@ -16,7 +16,7 @@ W.head=head;
 /* ---------- تحميل المفاتيح وحساب النتائج ---------- */
 function withKeys(rs){return Promise.all(rs.map(function(r){return W.getKey(r.id);})).then(function(){return rs;});}
 /* نتائج جولة: صف لكل تسليم مع ترتيب، وملخص لكل شعبة */
-W.roundRes=function(r){var key=W.keys[r.id]||{a:{}},seen={},rows=subsOf(r.id).map(function(s){var sc=W.score(r,key,s),k=norm(s.name)+'|'+s.sec;var d=!!seen[k];seen[k]=1;return {s:s,sc:sc,dup:d};});
+W.roundRes=function(r){var key=W.keys[r.id]||{a:{}},seen={},rows=subsOf(r.id).map(function(s){var sc=W.score(r,key,s),k=(s.uid||norm(s.name))+'|'+s.sec;var d=!!seen[k];seen[k]=1;return {s:s,sc:sc,dup:d};});
   rows.sort(function(a,b){return b.sc.pts-a.sc.pts||(a.s.dur||0)-(b.s.dur||0);});
   var secs={};rows.forEach(function(x){if(x.dup)return;var o=secs[x.s.sec]=secs[x.s.sec]||{sec:x.s.sec,n:0,sum:0,pts:0,best:0,dur:0};o.n++;o.sum+=x.sc.p;o.pts+=x.sc.pts;o.dur+=x.s.dur||0;o.best=Math.max(o.best,x.sc.p);});
   var sl=(r.secs||[]).map(function(id){var o=secs[id]||{sec:id,n:0,sum:0,pts:0,best:0,dur:0};o.avg=o.n?Math.round(o.sum/o.n):0;return o;});
@@ -26,8 +26,8 @@ W.roundRes=function(r){var key=W.keys[r.id]||{a:{}},seen={},rows=subsOf(r.id).ma
    الرئيسية
    ===================================================================== */
 W.tviews['']=function(main){function draw(){var open=G.rounds.filter(function(r){return r.open;}),cr=counted(),cs=G.subs.filter(function(s){return cr.some(function(r){return r.id===s.rid;});});
-  var names={};cs.forEach(function(s){names[norm(s.name)+'|'+s.sec]=1;});var st=W.stageInfo();
-  W.view(main,'<section class="card hero corner"><div class="txt"><span class="kick"><img src="img/emblem.webp" alt="">'+esc(W.set().school)+'</span><span class="sub">'+W.greet()+'، أَهْلًا بِمُعَلِّمَاتِ الدِّرَاسَاتِ الاجْتِمَاعِيَّة</span><h1>هٰذَا وَطَنِي</h1><span class="slogan">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</span><div class="meta"><span>المرحلة الحالية: <b>'+esc(st.name)+'</b></span><span>'+esc(W.set().month)+'</span></div></div><div class="art"><img class="fort" src="img/fort.webp" alt=""><span class="stripe"></span></div></section>'+
+  var names={};cs.forEach(function(s){names[(s.uid||norm(s.name))+'|'+s.sec]=1;});var st=W.stageInfo();
+  W.view(main,'<section class="card hero corner"><div class="txt"><img class="schoollogo" src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><span class="kick"><img src="img/emblem.webp" alt="">'+esc(W.set().school)+'</span><span class="sub">'+W.greet()+'، أَهْلًا بِمُعَلِّمَاتِ الدِّرَاسَاتِ الاجْتِمَاعِيَّة</span><h1>هٰذَا وَطَنِي</h1><span class="slogan">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</span><div class="meta"><span>المرحلة الحالية: <b>'+esc(st.name)+'</b></span><span>'+esc(W.set().month)+'</span></div></div><div class="art"><img class="fort" src="img/fort.webp" alt=""><span class="stripe"></span></div></section>'+
    '<div class="grid g4">'+stat(ar(open.length),'جولة مفتوحة الآن')+stat(ar(Object.keys(names).length),'طالبة شاركت')+stat(ar(cs.length),'إجابة مسلّمة')+stat(ar(G.bank.items.length),'سؤالًا في البنك')+stat(ar(st.done)+' / '+ar(st.total),'مواجهة منتهية في التصفيات',W.pct(st.done,st.total))+'</div>'+
    '<section class="card corner"><div class="sec-head"><h2 style="margin:0">الجولات المفتوحة للطالبات</h2><div class="row"><button class="btn pri" id="nr">'+ic('plus')+'جولة جديدة</button><button class="btn" id="qrb">'+ic('qr')+'رابط الطالبات</button></div></div><div id="ol" style="margin-top:12px"></div></section>'+
    '<div class="grid g3">'+[['bracket','التصفيات','الشجرة من ١٢ شعبة حتى النهائي','tree'],['arena','ساحة العرض','مسابقة حية على شاشة الصف بالمؤقت والنقاط','screen'],['results','النتائج والإحصاءات','أسماء الطالبات والدرجات ومستويات الأداء','chart'],['bank','بنك الأسئلة','أضيفي الأسئلة وعدّليها','book']].map(function(x){return '<a class="card" href="#/t/'+x[0]+'" style="text-decoration:none;color:inherit;display:flex;gap:12px;align-items:center"><span class="badge g" style="width:48px;height:48px">'+ic(x[3]).replace('<svg','<svg style="width:24px;height:24px"')+'</span><span><b class="kufi" style="color:var(--hd);font-size:18px">'+x[1]+'</b><br><small class="muted">'+x[2]+'</small></span></a>';}).join('')+'</div>');
@@ -153,7 +153,7 @@ function board(r){document.body.classList.add('stage-mode');var d=W.dlg('<div id
 W.tviews.results=function(main){var scope=W.lsg('rscope','all'),sec='';
   function draw(){var rs=scope==='all'?counted():G.rounds.filter(function(r){return r.id===scope;});withKeys(rs).then(function(){render(rs);});}
   function render(rs){var stu={},secs={},lv={1:[0,0],2:[0,0],3:[0,0]},ty={},qd={};
-    rs.forEach(function(r){var R=W.roundRes(r);R.rows.forEach(function(x){if(x.dup)return;var k=norm(x.s.name)+'|'+x.s.sec,o=stu[k]=stu[k]||{name:x.s.name,sec:x.s.sec,pts:0,max:0,n:0,ok:0,dur:0};o.pts+=x.sc.pts;o.max+=x.sc.max;o.n++;o.ok+=x.sc.ok;o.dur+=x.s.dur||0;
+    rs.forEach(function(r){var R=W.roundRes(r);R.rows.forEach(function(x){if(x.dup)return;var k=(x.s.uid||norm(x.s.name))+'|'+x.s.sec,o=stu[k]=stu[k]||{name:x.s.name,sec:x.s.sec,pts:0,max:0,n:0,ok:0,dur:0};o.pts+=x.sc.pts;o.max+=x.sc.max;o.n++;o.ok+=x.sc.ok;o.dur+=x.s.dur||0;
       r.qs.forEach(function(q){var p=x.sc.per[q.id];if(!p||p.ok===null)return;var good=p.ok===true?1:0;lv[q.lv][0]+=good;lv[q.lv][1]++;ty[q.t]=ty[q.t]||[0,0];ty[q.t][0]+=good;ty[q.t][1]++;var b=qd[q.id]=qd[q.id]||{q:q,ok:0,n:0};b.ok+=good;b.n++;});});});
     var list=Object.keys(stu).map(function(k){var o=stu[k];o.p=W.pct(o.pts,o.max);return o;}).sort(function(a,b){return b.pts-a.pts||b.p-a.p||a.dur-b.dur;});
     list.forEach(function(o){var s=secs[o.sec]=secs[o.sec]||{sec:o.sec,n:0,sum:0,pts:0};s.n++;s.sum+=o.p;s.pts+=o.pts;});

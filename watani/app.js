@@ -8,8 +8,9 @@ var G=W.G={site:{},comp:null,bank:null,rounds:[],subs:[],gal:[],ready:false,offs
 
 /* ---------- الإعدادات الافتراضية للمسابقة ---------- */
 W.defComp=function(){return {v:1,secs:W.SECS.map(function(s){return {id:s.id,nick:''};}),fmt:'g3',br:null,
-  set:{pts:{1:1,2:2,3:3},t:{mc:30,tf:20,fl:30,sa:75},bonus:1,teachers:'معلمات الدراسات الاجتماعية',lead:'أ. عائشة الجبري',principal:'',school:'مدرسة نسيبة بنت كعب (١١–١٢)',year:'٢٠٢٦ / ٢٠٢٧م',month:'نوفمبر ٢٠٢٦م'},honors:[],arena:{},used:{}};};
+  set:{pts:{1:1,2:2,3:3},t:{mc:30,tf:20,fl:30,sa:75},bonus:1,teachers:'معلمات الدراسات الاجتماعية',lead:'أ. عائشة الجبري',principal:'أ. عائشة الجبري',school:'مدرسة نسيبة بنت كعب (١١–١٢)',year:'٢٠٢٦ / ٢٠٢٧م',month:'نوفمبر ٢٠٢٦م'},honors:[],arena:{},used:{}};};
 W.nick=function(id){var s=G.comp&&G.comp.secs.filter(function(x){return x.id===id;})[0];return s&&s.nick||'';};
+W.principal=function(){return (G.site&&G.site.principal)||(G.comp&&G.comp.set&&G.comp.set.principal)||'أ. عائشة الجبري';};
 W.set=function(){return (G.comp&&G.comp.set)||W.defComp().set;};
 var ct=null,bt=null;
 W.saveComp=function(now){clearTimeout(ct);var f=function(){DB.saveT('comp',G.comp).catch(function(e){W.toast('تعذّر الحفظ: '+(e&&e.message||''));});};if(now)f();else ct=setTimeout(f,350);};
@@ -27,9 +28,10 @@ W.score=function(r,key,sub){var o={pts:0,max:0,ok:0,bad:0,pend:0,bonus:0,per:{}}
 
 /* ---------- الهيكل ---------- */
 var app=$('#app');
-var TNAV=[['','الرئيسية','home'],['rounds','الجولات','play'],['results','النتائج والإحصاءات','chart'],['bracket','التصفيات','tree'],['arena','ساحة العرض','screen'],['bank','بنك الأسئلة','book'],null,['honor','لوحة الشرف','trophy'],['certs','الشهادات','award'],['settings','الإعدادات','gear']];
+var TNAV=[['','الرئيسية','home'],['rounds','الجولات','play'],['results','النتائج والإحصاءات','chart'],['bracket','التصفيات','tree'],['arena','ساحة العرض','screen'],['live','المنافسة المباشرة','bolt'],['bank','بنك الأسئلة','book'],null,['honor','لوحة الشرف','trophy'],['certs','الشهادات','award'],['settings','الإعدادات','gear']];
 W.shell=function(kind,cur){var t=kind==='t';
   var top='<header class="top"><img class="emb" src="img/emblem.webp" alt=""><div class="ttl"><b>هٰذَا وَطَنِي</b><small>'+(t?'لوحة المعلمات · ':'')+'المسابقة المنهجية · الصف الحادي عشر</small></div>'+
+   '<div class="prin"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><span><small>مديرة المدرسة</small><b>'+esc(W.principal())+'</b></span></div>'+
    '<button class="tbtn inst" type="button">'+ic('dl')+'<span class="lb">تثبيت</span></button>'+
    '<button class="tbtn skb" type="button" aria-label="الألوان">'+ic('pal')+'<span class="lb">الألوان</span></button>'+
    (t?'<button class="tbtn lo" type="button" aria-label="خروج">'+ic('out')+'<span class="lb">خروج</span></button>':'<a class="tbtn" href="#/t">'+ic('lock')+'<span class="lb">المعلمات</span></a>')+'</header>';
@@ -65,8 +67,8 @@ function startTeacher(){if(G.offs.length)return;var got={};
       if(!b||!b.items){b={v:window.BANK_V,items:W.clone(def)};}
       else{var have={};b.items.concat(b.del||[]).forEach(function(q){have[q.id||q]=1;});def.forEach(function(q){if(!have[q.id])b.items.push(W.clone(q));});b.v=window.BANK_V;}
       G.bank=b;if(def.length)W.saveBank();done();});},err));
-  G.offs.push(DB.watchRounds(function(a){G.rounds=a;if(W.onData)W.onData('rounds');},err));
-  G.offs.push(DB.watchSubs(null,function(a){G.subs=a;if(W.onData)W.onData('subs');},err));
+  G.offs.push(DB.watchRounds(function(a){G.liveRaw=a.filter(W.isLive);G.rounds=a.filter(function(r){return !W.isLive(r);});if(W.onData)W.onData('rounds');},err));
+  G.offs.push(DB.watchSubs(null,function(a){G.subs=a.filter(function(x){return String(x.rid||'').indexOf('lv')!==0;});if(W.onData)W.onData('subs');},err));
   G.offs.push(DB.watchGal(function(a){G.gal=a;if(W.onData)W.onData('gal');},function(){}));}
 W.keys={};
 W.getKey=function(rid){if(W.keys[rid])return Promise.resolve(W.keys[rid]);return DB.key(rid).then(function(k){W.keys[rid]=k||{a:{}};return W.keys[rid];});};
@@ -91,27 +93,32 @@ function login(){var main=W.shell('s');W.view(main,'<section class="card corner"
    ===================================================================== */
 var KIND={stage:['تَصْفِيَاتُ الشُّعَب','مواجهة بين الشعب ضمن مراحل التصفيات','tree'],solo:['الْمُسَابَقَةُ الْفَرْدِيَّة','تتنافس فيها كل طالبة باسمها','user'],speed:['تَحَدِّي السُّرْعَة','وقت أقصر، ونقطة إضافية لكل إجابة صحيحة سريعة','bolt'],train:['جَوْلَةٌ تَدْرِيبِيَّة','للمراجعة: تظهر الإجابة الصحيحة بعد كل سؤال ولا تُحتسب','book']};
 W.KIND=KIND;
-function me(){return W.lsg('me',null);}
+W.isLive=function(r){return !!r&&(r.kind==='livectl'||r.kind==='liveq');};
+/* الدخول بالشعبة فقط بلا اسم: يُسجَّل التسليم باسم «شعبة ١١/س» */
+function me(){var m=W.lsg('me',null);return m&&m.sec?{sec:m.sec,name:'شعبة '+W.secName(m.sec)}:null;}
+W.me=me;
 W.studentURL=function(){return location.href.split('#')[0];};
 W.routes['']=function(){var main=W.shell('s','');DB.ready();var m=me();
-  var hero='<section class="card hero corner"><div class="txt"><span class="kick"><img src="img/emblem.webp" alt="">وزارة التعليم · '+esc(G.site.school||'مدرسة نسيبة بنت كعب (١١–١٢)')+'</span><span class="sub">مُسَابَقَةٌ مَنْهَجِيَّةٌ</span><h1>هٰذَا وَطَنِي</h1><span class="slogan">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</span><div class="meta"><span>الصف الحادي عشر (١١/١ – ١١/١٢)</span><span>الدرسان الأول والثاني · الفصل الأول</span><span>'+esc(G.site.year||'٢٠٢٦ / ٢٠٢٧م')+'</span></div></div><div class="art"><img class="fort" src="img/fort.webp" alt="قلعة عُمانية بين النخيل"><span class="stripe"></span></div></section>';
-  var v=W.view(main,hero+'<div id="board"></div><section class="card corner" id="who"></section><div id="rl"></div>'+W.crenel()+'<p class="muted" style="text-align:center;margin:0">بادري بالمشاركة .. وكوني من المتميزات</p><footer class="schoolfoot"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><small>إشراف '+esc(G.site.lead||'أ. عائشة الجبري')+' · معلمات الدراسات الاجتماعية</small></footer>');
+  var hero='<section class="card hero corner"><div class="txt"><img class="schoollogo" src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><span class="kick"><img src="img/emblem.webp" alt="">وزارة التعليم · '+esc(G.site.school||'مدرسة نسيبة بنت كعب (١١–١٢)')+'</span><span class="sub">مُسَابَقَةٌ مَنْهَجِيَّةٌ</span><h1>هٰذَا وَطَنِي</h1><span class="slogan">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</span><div class="meta"><span>الصف الحادي عشر (١١/١ – ١١/١٢)</span><span>الدرسان الأول والثاني · الفصل الأول</span><span>'+esc(G.site.year||'٢٠٢٦ / ٢٠٢٧م')+'</span></div></div><div class="art"><img class="fort" src="img/fort.webp" alt="قلعة عُمانية بين النخيل"><span class="stripe"></span></div></section>';
+  var v=W.view(main,hero+'<div id="board"></div><section class="card corner" id="who"></section><div id="rl"></div>'+W.crenel()+'<p class="muted" style="text-align:center;margin:0">بادري بالمشاركة .. وكوني من المتميزات</p><footer class="schoolfoot"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><small>مديرة المدرسة '+esc(W.principal())+' · معلمات الدراسات الاجتماعية</small></footer>');
   drawWho();
   var offs=[];W.cleanup=function(){offs.forEach(function(f){f();});};
   offs.push(DB.watchSite(function(s){G.site=s||{};drawBoard();}));
   offs.push(DB.watchOpen(function(rs){G.open=rs;drawRounds();},function(){$('#rl').innerHTML='<div class="card empty">تعذّر الاتصال بالإنترنت لعرض الجولات المفتوحة.</div>';}));
   function drawWho(){var m=me(),el=$('#who');if(!el)return;
-    if(m){el.innerHTML='<div class="row" style="justify-content:space-between"><div class="row"><span class="badge">'+esc(W.secName(m.sec).replace('١١/',''))+'</span><div><b class="kufi" style="font-size:20px;color:var(--hd)">'+esc(m.name)+'</b><div class="muted">الشعبة '+esc(W.secName(m.sec))+'</div></div></div><button class="btn sm ghost" id="chg">'+ic('edit')+'تغيير الاسم أو الشعبة</button></div>';$('#chg').onclick=function(){W.lss('me',null);drawWho();drawRounds();};return;}
-    el.innerHTML='<h2>سَجِّلِي اسْمَكِ لِلْمُشَارَكَة</h2><p class="muted" style="margin-top:0">اكتبي اسمك الثلاثي واختاري شعبتك، ثم تظهر لك الجولات المفتوحة.</p><form class="form" id="wf"><label class="f">الاسم الثلاثي<input class="inp" id="nm" required minlength="5" maxlength="80" autocomplete="name" placeholder="مثال: مريم سالم البلوشية"></label>'+
-     '<div class="f"><b style="font-size:14px">الشعبة</b><div class="row" id="sp" role="radiogroup">'+W.SECS.map(function(s){return '<button type="button" class="chip" role="radio" aria-checked="false" data-s="'+s.id+'" style="font-size:16px;padding:6px 14px">'+s.name+'</button>';}).join('')+'</div></div><button class="btn pri lg" type="submit">'+ic('check')+'دخول المسابقة</button></form>';
-    var sec='';$$('#sp .chip').forEach(function(b){b.onclick=function(){sec=b.dataset.s;$$('#sp .chip').forEach(function(x){x.classList.toggle('on',x===b);x.setAttribute('aria-checked',x===b);});};});
-    $('#wf').onsubmit=function(e){e.preventDefault();var n=$('#nm').value.trim().replace(/\s+/g,' ');if(n.split(' ').length<2){W.toast('اكتبي اسمك الثلاثي');return;}if(!sec){W.toast('اختاري شعبتك');return;}W.lss('me',{name:n,sec:sec});drawWho();drawRounds();};}
+    if(m){el.innerHTML='<div class="row" style="justify-content:space-between"><div class="row"><span class="badge">'+esc(W.secName(m.sec).replace('١١/',''))+'</span><div><b class="kufi" style="font-size:22px;color:var(--hd)">شُعْبَةُ '+esc(W.secName(m.sec))+'</b><div class="muted">تتنافسين باسم شعبتك</div></div></div><button class="btn sm ghost" id="chg">'+ic('edit')+'تغيير الشعبة</button></div>';$('#chg').onclick=function(){W.lss('me',null);drawWho();drawRounds();};return;}
+    el.innerHTML='<h2>اخْتَارِي شُعْبَتَكِ لِلدُّخُول</h2><p class="muted" style="margin-top:0">تتنافسين باسم شعبتك دون كتابة اسم. اضغطي على شعبتك فتظهر لك الجولات والمنافسة المباشرة.</p>'+
+     '<div class="secpick" role="group" aria-label="الشعب">'+W.SECS.map(function(s){return '<button type="button" data-s="'+s.id+'">'+s.name+'</button>';}).join('')+'</div>';
+    $$('.secpick button',el).forEach(function(b){b.onclick=function(){W.lss('me',{sec:b.dataset.s});W.snd('ok');drawWho();drawRounds();};});}
   function drawBoard(){var b=G.site.board,el=$('#board');if(!el)return;if(!b||!b.show){el.innerHTML='';return;}
     el.innerHTML='<section class="card corner" style="text-align:center"><h2>'+ic('trophy').replace('<svg','<svg style="width:22px;height:22px;vertical-align:-4px"')+' لَوْحَةُ الشَّرَف</h2>'+(b.note?'<p class="muted" style="margin:0">'+esc(b.note)+'</p>':'')+podium(b.top||[])+'</section>';}
-  function drawRounds(){var el=$('#rl'),m=me();if(!el)return;var rs=(G.open||[]).filter(function(r){return !m||(r.secs||[]).indexOf(m.sec)>=0;});
+  function drawRounds(){var el=$('#rl'),m=me();if(!el)return;var rs=(G.open||[]).filter(function(r){return !W.isLive(r)&&(!m||(r.secs||[]).indexOf(m.sec)>=0);});
     if(!m){el.innerHTML='';return;}
-    if(!rs.length){el.innerHTML='<div class="card empty"><img src="img/trophy.webp" alt="" style="mix-blend-mode:multiply;border-radius:50%"><p>لا توجد جولة مفتوحة لشعبتك الآن.<br>ستظهر هنا فور أن تفتحها المعلمة، دون تحديث الصفحة.</p></div>';return;}
-    el.innerHTML='<div class="grid g2">'+rs.map(function(r){var k=KIND[r.kind]||KIND.solo;return '<article class="card corner" data-r="'+r.id+'"><span class="tag">'+k[0]+'</span><h2 style="margin-top:8px">'+esc(r.name)+'</h2><p class="muted" style="margin:0 0 10px">'+ar(r.qs.length)+' سؤالًا · '+ar(r.t)+' ثانية لكل سؤال</p><div class="row"><a class="btn pri" href="#/play/'+r.id+'">'+ic('play')+'ابدئي</a><span class="muted st"></span></div></article>';}).join('')+'</div>';
+    var lv=(G.open||[]).filter(function(r){return r.kind==='livectl'&&r.st!=='end'&&(r.secs||[]).indexOf(m.sec)>=0;})[0];
+    if(lv){var ak='watani:lvauto:'+lv.id+':'+m.sec,seen=false;try{seen=!!sessionStorage.getItem(ak);sessionStorage.setItem(ak,'1');}catch(e){}if(!seen){W.go('#/live/'+lv.id);return;}}
+    var lvh=lv?'<a class="card corner livecard" href="#/live/'+lv.id+'"><span class="pulse"></span><div style="flex:1"><b class="kufi">المنافسة المباشرة جارية الآن</b><div class="muted">الأسئلة تظهر على جهازك، والنقاط على شاشة الصف</div></div><span class="btn pri">'+ic('bolt')+'ادخلي</span></a>':'';
+    if(!rs.length){el.innerHTML=lvh+(lv?'':'<div class="card empty"><img src="img/trophy.webp" alt="" style="mix-blend-mode:multiply;border-radius:50%"><p>لا توجد جولة مفتوحة لشعبتك الآن.<br>ستظهر هنا فور أن تفتحها المعلمة، دون تحديث الصفحة.</p></div>');return;}
+    el.innerHTML=lvh+'<div class="grid g2">'+rs.map(function(r){var k=KIND[r.kind]||KIND.solo;return '<article class="card corner" data-r="'+r.id+'"><span class="tag">'+k[0]+'</span><h2 style="margin-top:8px">'+esc(r.name)+'</h2><p class="muted" style="margin:0 0 10px">'+ar(r.qs.length)+' سؤالًا · '+ar(r.t)+' ثانية لكل سؤال</p><div class="row"><a class="btn pri" href="#/play/'+r.id+'">'+ic('play')+'ابدئي</a><span class="muted st"></span></div></article>';}).join('')+'</div>';
     rs.forEach(function(r){DB.mySub(r.id).then(function(s){if(!s)return;var c=$('[data-r="'+r.id+'"]');if(!c)return;$('.btn',c).innerHTML=ic('check')+'نتيجتي';$('.btn',c).className='btn grn';$('.st',c).textContent='سلّمتِ إجاباتك ✓';}).catch(function(){});});}
 };
 function podium(top){var cls=['p2','p1','p3'],ord=[1,0,2];return '<div class="podium">'+ord.map(function(i){var s=top[i];if(!s)return '';return '<div class="pod '+cls[ord.indexOf(i)]+'">'+(i===0?'<img src="img/trophy.webp" alt="" style="mix-blend-mode:multiply;border-radius:50%">':'')+'<span class="nm">'+esc(W.secName(s))+'</span><div class="blk">'+ar(i+1)+'</div></div>';}).join('')+'</div>';}
@@ -119,7 +126,7 @@ W.podium=podium;
 
 /* ---------- الإجابة عن الجولة ---------- */
 W.routes.play=function(p){var rid=p[0],main=W.shell('s','');var m=me();
-  if(!m){W.go('#/');W.toast('سجّلي اسمك وشعبتك أولًا');return;}
+  if(!m){W.go('#/');W.toast('اختاري شعبتك أولًا');return;}
   main.innerHTML='<div class="card empty">جارٍ تحميل الجولة…</div>';
   Promise.all([DB.round(rid),DB.mySub(rid).catch(function(){return null;})]).then(function(x){var r=x[0],s=x[1];
     if(!r){W.view(main,'<div class="card empty">هذه الجولة غير موجودة.<br><a class="btn" href="#/">العودة</a></div>');return;}
@@ -130,7 +137,7 @@ W.routes.play=function(p){var rid=p[0],main=W.shell('s','');var m=me();
 function intro(main,r){var m=me(),k=KIND[r.kind]||KIND.solo,cnt={};r.qs.forEach(function(q){cnt[q.lv]=(cnt[q.lv]||0)+1;});
   var v=W.view(main,'<section class="card corner" style="text-align:center;max-width:720px;margin:0 auto;width:100%"><span class="tag">'+k[0]+'</span><h1 class="kufi" style="color:var(--hd);margin:8px 0 2px;font-size:32px">'+esc(r.name)+'</h1><p class="muted">'+k[1]+'</p>'+W.crenel()+
    '<div class="grid g4" style="margin:14px 0"><div class="stat"><b>'+ar(r.qs.length)+'</b><span>سؤالًا</span></div><div class="stat"><b>'+ar(r.t)+'</b><span>ثانية لكل سؤال</span></div>'+[1,2,3].filter(function(l){return cnt[l];}).map(function(l){return '<div class="stat"><b>'+ar(cnt[l])+'</b><span>'+W.LVp[l]+'</span></div>';}).join('')+'</div>'+
-   '<p>المتسابقة: <b>'+esc(m.name)+'</b> · الشعبة <b>'+esc(W.secName(m.sec))+'</b></p><p class="muted">ينتقل السؤال تلقائيًا عند انتهاء وقته. تُسلَّم الإجابات مرة واحدة فقط.</p><button class="btn pri lg" id="go">'+ic('play')+'بِسْمِ اللهِ، ابدئي</button></section>');
+   '<p>المتسابقة: <b>شعبة '+esc(W.secName(m.sec))+'</b></p><p class="muted">ينتقل السؤال تلقائيًا عند انتهاء وقته. تُسلَّم الإجابات مرة واحدة فقط.</p><button class="btn pri lg" id="go">'+ic('play')+'بِسْمِ اللهِ، ابدئي</button></section>');
   $('#go').onclick=function(){quiz(main,r);};}
 function quiz(main,r){var m=me(),pk='prog:'+r.id,st=W.lsg(pk,null);
   if(!st||st.n!==r.qs.length){var order=r.qs.map(function(q,i){return i;});if(r.shuffle)order=W.shuffle(order);st={n:r.qs.length,order:order,i:0,ans:{},tm:{},t0:Date.now()};}
@@ -140,7 +147,7 @@ function quiz(main,r){var m=me(),pk='prog:'+r.id,st=W.lsg(pk,null);
     var body='';if(q.t==='mc'||q.t==='fl')body='<div class="opts">'+q.o.map(function(o,i){return '<button class="opt" type="button" data-v="'+i+'" style="cursor:pointer"><span class="l">'+W.KEYS[i]+'</span><span>'+esc(o)+'</span></button>';}).join('')+'</div>';
     else if(q.t==='tf')body='<div class="opts"><button class="opt" type="button" data-v="true" style="cursor:pointer"><span class="l">✓</span><span>صواب</span></button><button class="opt" type="button" data-v="false" style="cursor:pointer"><span class="l">✗</span><span>خطأ</span></button></div>';
     else body='<textarea class="inp naskh" id="sa" rows="4" placeholder="اكتبي إجابتك هنا…"></textarea>';
-    var v=W.view(main,'<div class="arena-top"><div><div class="st">'+esc(r.name)+'</div><div class="muted">'+esc(m.name)+' · '+esc(W.secName(m.sec))+'</div></div><div class="dots">'+st.order.map(function(x,i){return '<i class="'+(i<st.i?'d':(i===st.i?'c':''))+'"></i>';}).join('')+'</div>'+tmr(qt)+'</div>'+
+    var v=W.view(main,'<div class="arena-top"><div><div class="st">'+esc(r.name)+'</div><div class="muted">شعبة '+esc(W.secName(m.sec))+'</div></div><div class="dots">'+st.order.map(function(x,i){return '<i class="'+(i<st.i?'d':(i===st.i?'c':''))+'"></i>';}).join('')+'</div>'+tmr(qt)+'</div>'+
       '<section class="card qbox corner"><div class="qmeta"><span class="tag">السؤال '+ar(st.i+1)+' من '+ar(st.n)+'</span><span class="tag l'+q.lv+'">'+W.LVp[q.lv]+'</span><span class="tag">'+W.TY[q.t]+'</span><span class="tag">'+ar(q.pts)+' '+(q.pts===1?'نقطة':'نقاط')+'</span></div>'+(q.img?'<img class="qimg" src="'+q.img+'" alt="">':'')+
       '<p class="qtext">'+esc(q.q).replace(/_{2,}/g,'<span style="display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold)"></span>')+'</p>'+body+'<div id="fbk"></div><div class="row" style="justify-content:space-between"><span class="muted" id="hint"></span><button class="btn grn lg" id="nx">'+(st.i===st.n-1?ic('check')+'تسليم الإجابات':'التالي ←')+'</button></div></section>');
     var choose=function(val){st.ans[q.id]=val;$$('.opt',v).forEach(function(b){b.classList.toggle('ok',b.dataset.v===String(val));});save();W.snd('tick');
@@ -166,7 +173,7 @@ function result(main,r,s){document.body.classList.remove('stage-mode');var m=me(
   W.view(main,'<div class="card empty">جارٍ عرض نتيجتك…</div>');
   var off=DB.watchMySub(r.id,function(ss){if(ss)s=ss;DB.key(r.id).then(function(k){draw(k||{a:{}});}).catch(function(){draw(null);});});W.cleanup=off;
   function draw(k){var sc=W.score(r,k,s);var p=sc.p;
-    var v=W.view(main,'<section class="card corner" style="text-align:center"><img src="img/trophy.webp" alt="" style="width:120px;mix-blend-mode:multiply;border-radius:50%"><h1 class="kufi" style="color:var(--hd);margin:4px 0;font-size:30px">شُكْرًا لَكِ يَا '+esc(s.name.split(' ')[0])+'</h1><p class="muted" style="margin:0">'+esc(s.name)+' · الشعبة '+esc(W.secName(s.sec))+' · '+esc(r.name)+'</p>'+W.crenel()+
+    var v=W.view(main,'<section class="card corner" style="text-align:center"><img src="img/trophy.webp" alt="" style="width:120px;mix-blend-mode:multiply;border-radius:50%"><h1 class="kufi" style="color:var(--hd);margin:4px 0;font-size:30px">أَحْسَنْتِ يَا بَطَلَةَ الشُّعْبَةِ '+esc(W.secName(s.sec))+'</h1><p class="muted" style="margin:0">'+esc(r.name)+'</p>'+W.crenel()+
      (k?'<div class="grid g4" style="margin:12px 0"><div class="stat"><b>'+ar(sc.pts)+' / '+ar(sc.max)+'</b><span>النقاط</span></div><div class="stat"><b>'+ar(p)+'٪</b><span>النسبة</span><div class="bar"><i style="width:'+p+'%"></i></div></div><div class="stat"><b>'+ar(sc.ok)+'</b><span>إجابة صحيحة</span></div><div class="stat"><b>'+W.fmtT(s.dur)+'</b><span>الوقت</span></div></div>'+(sc.pend?'<p class="tag" style="font-size:14px">'+ar(sc.pend)+' من الإجابات القصيرة بانتظار تصحيح المعلمة، وتظهر هنا تلقائيًا.</p>':''):'<p>سُلّمت إجاباتك ✓</p>')+
      '<p class="naskh" style="font-size:20px;color:var(--hd);font-weight:700">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</p><a class="btn" href="#/">العودة إلى الجولات</a></section>'+(k?review(r,k,s,sc):''));}}
 function review(r,k,s,sc){return '<section class="card"><h2>مراجعة إجاباتك</h2><div class="grid" style="gap:10px">'+r.qs.map(function(q,i){var a=(s.ans||{})[q.id],res=sc.per[q.id]||{},kk=(k.a||{})[q.id];
