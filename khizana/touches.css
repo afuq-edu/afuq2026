@@ -1,0 +1,161 @@
+/* =====================================================================
+   «لمسات» · خمسون لمسة جمالية هادئة قابلة لإعادة الاستخدام في كل المنصات
+   تعتمد على متغيرات الثيم: --a --a2 --a-rgb --b-rgb --line --surface2 --solid --hd --ink2 --muted --cta --cta-ink --glow
+   وتحترم «تقليل الحركة». تُفعَّل مع touches.js (window.Touches).
+   الأرقام بين الأقواس أرقام اللمسات في README.
+   ===================================================================== */
+/* (1) لون التحديد من الثيم */
+::selection{background:rgba(var(--a-rgb),.32);color:var(--hd)}
+/* (2) شريط تمرير رفيع بلون الثيم */
+*{scrollbar-width:thin;scrollbar-color:rgba(var(--a-rgb),.35) transparent}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:rgba(var(--a-rgb),.32);border-radius:9px;border:2px solid transparent;background-clip:padding-box}::-webkit-scrollbar-track{background:transparent}
+/* (3) تمرير ناعم */
+html{scroll-behavior:smooth}
+/* (4) حلقة تركيز ذهبية ناعمة */
+:focus-visible{outline:2px solid rgba(var(--a-rgb),.7);outline-offset:2px;border-radius:10px}
+/* (5) لمعة تعبر الزر الذهبي */
+.btn.gold{position:relative;overflow:hidden;isolation:isolate}
+.btn.gold::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s cubic-bezier(.2,.8,.2,1);z-index:-1;pointer-events:none}
+.btn.gold:hover::after{transform:translateX(120%)}
+/* (6) الرقاقات ترتفع قليلًا */
+.chip{transition:transform .25s,box-shadow .25s,background .25s}
+a.chip:hover,button.chip:hover,label.chip:hover{transform:translateY(-1px);box-shadow:0 6px 14px -10px rgba(var(--a-rgb),.9)}
+/* (7) ضغطة الأزرار الصغيرة */
+.ib,.tick,.sc,.tb{transition:transform .15s,color .2s,border-color .2s,background .25s}
+.ib:active,.tb:active{transform:scale(.9)}
+/* (8) تكبير هادئ للصور المصغّرة */
+.tgal figure,.sl,.thumbs-row figure,.doc .pg,.wk .cover{overflow:hidden}
+.tgal img,.sl img,.thumbs-row img,.doc .pg img,.wk .cover img{transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .6s}
+.tgal figure:hover img,.sl:hover img,.thumbs-row figure:hover img,.thumbs-row>img:hover,.doc:hover .pg img,.wk:hover .cover img{transform:scale(1.05)}
+/* (9) أيقونة العنوان تميل حين تمرّين على البطاقة */
+.ctitle .ci{transition:transform .5s cubic-bezier(.3,1.6,.5,1),box-shadow .4s}
+.card:hover .ctitle .ci{transform:rotate(-8deg) scale(1.06);box-shadow:0 0 0 4px var(--a-soft)}
+/* (10) حلقة ذهبية تدور حول الصورة الرمزية */
+.av{position:relative}
+.tcard:hover .av::after,.nr-row:hover .av::after,.ab-main:hover .av::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px dashed rgba(var(--a-rgb),.7);animation:tSpin 6s linear infinite}
+@keyframes tSpin{to{transform:rotate(360deg)}}
+/* (11) أيقونة الحالة الفارغة تطفو */
+.empty>svg{animation:tFloat 4.5s ease-in-out infinite}
+@keyframes tFloat{50%{transform:translateY(-6px)}}
+/* (12) أيقونات القائمة تتحرك قليلًا */
+.nav a .ni{transition:transform .35s cubic-bezier(.3,1.6,.5,1),background .25s}
+.nav a:hover .ni{transform:translateX(-3px) rotate(-6deg)}
+/* (13) أيقونة الشريط السفلي النشطة ترتفع ومعها نقطة */
+.tabbar a,.tabbar button{position:relative}
+.tabbar a svg{transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.tabbar a.on svg{transform:translateY(-3px)}
+.tabbar a.on::after{content:"";position:absolute;bottom:4px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--a);box-shadow:0 0 8px rgba(var(--a-rgb),.9)}
+/* (14) نافذة تظهر بانسياب وخلفية ضبابية */
+.dlg{backdrop-filter:blur(7px) saturate(1.1);-webkit-backdrop-filter:blur(7px) saturate(1.1)}
+.dlg .box{animation:tPop .38s cubic-bezier(.2,.9,.25,1.15) both}
+@keyframes tPop{from{opacity:0;transform:translateY(14px) scale(.97)}}
+/* (15) الإشعار ينزلق ومعه خط زمني */
+.toast{animation:tToast .45s cubic-bezier(.2,.9,.25,1.2) both;overflow:hidden}
+.toast::after{content:"";position:absolute;inset-inline:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--a3,var(--a)),var(--a2));transform-origin:right;animation:tBar 2.6s linear both}
+@keyframes tToast{from{opacity:0;transform:translate(-50%,16px) scale(.96)}}
+@keyframes tBar{to{transform:scaleX(0)}}
+/* (16) أزرار التبويب تنتقل بنعومة */
+.seg button{transition:background .3s,color .3s,box-shadow .3s,transform .2s}
+.seg button:active{transform:scale(.97)}
+/* (17) وسام البطل يتنفّس */
+.hero .medal{animation:tBreath 7s ease-in-out infinite}
+@keyframes tBreath{50%{transform:translateY(-5px);box-shadow:0 0 0 1px rgba(var(--a-rgb),.75),0 0 0 10px rgba(var(--a-rgb),.08),0 26px 44px -18px rgba(0,0,0,.7)}}
+/* (18) بريق يعبر اسم المعلمة مرة عند الفتح */
+.hero h1.t-shine{background:linear-gradient(100deg,currentColor 44%,rgba(var(--a-rgb),1) 50%,currentColor 56%) 20% 0/300% 100% no-repeat;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:tShine 2.4s .4s ease-in-out both}
+@keyframes tShine{from{background-position:20% 0}to{background-position:80% 0}}
+/* (19) شعار التذييل يتوهج بهدوء */
+.foot b{animation:tGlow 6s ease-in-out infinite}
+@keyframes tGlow{50%{text-shadow:0 0 14px rgba(var(--a-rgb),.55)}}
+/* (20) الحقول: خط ذهبي ينمو عند الكتابة */
+.input,.textarea{transition:border-color .25s,box-shadow .3s,background .25s}
+.input:focus,.textarea:focus{border-color:rgba(var(--a-rgb),.75);box-shadow:0 2px 0 0 var(--a),0 0 0 4px var(--a-soft)}
+/* (21) علامة الإنجاز تُرسم */
+.task.done .tick svg path,.task.done .tick svg polyline{stroke-dasharray:30;animation:tDraw .5s ease-out both}
+@keyframes tDraw{from{stroke-dashoffset:30}to{stroke-dashoffset:0}}
+/* (22) صف الأسبوع الحالي ينبض مرة */
+.sr.now,.ttg .tr.today{animation:tPulse 2.4s ease-out 1}
+@keyframes tPulse{0%{box-shadow:0 0 0 0 rgba(var(--a-rgb),.5)}100%{box-shadow:0 0 0 14px rgba(var(--a-rgb),0)}}
+/* (23) خط تحت الروابط ينمو */
+.lnk a span,.note a,.kv a{background:linear-gradient(currentColor,currentColor) right bottom/0 1px no-repeat;transition:background-size .4s}
+.lnk a:hover span,.note a:hover,.kv a:hover{background-size:100% 1px}
+/* (24) مربّع أيقونة الإحصاء يدور قليلًا */
+.stat .si{transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.stat:hover .si{transform:rotate(10deg) scale(1.08)}
+/* (25) خيط ذهبي مضيء أسفل الرأس */
+.top{position:sticky}
+.top::after{content:"";position:absolute;inset-inline:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(var(--a-rgb),.55),transparent);opacity:.7}
+
+/* ===== لمسات بالبرمجة (touches.js) ===== */
+/* (26) شريط تقدّم القراءة */
+.t-prog{position:fixed;top:0;inset-inline:0;height:2px;z-index:95;pointer-events:none;background:linear-gradient(90deg,var(--a3,var(--a)),var(--a2));transform-origin:right;transform:scaleX(0);box-shadow:0 0 10px rgba(var(--a-rgb),.7)}
+/* (27) الرأس يصغر قليلًا عند النزول */
+.top{transition:box-shadow .35s,background .35s}
+.top-in{transition:padding .35s}
+body.t-scrolled .top{box-shadow:0 12px 30px -16px rgba(0,0,0,.75)}
+body.t-scrolled .top-in{padding-block:6px}
+/* (28) البطاقات تظهر عند الوصول إليها */
+.t-rev{opacity:0;transform:translateY(16px)}
+.t-rev.t-in{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
+/* (32) خط تحت عنوان البطاقة يُرسم */
+.ctitle h3{position:relative}
+.t-in .ctitle h3::after,.t-line .ctitle h3::after{content:"";position:absolute;inset-inline-start:0;bottom:-4px;height:1.5px;width:28px;border-radius:2px;background:linear-gradient(90deg,var(--a),transparent);animation:tLine .9s .2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes tLine{from{width:0}}
+/* (33) ضوء يتبع المؤشر على البطاقة */
+.t-spot{--mx:50%;--my:50%}
+.t-spot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(360px circle at var(--mx) var(--my),rgba(var(--a-rgb),.09),transparent 45%);opacity:0;transition:opacity .4s}
+.t-spot:hover::after{opacity:1}
+/* (34) ميل ثلاثي الأبعاد خفيف */
+.t-tilt{transition:transform .5s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;will-change:transform}
+/* (35) تموّج عند الضغط */
+.t-rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.35);transform:scale(0);animation:tRip .6s ease-out forwards;mix-blend-mode:soft-light}
+@keyframes tRip{to{transform:scale(1);opacity:0}}
+/* (36) نثرة ذهبية صغيرة عند الإنجاز */
+.t-spark{position:fixed;z-index:120;width:5px;height:5px;border-radius:50%;pointer-events:none;background:var(--a2);box-shadow:0 0 6px rgba(var(--a-rgb),.9)}
+/* (38) زر العودة للأعلى بحلقة تقدّم */
+.t-top{position:fixed;inset-inline-start:18px;bottom:24px;z-index:60;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--solid);color:var(--a2);display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(12px) scale(.9);pointer-events:none;transition:opacity .35s,transform .35s;box-shadow:var(--sh)}
+.t-top.on{opacity:1;transform:none;pointer-events:auto}
+.t-top svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.t-top circle{fill:none;stroke:var(--a);stroke-width:2.2;stroke-linecap:round}
+.t-top i{font-style:normal;font-size:17px;line-height:1}
+@media (max-width:900px){.t-top{bottom:calc(84px + env(safe-area-inset-bottom));width:40px;height:40px}}
+/* (40) نجيمات تومض في البطل */
+.t-tw{position:absolute;z-index:0;width:10px;height:10px;pointer-events:none;animation:tTw 3.2s ease-in-out both}
+.t-tw::before,.t-tw::after{content:"";position:absolute;left:50%;top:50%;background:#fff;border-radius:2px;transform:translate(-50%,-50%)}
+.t-tw::before{width:1.4px;height:10px}.t-tw::after{width:10px;height:1.4px}
+@keyframes tTw{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:.9;transform:scale(1) rotate(45deg)}}
+/* (41) كتابة الاسم حرفًا حرفًا */
+.t-caret::after{content:"";display:inline-block;width:2px;height:.9em;margin-inline-start:4px;vertical-align:-.1em;background:var(--a2);animation:tCaret .8s steps(1) infinite}
+@keyframes tCaret{50%{opacity:0}}
+/* (42) ساعة حيّة في الرأس */
+.t-clock{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface2);color:var(--top-ink,var(--hd));font:600 13px/1 var(--ff);white-space:nowrap;font-variant-numeric:tabular-nums}
+.t-clock b{font-weight:700}
+.t-clock small{color:var(--a2);font-weight:600}
+.t-clock i{width:6px;height:6px;border-radius:50%;background:var(--a);animation:tBlink 2s ease-in-out infinite}
+@keyframes tBlink{50%{opacity:.25}}
+@media (max-width:900px){.t-clock small{display:none}}@media (max-width:560px){.t-clock{display:none}}
+/* (43) انتقال ناعم بين الأقسام */
+#main.t-swap .view{animation:tView .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes tView{from{opacity:0;transform:translateY(8px)}}
+/* (44) الصور تظهر من الضباب */
+img.t-img{opacity:0;filter:blur(8px);transition:opacity .7s,filter .9s}
+img.t-img.t-ok{opacity:1;filter:none}
+/* (45) شريط الاتصال */
+.t-net{position:fixed;top:10px;left:50%;z-index:210;transform:translate(-50%,-140%);padding:8px 16px;border-radius:999px;background:var(--solid);color:var(--ink2);border:1px solid var(--line);font-size:13.5px;box-shadow:var(--sh);transition:transform .5s cubic-bezier(.2,.9,.25,1.2)}
+.t-net.on{transform:translate(-50%,0)}
+.t-net b{color:var(--a2)}
+/* (46) رمز الوقت بجوار التحية */
+.t-tod{display:inline-block;margin-inline-end:6px;animation:tFloat 5s ease-in-out infinite}
+/* (48) خيط ضوء يمرّ على حافة البطاقة عند ظهورها */
+.t-in.card{background-clip:padding-box}
+.t-sweep{position:relative}
+.t-sweep::before{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;padding:1px;background:linear-gradient(120deg,transparent 35%,rgba(var(--a-rgb),.75) 50%,transparent 65%) 200% 0/300% 100% no-repeat;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:tSweep 1.6s ease-out both}
+@keyframes tSweep{to{background-position:-100% 0}}
+/* (49) الرقم الذي تغيّر يتوهج لحظة */
+.t-bump{animation:tBump .7s ease-out}
+@keyframes tBump{30%{transform:scale(1.18);text-shadow:0 0 14px rgba(var(--a-rgb),.9)}}
+/* (50) نبضة «حُفظ» على زر المزامنة */
+.t-saved{animation:tSaved .9s ease-out}
+@keyframes tSaved{30%{box-shadow:0 0 0 6px rgba(var(--a-rgb),.25);color:var(--a2)}}
+
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.t-rev{opacity:1!important;transform:none!important}.t-tw,.t-spark,.t-rip{display:none}.hero .medal,.empty>svg,.foot b,.t-tod,.t-clock i{animation:none!important}}
+@media print{.t-prog,.t-top,.t-net,.t-clock{display:none!important}.t-rev{opacity:1!important;transform:none!important}}
