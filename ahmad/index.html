@@ -1,9 +1,11 @@
 <!doctype html>
-<html lang="ar" dir="rtl" data-lock="ahmad">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأساس الخالد · عرض درس الاستماع</title>
 <meta name="description" content="عرض تفاعلي لدرس الاستماع «الأساس الخالد»، اللغة العربية للصف الثامن، المعلم أحمد أكبر علي الشيهاني.">
+<meta name="robots" content="noindex">
 <meta name="theme-color" content="#1F3A68">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
@@ -11,27 +13,123 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="الأساس الخالد">
-<meta name="robots" content="noindex,nofollow,noarchive">
-<title>الأساس الخالد · عرض درس الاستماع</title>
+<script>if('serviceWorker' in navigator&&location.protocol!=='file:')addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@600;700&display=swap">
-<link rel="stylesheet" href="../design-system/tabshoura.css">
-<link rel="stylesheet" href="../lock/lock.css">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deck.css">
+<link rel="stylesheet" href="world-airport.css">
+<link rel="stylesheet" href="lesson.css">
+<style>
+:root{--bg:#EEF5FB;--ink:#16294A;--muted:#5A6B86;--brand:#1F3A68;--gold:#F2C14E;--rose:#F4B6BE;--line:#D8E4F0;--card:#fff}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;line-height:1.7}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#5FB2EC,#BFE5FA 70%,#EEF5FB);padding:28px 0 60px}
+.hero .sky{position:absolute;inset:0;pointer-events:none}.hero .sky svg{width:100%;height:100%}
+.hero .in{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;position:relative}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.85);border-radius:99px;padding:6px 14px;font-weight:700;font-size:14px}
+.inst{display:none;border:0;background:var(--brand);color:#fff;border-radius:99px;padding:8px 16px;font:700 14px inherit;font-family:inherit;cursor:pointer}
+h1{font:900 clamp(36px,6vw,64px)/1.2 'Alexandria',sans-serif;margin:0 0 6px;color:#0F2142}
+.kick{font:800 clamp(15px,2vw,20px) 'Alexandria',sans-serif;color:#1F3A68;background:rgba(255,255,255,.7);display:inline-block;border-radius:12px;padding:2px 12px;margin-bottom:12px}
+.lead{font-size:clamp(16px,2vw,19px);color:#22385E;margin:6px 0 18px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}.meta span{background:#fff;border:1px solid var(--line);border-radius:99px;padding:4px 14px;font-weight:700;font-size:14px}
+.go{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;background:var(--gold);color:#14223A;font:900 clamp(18px,2.4vw,22px) 'Alexandria',sans-serif;padding:14px 30px;border-radius:18px;box-shadow:0 8px 0 #C99A2E,0 20px 30px -16px rgba(0,0,0,.5);transition:transform .15s}
+.go:hover{transform:translateY(-2px)}.go:active{transform:translateY(4px);box-shadow:0 4px 0 #C99A2E}
+.pass{background:#fff;border-radius:24px;display:flex;overflow:hidden;box-shadow:0 30px 50px -30px rgba(10,30,60,.7);transform:rotate(-3deg)}
+.pass .l{background:var(--brand);color:#fff;padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;border-inline-end:3px dashed #fff;min-width:110px}
+.pass .l b{font:900 44px/1 'Alexandria',sans-serif;color:var(--gold)}.pass .l small{font-weight:700}
+.pass .r{padding:18px 20px;flex:1}.pass .r p{margin:0;font-size:13px;color:var(--muted);font-weight:700}.pass .r strong{display:block;font:800 18px 'Alexandria',sans-serif;margin-bottom:8px}
+.pass .bc{height:34px;background:repeating-linear-gradient(90deg,#1F3A68 0 3px,transparent 3px 6px,#1F3A68 6px 7px,transparent 7px 11px);opacity:.6;margin-top:8px;border-radius:4px}
+main{padding:34px 0 60px}
+h2{font:800 clamp(22px,3vw,28px) 'Alexandria',sans-serif;margin:34px 0 6px}
+.sub{color:var(--muted);margin:0 0 16px}
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.map button{text-align:start;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:12px 14px;cursor:pointer;font:700 15px inherit;font-family:inherit;color:var(--ink);display:flex;gap:10px;align-items:center;transition:.2s}
+.map button:hover{border-color:#5AA6E8;transform:translateY(-2px)}.map button i{font-style:normal;flex:none;width:30px;height:30px;border-radius:50%;background:#E3F1FC;display:grid;place-items:center;font:800 14px 'Alexandria',sans-serif;color:var(--brand)}
+.items{display:grid;gap:10px}
+.it{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px}
+.it .h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}.it .h b{font:800 17px 'Alexandria',sans-serif}
+.it pre{margin:0;white-space:pre-wrap;font:500 15.5px/1.9 'IBM Plex Sans Arabic',sans-serif;color:#2A3B57}
+.cp{flex:none;border:1px solid var(--line);background:#F4F8FC;border-radius:10px;padding:5px 12px;font:700 13px inherit;font-family:inherit;cursor:pointer;color:var(--brand)}
+.cp.ok{background:#E6F6EC;border-color:#9ED3B0;color:#1E6B47}
+.note{background:#FFF8E6;border:1px solid #F1DDA4;border-radius:16px;padding:12px 16px;font-size:15px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(30px);opacity:0;background:#16294A;color:#fff;padding:10px 20px;border-radius:99px;font-weight:700;z-index:99999;transition:.3s;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%)}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:20px 0 40px}
+.sheet{position:fixed;inset:0;background:rgba(10,20,40,.5);display:none;align-items:flex-end;justify-content:center;z-index:9999}.sheet.on{display:flex}
+.sheet div{background:#fff;border-radius:22px 22px 0 0;padding:20px;max-width:520px;width:100%}.sheet b{font:800 18px 'Alexandria',sans-serif}
+@media (max-width:760px){.hero .in{grid-template-columns:1fr}.pass{transform:none}}
+</style>
 </head>
 <body>
-<main class="lk"><div class="lk-card card">
-  <img class="lk-ic" src="icons/icon-192.png" alt="">
-  <span class="lk-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>منصة خاصة</span>
-  <h1>الأساس الخالد</h1>
-  <p class="lk-sub">أدخلي كلمة المرور لفتح المنصة على هذا الجهاز. تُحفظ على الجهاز فلا تُطلب مرة أخرى.</p>
-  <form id="lkForm" autocomplete="on">
-    <div class="lk-row"><input id="lkPw" class="input" type="password" autocomplete="current-password" placeholder="كلمة المرور" dir="ltr" required><button type="button" class="lk-eye" id="lkEye" aria-label="إظهار كلمة المرور"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-    <button id="lkBtn" class="btn block" type="submit">فتح المنصة</button>
-    <p id="lkMsg" class="lk-msg" role="status"></p>
-  </form>
-  <p class="lk-foot">محتوى المنصة مشفّر، ولا يمكن قراءته دون كلمة المرور.</p>
-</div></main>
-<noscript><p style="text-align:center">يلزم تفعيل JavaScript لفتح المنصة.</p></noscript>
-<script src="../lock/lock.js"></script>
+<header class="hero">
+ <div class="sky" aria-hidden="true"><svg viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice"><g fill="#fff" opacity=".9"><ellipse cx="200" cy="90" rx="90" ry="24"/><ellipse cx="250" cy="72" rx="60" ry="28"/><ellipse cx="980" cy="140" rx="80" ry="20"/><ellipse cx="1020" cy="124" rx="50" ry="24"/></g><path d="M0 420 L120 380 L240 400 L380 340 L520 390 L660 350 L820 395 L980 345 L1100 380 L1200 360 V500 H0z" fill="#DDBE97" opacity=".6"/></svg></div>
+ <div class="wrap">
+  <div class="top"><span class="badge">✈ اللغة العربية · الصف الثامن</span><button class="inst" id="inst" type="button">⬇ تثبيت</button></div>
+  <div class="in">
+   <div>
+    <span class="kick">نصُّ الاستماع</span>
+    <h1>الأساسُ الخالد</h1>
+    <p class="lead">رحلةٌ تعليميةٌ من صالةِ المطارِ إلى متحفِ عُمانَ عبرَ الزمان: نستمعُ، ونستنتجُ، ونرتّبُ الأحداث، ونسردُ الحكاية.</p>
+    <div class="meta"><span>المعلم: أحمد أكبر علي الشيهاني</span><span>16 شريحة · 40 دقيقة</span></div>
+    <button class="go" id="go" type="button">▶ ابدأ العرض</button>
+   </div>
+   <div class="pass" aria-hidden="true"><div class="l"><small>البوابة</small><b>8</b><small>✈</small></div><div class="r"><strong>من: صالة المطار<br>إلى: ولاية مَنَح</strong><p>الوجهة: متحف عُمان عبر الزمان</p><p>الركّاب: طلبة الصف الثامن</p><div class="bc"></div></div></div>
+  </div>
+ </div>
+</header>
+<main class="wrap">
+ <h2>محطات العرض</h2><p class="sub">اضغط أي محطة لتبدأ العرض منها.</p>
+ <div class="map" id="map"></div>
+
+ <h2>نصُّ الاستماع</h2>
+ <div class="note">لم يُطبع النصُّ المسموعُ في كتاب الطالب ولا في دليل المعلم، فكُتب هذا النص وفق ما في الكتاب (ص١٦–١٧): الموقع، والهدف، وقاعتا العرض الرئيستان، وعاما ٢٠١٥م و٢٠٢٣م، والمتحف صديق للبيئة. يمكنك تشغيل تسجيلك من داخل العرض (زر «🎧 أضف تسجيلك»)، فيُحفظ على جهازك.</div>
+ <div class="items" style="margin-top:10px"><div class="it"><div class="h"><b>الأساس الخالد</b><button class="cp" data-cp="text" type="button">نسخ</button></div><pre id="text"></pre></div></div>
+
+ <h2>بنود التحضير</h2><p class="sub">لكل بند زر نسخ لتلصقه في نور.</p>
+ <div class="items" id="prep"></div>
+</main>
+<footer>صورة المتحف من كتاب اللغة العربية للصف الثامن، وصورة الزاوية من ويكيميديا (AhmedMRH، CC BY-SA 4.0).</footer>
+<div class="toast" id="toast"></div>
+<div class="sheet" id="sheet"><div><b>تثبيت العرض على الآيباد أو الآيفون</b><p>افتح الصفحة في Safari، ثم اضغط زر المشاركة ⬆️، واختر «إضافة إلى الشاشة الرئيسية».</p><button class="cp" type="button" onclick="this.closest('.sheet').classList.remove('on')">حسنًا</button></div></div>
+<script>window.DA={toast:function(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},2400);},snd:function(){}};</script>
+<script src="deck.js"></script>
+<script src="deck-world.js"></script>
+<script src="world-airport.js"></script>
+<script src="lesson.js"></script>
+<script>
+(function(){
+var STOPS=['الغلاف','أهداف الدرس','قواعد الاستماع','المستمع الجيد','الاستماع الأول','صور المتحف والنص','الفكرة العامة','الخريطة الذهنية','الأحداث والسنوات','المفردات','مسابقة الحقائب','تحدي المطابقة','السرد','محطة التأمل','الواجب المنزلي','تم بحمد الله'];
+var AR='٠١٢٣٤٥٦٧٨٩';function ar(n){return String(n).replace(/\d/g,function(d){return AR[d];});}
+document.getElementById('map').innerHTML=STOPS.map(function(s,i){return '<button type="button" data-go="'+i+'"><i>'+ar(i+1)+'</i>'+s+'</button>';}).join('');
+document.getElementById('go').onclick=function(){AHMAD.open(0);};
+document.getElementById('map').onclick=function(e){var b=e.target.closest('[data-go]');if(b)AHMAD.open(+b.dataset.go);};
+document.getElementById('text').textContent=AHMAD.TEXT.join('\n\n');
+var PREP=[
+['الصف والدرس','الصف: الثامن\nعنوان الدرس/ الموضوع: نص استماع – الأساس الخالد'],
+['الأهداف/ المخرجات التعليمية','١- أن يستمع الطالب إلى نص الاستماع لمرتين.\n٢- أن يحدد الطالب الفكرة العامة للنص.\n٣- أن يستنتج الطالب موقع المتحف والهدف من إنشائه.\n٤- أن يرتب الطالب الأحداث المرتبطة بكل عام ترتيبًا زمنيًا صحيحًا.\n٥- أن يوضح الطالب معاني المفردات الجديدة في النص.\n٦- أن يسرد الطالب النص شفويًا بأسلوبه الخاص بلغة عربية فصيحة.'],
+['الاستراتيجيات/ طرق التدريس','(١) الاستماع النشط\n(٢) العصف الذهني\n(٣) الخرائط الذهنية\n(٤) التعلم باللعب\n(٥) الحوار والمناقشة\n(٦) السرد القصصي'],
+['آلية التنفيذ/ الأنشطة','١- يستمع الطالب للنص من خلال تشغيل تسجيل صوتي عن طريق المكبر الصوتي، ويكون مستمعًا للنص بشكل نشط.\n٢- بعد الاستماع أطرح سؤالًا: (ما الموضوع الذي يدور حوله النص؟)، ثم أستقبل الإجابات.\n٣- يخرج الطلاب إلى السبورة لكتابة: موقع المتحف، والهدف من إنشائه، ومن قام بوضع حجر الأساس له.\n٤- أوزع أرقامًا من (١ إلى ١٣) على الطلاب، ثم أختار رقمًا عشوائيًا، ويتوجه الطالب الذي يحمل الرقم المختار إلى السبورة لكتابة حدث واحد مرتبط بالسنة المحددة في الجدول.\n٥- أعرض مجموعة من الكلمات في العرض، وأسأل الطلاب إن كانوا يواجهون صعوبة في فهمها، ثم أتيح لهم فرصة اكتشاف المعاني بأنفسهم، وبعد ذلك أوضح معاني الكلمات التي يجدون صعوبة في فهمها.\n٦- أطلب من أحد الطلاب إعادة سرد النص شفويًا بأسلوبه الخاص، مع مراعاة تسلسل الأحداث، واستخدام اللغة العربية الفصحى، وإتاحة الفرصة لبقية الطلاب للاستماع إليه.'],
+['الوسائل ومصادر التعلم','١- التسجيل الصوتي، مكبرات الصوت.\n٢- عرض تفاعلي (الأساس الخالد).'],
+['التقويم التكويني','١- ما الموضوع الرئيس الذي يتحدث عنه النص؟\n٢- أين يقع المتحف؟\n٣- ما الهدف من إنشاء المتحف؟\n٤- ما الأحداث التي ارتبطت بالسنوات المذكورة؟'],
+['النشاط الإثرائي','تخيل أنك مسؤول عن متحف وطني، ما أهم ثلاثة أشياء ستختار عرضها فيه؟ ولماذا؟'],
+['النشاط العلاجي','الهدف: تعزيز قدرة الطالب على تذكر المعلومات الأساسية الواردة في النص.\n• يقع المتحف في مدينة (…….)\n• الهدف من إنشاء المتحف هو (……)'],
+['التقويم الختامي','ما أهمية المحافظة على تاريخ الوطن وتراثه للأجيال القادمة؟'],
+['الواجب المنزلي','أكتب ثلاثة أسطر توضح فيها أهمية المتاحف في المحافظة على تاريخ الوطن وهويته.']];
+var P=document.getElementById('prep');P.innerHTML=PREP.map(function(p,i){return '<div class="it"><div class="h"><b>'+p[0]+'</b><button class="cp" data-cp="p'+i+'" type="button">نسخ</button></div><pre id="p'+i+'"></pre></div>';}).join('');
+PREP.forEach(function(p,i){document.getElementById('p'+i).textContent=p[1];});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-cp]');if(!b)return;var t=document.getElementById(b.dataset.cp).textContent;
+ function ok(){b.textContent='✓ نُسخ';b.classList.add('ok');setTimeout(function(){b.textContent='نسخ';b.classList.remove('ok');},1600);}
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,fb);else fb();
+ function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok();}catch(er){}a.remove();}});
+var dp=null,ib=document.getElementById('inst');
+addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;ib.style.display='inline-block';});
+var ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+if(ios&&!standalone)ib.style.display='inline-block';
+ib.onclick=function(){if(dp){dp.prompt();dp=null;ib.style.display='none';}else document.getElementById('sheet').classList.add('on');};
+if(/[?&]s=(\d+)/.test(location.search))AHMAD.open(+RegExp.$1);
+})();
+</script>
 </body>
 </html>
