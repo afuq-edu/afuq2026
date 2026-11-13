@@ -105,7 +105,7 @@ W.skinPicker=function(){var d=W.dlg('<h2>الألوان</h2><p class="muted">ث�
 /* ---------- الخلفية: نخلات ضوئية ونجوم في الثيمين الداكنين ---------- */
 var REDUCED=W.REDUCED=matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 W.fxHTML=function(){return '<div class="fx" aria-hidden="true"><div class="glow g1"></div><div class="glow g2"></div><div class="pat"></div>'+
-  '<svg class="flagband" viewBox="0 0 1440 120" preserveAspectRatio="none"><g><path class="fr" d="M-20 30 C 240 0, 420 70, 720 34 S 1200 6, 1460 40"/><path class="fw" d="M-20 42 C 240 12, 420 82, 720 46 S 1200 18, 1460 52"/><path class="fg" d="M-20 54 C 240 24, 420 94, 720 58 S 1200 30, 1460 64"/></g></svg></div>';};
+  '<svg class="flagband" viewBox="0 0 1440 120" preserveAspectRatio="none"><g><path class="fw" d="M-20 30 C 240 0, 420 70, 720 34 S 1200 6, 1460 40"/><path class="fr" d="M-20 42 C 240 12, 420 82, 720 46 S 1200 18, 1460 52"/><path class="fg" d="M-20 54 C 240 24, 420 94, 720 58 S 1200 30, 1460 64"/></g></svg></div>';};
 var SKY=(function(){var cv,x,Wd,H,D,st=[],gp=[],raf=0,last=0,rot=0,kind='';
  function rnd(a,b){return a+Math.random()*(b-a);}
  function size(){D=Math.min(1.5,devicePixelRatio||1);Wd=innerWidth;H=innerHeight;cv.width=Wd*D;cv.height=H*D;cv.style.width=Wd+'px';cv.style.height=H+'px';x.setTransform(D,0,0,D,0,0);seed();}

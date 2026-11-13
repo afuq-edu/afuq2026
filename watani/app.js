@@ -8,9 +8,10 @@ var G=W.G={site:{},comp:null,bank:null,rounds:[],subs:[],gal:[],ready:false,offs
 
 /* ---------- الإعدادات الافتراضية للمسابقة ---------- */
 W.defComp=function(){return {v:1,secs:W.SECS.map(function(s){return {id:s.id,nick:''};}),fmt:'g3',br:null,
-  set:{pts:{1:1,2:2,3:3},t:{mc:30,tf:20,fl:30,sa:75},bonus:1,teachers:'معلمات الدراسات الاجتماعية',lead:'أ. عائشة الجبري',principal:'أ. عائشة الجبري',school:'مدرسة نسيبة بنت كعب (١١–١٢)',year:'٢٠٢٦ / ٢٠٢٧م',month:'نوفمبر ٢٠٢٦م'},honors:[],arena:{},used:{}};};
+  set:{pts:{1:1,2:2,3:3},t:{mc:30,tf:20,fl:30,sa:75},bonus:1,teachers:'معلمات الدراسات الاجتماعية',lead:'أ. بدرية الهنائي',principal:'أ. عائشة الجبري',school:'مدرسة نسيبة بنت كعب (١١–١٢)',year:'٢٠٢٦ / ٢٠٢٧م',month:'نوفمبر ٢٠٢٦م'},honors:[],arena:{},used:{}};};
 W.nick=function(id){var s=G.comp&&G.comp.secs.filter(function(x){return x.id===id;})[0];return s&&s.nick||'';};
 W.principal=function(){return (G.site&&G.site.principal)||(G.comp&&G.comp.set&&G.comp.set.principal)||'أ. عائشة الجبري';};
+W.lead=function(){var l=(G.site&&G.site.lead)||(G.comp&&G.comp.set&&G.comp.set.lead);return (!l||l==='أ. عائشة الجبري')?'أ. بدرية الهنائي':l;};
 W.set=function(){return (G.comp&&G.comp.set)||W.defComp().set;};
 var ct=null,bt=null;
 W.saveComp=function(now){clearTimeout(ct);var f=function(){DB.saveT('comp',G.comp).catch(function(e){W.toast('تعذّر الحفظ: '+(e&&e.message||''));});};if(now)f();else ct=setTimeout(f,350);};
@@ -31,7 +32,7 @@ var app=$('#app');
 var TNAV=[['','الرئيسية','home'],['rounds','الجولات','play'],['results','النتائج والإحصاءات','chart'],['bracket','التصفيات','tree'],['arena','ساحة العرض','screen'],['live','المنافسة المباشرة','bolt'],['bank','بنك الأسئلة','book'],null,['honor','لوحة الشرف','trophy'],['certs','الشهادات','award'],['settings','الإعدادات','gear']];
 W.shell=function(kind,cur){var t=kind==='t';
   var top='<header class="top"><img class="emb" src="img/emblem.webp" alt=""><div class="ttl"><b>تَحَدِّي هٰذَا وَطَنِي</b><small>'+(t?'لوحة المعلمات · ':'')+'المسابقة المنهجية · الصف الحادي عشر</small></div>'+
-   '<div class="prin"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><span><small>مديرة المدرسة</small><b>'+esc(W.principal())+'</b></span></div>'+
+   '<div class="prin"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><span><i><small>مديرة المدرسة</small><b>'+esc(W.principal())+'</b></i><i><small>إشراف</small><b>'+esc(W.lead())+'</b></i></span></div>'+
    '<button class="tbtn inst" type="button">'+ic('dl')+'<span class="lb">تثبيت</span></button>'+
    '<button class="tbtn skb" type="button" aria-label="الألوان">'+ic('pal')+'<span class="lb">الألوان</span></button>'+
    (t?'<button class="tbtn lo" type="button" aria-label="خروج">'+ic('out')+'<span class="lb">خروج</span></button>':'<a class="tbtn" href="#/t">'+ic('lock')+'<span class="lb">المعلمات</span></a>')+'</header>';
@@ -58,7 +59,7 @@ W.defBank=function(){if(window.BANK)return Promise.resolve(window.BANK);
 function startTeacher(){if(G.offs.length)return;var got={};
   function check(){if(got.comp&&got.bank&&!G.ready){G.ready=true;var w=waiters;waiters=[];w.forEach(function(f){f();});}}
   var err=function(e){console.warn(e);W.toast('تعذّر الاتصال بقاعدة البيانات');};
-  G.offs.push(DB.watchT('comp',function(c){if(!c){c=W.defComp();G.comp=c;W.saveComp(true);}else{var d=W.defComp();Object.keys(d).forEach(function(k){if(c[k]==null)c[k]=d[k];});Object.keys(d.set).forEach(function(k){if(c.set[k]==null)c.set[k]=d.set[k];});G.comp=c;}
+  G.offs.push(DB.watchT('comp',function(c){if(!c){c=W.defComp();G.comp=c;W.saveComp(true);}else{var d=W.defComp();Object.keys(d).forEach(function(k){if(c[k]==null)c[k]=d[k];});Object.keys(d.set).forEach(function(k){if(c.set[k]==null)c.set[k]=d.set[k];});if(c.set.lead==='أ. عائشة الجبري'&&!c.set.leadFix){c.set.lead='أ. بدرية الهنائي';c.set.leadFix=1;if(!c.set.principal)c.set.principal='أ. عائشة الجبري';G.comp=c;W.saveComp(true);DB.saveSite({lead:c.set.lead,principal:c.set.principal}).catch(function(){});}G.comp=c;}
     if(!G.comp.br)G.comp.br=W.buildBracket(G.comp.fmt,W.SECS.map(function(s){return s.id;}));got.comp=1;check();if(G.ready&&W.onData)W.onData('comp');},err));
   G.offs.push(DB.watchT('bank',function(b){
     function done(){got.bank=1;check();if(G.ready&&W.onData)W.onData('bank');}
@@ -100,7 +101,7 @@ W.me=me;
 W.studentURL=function(){return location.href.split('#')[0];};
 W.routes['']=function(){var main=W.shell('s','');DB.ready();var m=me();
   var hero='<section class="card hero corner"><div class="txt"><img class="schoollogo" src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><span class="kick"><img src="img/emblem.webp" alt="">وزارة التعليم · '+esc(G.site.school||'مدرسة نسيبة بنت كعب (١١–١٢)')+'</span><span class="sub">مُسَابَقَةٌ مَنْهَجِيَّةٌ</span><h1>تَحَدِّي هٰذَا وَطَنِي</h1><span class="slogan">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</span><div class="meta"><span>الصف الحادي عشر (١١/١ – ١١/١٢)</span><span>الدرسان الأول والثاني · الفصل الأول</span><span>'+esc(G.site.year||'٢٠٢٦ / ٢٠٢٧م')+'</span></div></div><div class="art"><img class="fort" src="img/fort.webp" alt="قلعة عُمانية بين النخيل"><span class="stripe"></span></div></section>';
-  var v=W.view(main,hero+'<div id="board"></div><section class="card corner" id="who"></section><div id="rl"></div>'+W.crenel()+'<p class="muted" style="text-align:center;margin:0">بادري بالمشاركة .. وكوني من المتميزات</p><footer class="schoolfoot"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><small>مديرة المدرسة '+esc(W.principal())+' · معلمات الدراسات الاجتماعية</small></footer>');
+  var v=W.view(main,hero+'<div id="board"></div><section class="card corner" id="who"></section><div id="rl"></div>'+W.crenel()+'<p class="muted" style="text-align:center;margin:0">بادري بالمشاركة .. وكوني من المتميزات</p><footer class="schoolfoot"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><small>مديرة المدرسة '+esc(W.principal())+' · إشراف '+esc(W.lead())+' · معلمات الدراسات الاجتماعية</small></footer>');
   drawWho();
   var offs=[];W.cleanup=function(){offs.forEach(function(f){f();});};
   offs.push(DB.watchSite(function(s){G.site=s||{};drawBoard();}));

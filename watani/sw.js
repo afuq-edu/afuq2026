@@ -1,5 +1,5 @@
 /* عامل الخدمة: تعمل الواجهة دون إنترنت بعد أول زيارة. ارفعي رقم الإصدار عند تحديث الملفات. */
-var V='watani-v6';
+var V='watani-v7';
 var CORE=['./','index.html','watani.css','firebase-config.js','store.js','bank.js','vendor/qrcode.js','core.js','app.js','teacher.js','comp.js','live.js','manifest.webmanifest',
   'img/emblem.webp','img/school.webp','img/fort.webp','img/trophy.webp','icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','icons/favicon-64.png'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return Promise.all(CORE.map(function(u){return c.add(u).catch(function(){});}));}).then(function(){return self.skipWaiting();}));});

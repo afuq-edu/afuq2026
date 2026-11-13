@@ -167,7 +167,7 @@ html[data-skin="layl"] .hero h1,html[data-skin="annabi"] .hero h1{color:var(--go
 .hero .art{position:relative;min-height:260px}
 .hero .art img.fort{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 40%;mask-image:linear-gradient(to left,#000 55%,transparent),linear-gradient(to top,transparent,#000 22%);mask-composite:intersect;-webkit-mask-image:linear-gradient(to left,#000 55%,transparent);}
 html[data-skin="layl"] .hero .art img.fort,html[data-skin="annabi"] .hero .art img.fort{filter:saturate(.85) brightness(.82)}
-.hero .art .stripe{position:absolute;inset-block:0;inset-inline-end:0;width:12px;background:linear-gradient(#C0262D 0 33%,#FFFDF6 33% 66%,#1D7A40 66%)}
+.hero .art .stripe{position:absolute;inset-block:0;inset-inline-end:0;width:26px;background:linear-gradient(to right,#C0262D 0 9px,transparent 9px),linear-gradient(#FFFDF6 0 33.3%,#C0262D 33.3% 66.6%,#1D7A40 66.6%)}
 @media (max-width:760px){.hero{grid-template-columns:1fr}.hero .art{min-height:190px;order:-1}.hero .art img.fort{mask-image:linear-gradient(to top,transparent,#000 40%);-webkit-mask-image:linear-gradient(to top,transparent,#000 40%);object-position:50% 35%}.hero .txt{padding:6px 20px 22px}}
 
 /* إحصاءات */
@@ -337,7 +337,7 @@ html[data-skin="layl"] .winner .wn,html[data-skin="annabi"] .winner .wn{color:va
 .cert .frame{position:absolute;inset:9mm;border:2.4px solid #B88A2E;border-radius:6mm}
 .cert .frame::before{content:"";position:absolute;inset:2.5mm;border:1px solid rgba(184,138,46,.6);border-radius:4mm}
 .cert .pat{position:absolute;inset:0;opacity:.1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23B88A2E' stroke-width='1'%3E%3Cpath d='M36 14l6.4 15.6L58 36l-15.6 6.4L36 58l-6.4-15.6L14 36l15.6-6.4z'/%3E%3Crect x='22' y='22' width='28' height='28' transform='rotate(45 36 36)'/%3E%3C/g%3E%3C/svg%3E");background-size:22mm}
-.cert .flag{position:absolute;top:0;bottom:0;inset-inline-end:0;width:7mm;background:linear-gradient(#C0262D 0 33.3%,#fff 33.3% 66.6%,#1D7A40 66.6%)}
+.cert .flag{position:absolute;top:0;bottom:0;inset-inline-end:0;width:10mm;background:linear-gradient(to right,#C0262D 0 3.6mm,transparent 3.6mm),linear-gradient(#fff 0 33.3%,#C0262D 33.3% 66.6%,#1D7A40 66.6%)}
 .cert .fort{position:absolute;bottom:9mm;inset-inline-start:9mm;width:62mm;height:80mm;object-fit:cover;opacity:.28;mask-image:linear-gradient(to top,#000 40%,transparent),linear-gradient(to left,#000 50%,transparent);-webkit-mask-image:linear-gradient(to left,#000 40%,transparent);border-radius:0 0 0 5mm}
 .cert .body{position:absolute;inset:16mm 22mm;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2.5mm}
 .cert .hdr{display:flex;width:100%;justify-content:space-between;align-items:flex-start;font-size:11.5pt;font-weight:600;line-height:1.6}
@@ -441,3 +441,10 @@ html[data-skin="layl"] .winner .wn,html[data-skin="annabi"] .winner .wn{color:va
 .lvst.bad{color:#fff;background:var(--red);border-color:var(--red)}
 .lvst.ok{color:var(--green)}
 .team .sc{transition:color .3s}
+
+/* المديرة والمشرفة في الشريط العلوي */
+.top .prin span{gap:1px}
+.top .prin i{font-style:normal;display:flex;gap:5px;align-items:baseline;white-space:nowrap}
+.top .prin i small::after{content:":"}
+.top .prin i b{font-size:13px}
+@media (max-width:560px){.top .prin span{flex-direction:row;flex-wrap:wrap;gap:2px 12px;justify-content:center}.top .prin i b{font-size:12px}}
