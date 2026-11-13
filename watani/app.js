@@ -1,5 +1,5 @@
 /* =====================================================================
-   «هذا وطني» · الهيكل، حالة المنصة، واجهة الطالبات، دخول المعلمات ولوحتهن
+   «تحدّي هذا وطني» · الهيكل، الحالة العامة، واجهة الطالبات، دخول المعلمات ولوحتهن
    ===================================================================== */
 (function(){
 'use strict';
@@ -30,7 +30,7 @@ W.score=function(r,key,sub){var o={pts:0,max:0,ok:0,bad:0,pend:0,bonus:0,per:{}}
 var app=$('#app');
 var TNAV=[['','الرئيسية','home'],['rounds','الجولات','play'],['results','النتائج والإحصاءات','chart'],['bracket','التصفيات','tree'],['arena','ساحة العرض','screen'],['live','المنافسة المباشرة','bolt'],['bank','بنك الأسئلة','book'],null,['honor','لوحة الشرف','trophy'],['certs','الشهادات','award'],['settings','الإعدادات','gear']];
 W.shell=function(kind,cur){var t=kind==='t';
-  var top='<header class="top"><img class="emb" src="img/emblem.webp" alt=""><div class="ttl"><b>هٰذَا وَطَنِي</b><small>'+(t?'لوحة المعلمات · ':'')+'المسابقة المنهجية · الصف الحادي عشر</small></div>'+
+  var top='<header class="top"><img class="emb" src="img/emblem.webp" alt=""><div class="ttl"><b>تَحَدِّي هٰذَا وَطَنِي</b><small>'+(t?'لوحة المعلمات · ':'')+'المسابقة المنهجية · الصف الحادي عشر</small></div>'+
    '<div class="prin"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><span><small>مديرة المدرسة</small><b>'+esc(W.principal())+'</b></span></div>'+
    '<button class="tbtn inst" type="button">'+ic('dl')+'<span class="lb">تثبيت</span></button>'+
    '<button class="tbtn skb" type="button" aria-label="الألوان">'+ic('pal')+'<span class="lb">الألوان</span></button>'+
@@ -99,7 +99,7 @@ function me(){var m=W.lsg('me',null);return m&&m.sec?{sec:m.sec,name:'شعبة '
 W.me=me;
 W.studentURL=function(){return location.href.split('#')[0];};
 W.routes['']=function(){var main=W.shell('s','');DB.ready();var m=me();
-  var hero='<section class="card hero corner"><div class="txt"><img class="schoollogo" src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><span class="kick"><img src="img/emblem.webp" alt="">وزارة التعليم · '+esc(G.site.school||'مدرسة نسيبة بنت كعب (١١–١٢)')+'</span><span class="sub">مُسَابَقَةٌ مَنْهَجِيَّةٌ</span><h1>هٰذَا وَطَنِي</h1><span class="slogan">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</span><div class="meta"><span>الصف الحادي عشر (١١/١ – ١١/١٢)</span><span>الدرسان الأول والثاني · الفصل الأول</span><span>'+esc(G.site.year||'٢٠٢٦ / ٢٠٢٧م')+'</span></div></div><div class="art"><img class="fort" src="img/fort.webp" alt="قلعة عُمانية بين النخيل"><span class="stripe"></span></div></section>';
+  var hero='<section class="card hero corner"><div class="txt"><img class="schoollogo" src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><span class="kick"><img src="img/emblem.webp" alt="">وزارة التعليم · '+esc(G.site.school||'مدرسة نسيبة بنت كعب (١١–١٢)')+'</span><span class="sub">مُسَابَقَةٌ مَنْهَجِيَّةٌ</span><h1>تَحَدِّي هٰذَا وَطَنِي</h1><span class="slogan">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</span><div class="meta"><span>الصف الحادي عشر (١١/١ – ١١/١٢)</span><span>الدرسان الأول والثاني · الفصل الأول</span><span>'+esc(G.site.year||'٢٠٢٦ / ٢٠٢٧م')+'</span></div></div><div class="art"><img class="fort" src="img/fort.webp" alt="قلعة عُمانية بين النخيل"><span class="stripe"></span></div></section>';
   var v=W.view(main,hero+'<div id="board"></div><section class="card corner" id="who"></section><div id="rl"></div>'+W.crenel()+'<p class="muted" style="text-align:center;margin:0">بادري بالمشاركة .. وكوني من المتميزات</p><footer class="schoolfoot"><img src="img/school.webp" alt="شعار مدرسة نسيبة بنت كعب (١١–١٢)"><small>مديرة المدرسة '+esc(W.principal())+' · معلمات الدراسات الاجتماعية</small></footer>');
   drawWho();
   var offs=[];W.cleanup=function(){offs.forEach(function(f){f();});};

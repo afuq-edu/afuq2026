@@ -1,5 +1,5 @@
 /* =====================================================================
-   «هذا وطني» · النواة: أدوات، ثيمات، خلفية، ترحيب، تثبيت، موجّه الصفحات
+   «تحدّي هذا وطني» · النواة: أدوات، ثيمات، خلفية، ترحيب، تثبيت، موجّه الصفحات
    ===================================================================== */
 (function(){
 'use strict';
@@ -99,7 +99,7 @@ W.confetti=function(ms){if(matchMedia('(prefers-reduced-motion: reduce)').matche
 W.SKINS=[['raqq','رَقّ الوطن','كريمي وذهبي بألوان العلم، مثل الملصق'],['layl','لَيْلُ القِلاع','أخضر ليلي بنجوم ذهبية'],['annabi','عُنّابي','أحمر عميق بلمعة ذهبية']];
 W.skin=function(){var k=W.lsg('skin','raqq');return W.SKINS.some(function(s){return s[0]===k;})?k:'raqq';};
 W.applySkin=function(k){k=k||W.skin();document.documentElement.setAttribute('data-skin',k);var m=$('meta[name=theme-color]');if(m)m.content=k==='raqq'?'#F4EBD8':(k==='layl'?'#0F2A20':'#3A1216');SKY.start(k);};
-W.skinPicker=function(){var d=W.dlg('<h2>ألوان المنصة</h2><p class="muted">ثلاثة ثيمات من ألوان ملصق المسابقة.</p><div class="grid" style="gap:10px">'+W.SKINS.map(function(s){return '<button class="btn" style="justify-content:flex-start;min-height:60px" data-k="'+s[0]+'"><span class="badge '+(s[0]==='raqq'?'o':(s[0]==='layl'?'g':''))+'" style="width:38px;height:38px;border-radius:12px;font-size:14px">'+(W.skin()===s[0]?'✓':'')+'</span><span style="text-align:start"><b>'+s[1]+'</b><br><small class="muted">'+s[2]+'</small></span></button>';}).join('')+'</div>');
+W.skinPicker=function(){var d=W.dlg('<h2>الألوان</h2><p class="muted">ثلاثة ثيمات من ألوان ملصق المسابقة.</p><div class="grid" style="gap:10px">'+W.SKINS.map(function(s){return '<button class="btn" style="justify-content:flex-start;min-height:60px" data-k="'+s[0]+'"><span class="badge '+(s[0]==='raqq'?'o':(s[0]==='layl'?'g':''))+'" style="width:38px;height:38px;border-radius:12px;font-size:14px">'+(W.skin()===s[0]?'✓':'')+'</span><span style="text-align:start"><b>'+s[1]+'</b><br><small class="muted">'+s[2]+'</small></span></button>';}).join('')+'</div>');
   $$('[data-k]',d).forEach(function(b){b.onclick=function(){W.lss('skin',b.dataset.k);W.applySkin(b.dataset.k);d.close();};});};
 
 /* ---------- الخلفية: نخلات ضوئية ونجوم في الثيمين الداكنين ---------- */
@@ -130,20 +130,20 @@ W.animIn=function(m){if(REDUCED)return;$$('.view>*',m).forEach(function(k,i){if(
 W.greet=function(){return new Date().getHours()<12?'صَبَاحُ الْخَيْرِ':'مَسَاءُ الْخَيْرِ';};
 W.splash=function(done){if(REDUCED){done();return;}try{if(sessionStorage.getItem('watani:splash')){done();return;}sessionStorage.setItem('watani:splash','1');}catch(e){}
  var d=document.createElement('div');d.className='splash';d.setAttribute('role','presentation');
- d.innerHTML='<div class="in"><img src="img/emblem.webp" alt=""><div class="g">'+W.greet()+'، أَهْلًا بِكُنَّ</div><div class="t">هٰذَا وَطَنِي</div><div class="s">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</div><div class="sc">مدرسة نسيبة بنت كعب (١١–١٢)</div></div>'+W.wallSVG();
+ d.innerHTML='<div class="in"><img src="img/emblem.webp" alt=""><div class="g">'+W.greet()+'، أَهْلًا بِكُنَّ</div><div class="t">تَحَدِّي هٰذَا وَطَنِي</div><div class="s">مَعًا .. نَعْرِفُ وَطَنَنَا وَنَعْتَزُّ بِهِ</div><div class="sc">مدرسة نسيبة بنت كعب (١١–١٢)</div></div>'+W.wallSVG();
  document.body.appendChild(d);document.body.classList.add('splashing');var fin=false,end=function(){if(fin)return;fin=true;d.classList.add('out');document.body.classList.remove('splashing');done();setTimeout(function(){d.remove();},800);};d.onclick=end;setTimeout(end,3000);};
 
 /* ---------- التثبيت ---------- */
 var deferred=null;
 W.installed=function(){return (matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;};
 addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;document.documentElement.classList.add('can-install');});
-addEventListener('appinstalled',function(){deferred=null;document.documentElement.classList.add('is-installed');W.toast('ثُبِّتت المنصة على جهازك ✓');});
-W.install=function(){if(W.installed()){W.toast('المنصة مثبّتة على جهازك ✓');return;}
+addEventListener('appinstalled',function(){deferred=null;document.documentElement.classList.add('is-installed');W.toast('ثُبِّت «تحدّي هذا وطني» على جهازك ✓');});
+W.install=function(){if(W.installed()){W.toast('«تحدّي هذا وطني» مثبّت على جهازك ✓');return;}
  if(deferred){deferred.prompt();deferred.userChoice.then(function(){deferred=null;});return;}
  var ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
- W.dlg('<h2>تثبيت المنصة على جهازك</h2><p class="muted">تظهر أيقونة «هذا وطني» مع تطبيقاتك وتفتح بلمسة.</p>'+(ios?
-  '<ol class="steps"><li>افتحي المنصة في متصفح <b>Safari</b>.</li><li>اضغطي زر المشاركة <b>⬆︎</b> أسفل الشاشة (أو أعلاها في الآيباد).</li><li>اختاري <b>«إضافة إلى الشاشة الرئيسية»</b>.</li><li>اضغطي <b>«إضافة»</b>.</li></ol>':
-  '<ol class="steps"><li>افتحي قائمة المتصفح <b>⋮</b> أعلى الشاشة.</li><li>اختاري <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b>.</li><li>وافقي، وستظهر أيقونة المنصة مع تطبيقاتك.</li></ol><p class="muted">في الآيفون والآيباد: افتحيها في Safari ثم زر المشاركة ⬆︎ ثم «إضافة إلى الشاشة الرئيسية».</p>')+
+ W.dlg('<h2>تثبيت «تحدّي هذا وطني» على جهازك</h2><p class="muted">تظهر أيقونة «تحدّي هذا وطني» مع تطبيقاتك وتفتح بلمسة.</p>'+(ios?
+  '<ol class="steps"><li>افتحي الرابط في متصفح <b>Safari</b>.</li><li>اضغطي زر المشاركة <b>⬆︎</b> أسفل الشاشة (أو أعلاها في الآيباد).</li><li>اختاري <b>«إضافة إلى الشاشة الرئيسية»</b>.</li><li>اضغطي <b>«إضافة»</b>.</li></ol>':
+  '<ol class="steps"><li>افتحي قائمة المتصفح <b>⋮</b> أعلى الشاشة.</li><li>اختاري <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b>.</li><li>وافقي، وستظهر أيقونة «تحدّي هذا وطني» مع تطبيقاتك.</li></ol><p class="muted">في الآيفون والآيباد: افتحيها في Safari ثم زر المشاركة ⬆︎ ثم «إضافة إلى الشاشة الرئيسية».</p>')+
   '<div class="row" style="justify-content:flex-end"><button class="btn grn" data-close>حسنًا</button></div>');};
 if(W.installed())document.documentElement.classList.add('is-installed');
 

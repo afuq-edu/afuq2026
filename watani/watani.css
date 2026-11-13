@@ -159,7 +159,7 @@ html[data-skin="raqq"] .tag.l2{color:#8A6418}
 .hero .txt{padding:30px 30px 26px;display:flex;flex-direction:column;gap:12px;justify-content:center;position:relative;z-index:1}
 .hero .kick{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--green);font-size:14px}
 .hero .kick img{width:30px;height:30px}
-.hero h1{margin:0;font:700 clamp(38px,6vw,64px)/1.15 "Reem Kufi",sans-serif;color:var(--red)}
+.hero h1{margin:0;font:700 clamp(34px,5.2vw,58px)/1.2 "Reem Kufi",sans-serif;color:var(--red)}
 html[data-skin="layl"] .hero h1,html[data-skin="annabi"] .hero h1{color:var(--gold2)}
 .hero .sub{font:700 17px "Reem Kufi",sans-serif;color:var(--green)}
 .hero .slogan{align-self:flex-start;padding:6px 22px;border-radius:999px;background:linear-gradient(135deg,var(--gold3),#FFF7E0);border:1px solid var(--gold2);color:#4A3108;font:700 19px "Noto Naskh Arabic",serif;box-shadow:0 8px 20px -14px rgba(120,80,0,.6)}
@@ -310,7 +310,7 @@ html[data-skin="layl"] .fab,html[data-skin="annabi"] .fab{background:linear-grad
 .splash .in{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px}
 .splash img{width:110px;opacity:0;animation:rise .9s .1s forwards}
 .splash .g{color:var(--green);font-weight:700;opacity:0;animation:rise .7s .7s forwards}
-.splash .t{font:700 clamp(46px,10vw,84px)/1.2 "Reem Kufi",sans-serif;color:var(--red);opacity:0;animation:rise .8s 1s forwards}
+.splash .t{font:700 clamp(38px,9vw,78px)/1.25 "Reem Kufi",sans-serif;color:var(--red);opacity:0;animation:rise .8s 1s forwards}
 html[data-skin="layl"] .splash .t,html[data-skin="annabi"] .splash .t{color:var(--gold2)}
 .splash .s{font:700 20px "Noto Naskh Arabic",serif;color:var(--hd);opacity:0;animation:rise .8s 1.4s forwards}
 .splash .sc{color:var(--muted);opacity:0;animation:rise .8s 1.7s forwards}
