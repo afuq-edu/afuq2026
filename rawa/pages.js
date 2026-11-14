@@ -34,9 +34,9 @@ P.home=function(){var me=A.me(),td=A.tod(),ps=A.periodState(),nd=nextDay(),isT=n
   var first=String(me.short).replace(/^أ\.\s*/,'').split(' ')[0];
   var h='<div class="bento">';
   /* الغلاف الحيّ */
-  h+='<section class="card living" data-tod="'+td.k+'">'+A.scene('garden')+'<div class="lin"><div><span class="eyebrow">'+A.mark('x')+esc(me.school)+' · '+esc(me.title)+'</span>'+
-   '<h1>'+DA.greet()+'،<br><em>أ. '+esc(first)+'</em></h1><p class="sub">'+(isT?(cnt?'لديكِ اليوم '+cnt+' حصص':'لا حصص لديكِ اليوم'):'يومكِ الدراسي القادم '+esc(A.dayName(nd))+' وفيه '+cnt+' حصص')+(hwOpen?'، و'+hwOpen+' واجبات مفتوحة للتسليم':'')+'.</p></div>'+
-   '<div class="when"><span>'+ic('cal')+esc(A.fmt(DA.today()))+'</span><span>'+ic('moon')+esc(A.hijri())+'</span><span>'+ic('clock')+'<b data-clock></b> · '+esc(A.periodNow())+'</span></div>'+
+  h+='<section class="card living" data-tod="'+td.k+'"><div class="pic">'+A.scene('garden')+'<span class="eyebrow">'+A.mark('x')+esc(me.school)+' · '+esc(me.title)+'</span></div>'+
+   '<div class="cap"><h1>'+DA.greet()+'، <br><em>أ. '+esc(first)+'</em></h1><p class="sub">'+(isT?(cnt?'لديكِ اليوم '+cnt+' حصص':'لا حصص لديكِ اليوم'):'يومكِ الدراسي القادم '+esc(A.dayName(nd))+' وفيه '+cnt+' حصص')+(hwOpen?'، و'+hwOpen+' واجبات مفتوحة للتسليم':'')+'.</p></div>'+
+   '<div class="hbar"><div class="when"><span>'+ic('cal')+esc(A.fmt(DA.today()))+'</span><span>'+ic('moon')+esc(A.hijri())+'</span><span>'+ic('clock')+'<b data-clock></b> · '+esc(A.periodNow())+'</span></div>'+
    '<div class="hact"><a class="btn gold" href="#/att">'+ic('check')+' تحضير الطلبة</a><a class="btn ghost" href="#/prep">'+ic('note')+' خطط الدروس</a><a class="btn ghost" href="#/tools">'+ic('wheel')+' عجلة الأسماء</a></div></div></section>';
   /* الحصة الآن */
   var curP=ps.state==='in'?ps.i:ps.state==='gap'||ps.state==='before'?ps.i:-1,slot=isT&&curP>=0?row[curP]:null,les=slot?lessonFor(slot.cls,DA.today()):null;

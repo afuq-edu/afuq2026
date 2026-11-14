@@ -1,2 +1,2 @@
-{"name":"منارة · منصة المعلمة الأولى","short_name":"منارة","lang":"ar","dir":"rtl","start_url":"./","scope":"./","display":"standalone","background_color":"#F3F1F8","theme_color":"#4E3A9A",
+{"name":"ذُرى · منصة المعلمة الأولى","short_name":"ذُرى","lang":"ar","dir":"rtl","start_url":"./","scope":"./","display":"standalone","background_color":"#F3F1F8","theme_color":"#4E3A9A",
 "icons":[{"src":"icons/icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icons/icon-512.png","sizes":"512x512","type":"image/png"},{"src":"icons/maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}

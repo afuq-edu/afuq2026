@@ -1,0 +1,40 @@
+/* ============================================================
+   المشهد الحيّ شبه الواقعي · طبقات scene.js
+   ============================================================ */
+.scn2{position:absolute;inset:0;overflow:hidden;direction:ltr;container-type:size;isolation:isolate;border-radius:inherit}
+.scn2 .stage{position:absolute;top:calc(var(--fy,.7)*100%);left:calc(var(--fx,.5)*100%);width:100%;width:max(100cqw,190.48cqh);aspect-ratio:800/420;transform:translate(calc(var(--fx,.5)*-100%),calc(var(--fy,.7)*-100%))}
+.scn2 .L{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.scn2 .cl{width:200%;display:flex;will-change:transform;animation:scn-drift 240s linear infinite}
+.scn2 .cl svg{width:50%;height:100%;flex:none}
+@keyframes scn-drift{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
+.scn2 .tw .t1{animation:scn-tw 3.4s ease-in-out infinite alternate}
+.scn2 .tw .t2{animation:scn-tw 4.6s ease-in-out -2s infinite alternate}
+@keyframes scn-tw{from{opacity:.15}to{opacity:1}}
+.scn2 .grade{display:none}
+.scn2 .grain{position:absolute;inset:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
+.scn2.swap .stage{animation:scn-in .9s ease both}
+@keyframes scn-in{from{opacity:.25;filter:brightness(1.25)}to{opacity:1;filter:none}}
+/* العلم */
+.scn2 .flag{position:absolute;width:2.1%;aspect-ratio:30/18;transform-origin:0 50%;animation:scn-flag 2.6s ease-in-out infinite alternate;filter:brightness(calc(1 - var(--n,0)*.55))}
+.scn2 .flag svg{width:100%;height:100%;display:block}
+@keyframes scn-flag{from{transform:skewY(-7deg) scaleX(1)}to{transform:skewY(6deg) scaleX(.9)}}
+/* الطيور */
+.scn2 .bd{position:absolute;left:0;top:26%;width:1.9%;aspect-ratio:2/1;animation:scn-fly 44s linear infinite;opacity:.7}
+.scn2 .bd::before{content:"";position:absolute;inset:0;background:no-repeat center/100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M1 8Q6 1 12 7Q18 1 23 8' fill='none' stroke='%23222a30' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E");animation:scn-flap .55s ease-in-out infinite alternate}
+.scn2 .b2{top:19%;width:1.4%;animation-duration:58s;animation-delay:-21s}.scn2 .b3{top:32%;width:1.2%;animation-duration:51s;animation-delay:-36s}
+@keyframes scn-fly{from{transform:translate3d(-200%,0,0)}50%{transform:translate3d(2600%,-160%,0)}to{transform:translate3d(5600%,40%,0)}}
+@keyframes scn-flap{from{transform:scaleY(1)}to{transform:scaleY(.35)}}
+.scn2 .eagle{position:absolute;left:52%;top:30%;width:4.2%;aspect-ratio:40/16;animation:scn-soar 46s ease-in-out infinite alternate;opacity:.82}
+.scn2 .eagle svg{width:100%;height:100%;display:block;animation:scn-bank 9s ease-in-out infinite alternate}
+@keyframes scn-soar{from{transform:translate3d(-320%,40%,0) scale(.8)}50%{transform:translate3d(120%,-180%,0) scale(1.05)}to{transform:translate3d(420%,10%,0) scale(.7)}}
+@keyframes scn-bank{from{transform:rotate(-9deg)}to{transform:rotate(11deg)}}
+.scn2 .ff circle{animation:scn-ff 5s ease-in-out infinite alternate}
+.scn2 .ff circle:nth-child(2n){animation-duration:7s;animation-delay:-3s}
+@keyframes scn-ff{from{opacity:.1}to{opacity:1}}
+/* زر تجربة أوقات اليوم */
+.scn2 .tod-btn{position:absolute;top:12px;left:12px;z-index:3;display:inline-flex;align-items:center;gap:0;height:34px;min-width:34px;padding:0 8px;border-radius:999px;border:1px solid rgba(255,255,255,.34);background:rgba(10,18,30,.26);color:#fff;-webkit-backdrop-filter:blur(10px) saturate(1.3);backdrop-filter:blur(10px) saturate(1.3);cursor:pointer;font:600 12.5px/1 var(--fb,inherit);direction:rtl;transition:background .2s,gap .25s}
+.scn2 .tod-btn:hover{background:rgba(10,18,30,.42)}
+.scn2 .tod-btn svg{width:17px;height:17px;flex:none}
+.scn2 .tod-btn span{max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .3s ease,margin .3s}
+.scn2 .tod-btn.on span{max-width:90px;margin-inline-start:6px}
+@media (prefers-reduced-motion:reduce){.scn2 *{animation:none!important}.scn2 .cl{transform:translate3d(-25%,0,0)}}

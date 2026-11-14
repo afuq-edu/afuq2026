@@ -1,5 +1,5 @@
 /* =====================================================================
-   «منارة» · أقسام منصة المعلمة الأولى
+   «ذُرى» · أقسام منصة المعلمة الأولى
    الرئيسية، فريقي، الزيارات الصفية، متابعة التحضير، لقاءات القسم، النتائج،
    الخطط العلاجية، التنمية المهنية، بنود التقييم، الإنجازات، التقارير، الإعدادات.
    ===================================================================== */
@@ -30,10 +30,10 @@ I.searchItems=function(){var o=[];team().forEach(function(t){o.push({t:t.short,s
 P.home=function(){var me=A.me(),td=A.tod(),ps=A.periodState(),nd=nextDay(),isT=nd===DA.today(),di=I.dayIdx(nd),g=(DA.rec('tt')||{}).grid||[],row=g[di]||[],TM=team();
   var planV=visits(function(v){return v.st==='plan';}),upV=planV.filter(function(v){return v.d>=DA.today();}).sort(function(a,b){return a.d<b.d?-1:1;});
   var first=String(me.short).replace(/^أ\.\s*/,'').split(' ')[0];
-  var h='<div class="bento">';
-  h+='<section class="card living" data-tod="'+td.k+'">'+A.scene('sea')+'<div class="lin"><div><span class="eyebrow">'+A.mark('x')+esc(me.school)+' · '+esc(me.title)+'</span>'+
-   '<h1>'+DA.greet()+'،<br><em>أ. '+esc(first)+'</em></h1><p class="sub">فريقكِ '+TM.length+' معلمات، ولديكِ '+upV.length+' زيارات مجدولة'+(upV[0]?'، أقربها '+esc(A.rel(upV[0].d))+' لـ'+esc(T(upV[0].t).short):'')+'.</p></div>'+
-   '<div class="when"><span>'+ic('cal')+esc(A.fmt(DA.today()))+'</span><span>'+ic('moon')+esc(A.hijri())+'</span><span>'+ic('clock')+'<b data-clock></b> · '+esc(A.periodNow())+'</span></div>'+
+  var h='<div class="bento pn">';
+  h+='<section class="card living pano" data-tod="'+td.k+'"><div class="pic" style="--fy:.42">'+A.scene('peaks')+'<span class="eyebrow">'+A.mark('x')+esc(me.school)+' · '+esc(me.title)+'</span></div>'+
+   '<div class="cap"><h1>'+DA.greet()+'، <br><em>أ. '+esc(first)+'</em></h1><p class="sub">فريقكِ '+TM.length+' معلمات، ولديكِ '+upV.length+' زيارات مجدولة'+(upV[0]?'، أقربها '+esc(A.rel(upV[0].d))+' لـ'+esc(T(upV[0].t).short):'')+'.</p></div>'+
+   '<div class="hbar"><div class="when"><span>'+ic('cal')+esc(A.fmt(DA.today()))+'</span><span>'+ic('moon')+esc(A.hijri())+'</span><span>'+ic('clock')+'<b data-clock></b> · '+esc(A.periodNow())+'</span></div>'+
    '<div class="hact"><button class="btn gold" data-nv>'+ic('eye')+' زيارة صفية جديدة</button><a class="btn ghost" href="#/follow">'+ic('tasks')+' متابعة التحضير</a><a class="btn ghost" href="#/tests">'+ic('chart')+' تحليل النتائج</a></div></div></section>';
   /* نبض الفريق */
   h+='<div class="card s4 r2"><div class="ctitle"><span class="ic2">'+ic('users')+'</span><h3>نبض الفريق</h3><span class="sp"></span><a class="btn ghost sm" href="#/team">الكل</a></div><div class="lead">'+
@@ -244,7 +244,7 @@ function report(k){var me=A.me(),title,b='',TM=team();
      b='<div class="kp"><div><b>'+TM.length+'</b>معلمات</div><div><b>'+V.length+'</b>زيارة منفذة</div><div><b>'+(TM.reduce(function(a,t){return a+folPct(t.id);},0)/TM.length).toFixed(0)+'٪</b>الالتزام بالتحضير</div><div><b>'+mastery(d).toFixed(0)+'٪</b>إتقان القسم</div><div><b>'+pd.filter(function(x){return x.st==='done';}).length+'</b>نشاطًا مهنيًا</div><div><b>'+DA.list('meet').length+'</b>لقاءات</div><div><b>'+DA.list('rem').length+'</b>خطط علاجية</div><div><b>'+DA.list('ach').length+'</b>إنجازات</div></div>'+
       '<h3>الزيارات الصفية</h3>'+vis+'<h3>تحليل النتائج حسب المهارة</h3>'+res.split('<h3>')[0]+'<h3>التنمية المهنية</h3><ul>'+pd.map(function(x){return '<li>'+esc(x.title)+' ('+({done:'منفّذ',run:'جارٍ',plan:'مخطط'}[x.st])+')</li>';}).join('')+'</ul>';}}
   var h='<div class="row no-print" style="margin:16px 0"><a class="btn ghost" href="#/reports">'+ic('right')+' كل التقارير</a><span class="sp"></span><button class="btn gold" data-p>'+ic('print')+' طباعة / حفظ PDF</button></div>'+
-   '<div class="paper">'+phead(title)+'<p style="color:#666;margin-top:-6px">قسم '+esc(me.subj)+' · حتى '+esc(A.fmt(A.workday()))+'</p>'+b+'<div class="sig"><span>المعلمة الأولى: '+esc(me.short)+'</span><span>اعتماد مديرة المدرسة: ...................</span></div><div class="wm2">نسخة عرض من منصة منارة · جميع البيانات وهمية</div></div>';
+   '<div class="paper">'+phead(title)+'<p style="color:#666;margin-top:-6px">قسم '+esc(me.subj)+' · حتى '+esc(A.fmt(A.workday()))+'</p>'+b+'<div class="sig"><span>المعلمة الأولى: '+esc(me.short)+'</span><span>اعتماد مديرة المدرسة: ...................</span></div><div class="wm2">نسخة عرض من منصة ذُرى · جميع البيانات وهمية</div></div>';
   on('[data-p]','click',function(){window.print();});
   return h;}
 
