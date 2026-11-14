@@ -1,5 +1,5 @@
 /* =====================================================================
-   «رُواء» و«منارة» · الهيكل المشترك
+   «رُواء» و«ذُرى» · الهيكل المشترك
    الشريط العلوي العائم، الشريط الجانبي النحيل، جزيرة الجوال وورقة الأقسام،
    البحث السريع، الموجّه، الغلاف الحيّ بحسب ساعة اليوم، النماذج الموحّدة،
    صفحة القائمة العامة، الترحيب، والبذر الأول. إعدادات كل منصة في window.PD.
@@ -142,60 +142,9 @@ A.coverSVG=function(t,c){var h=0;String(t||'').split('').forEach(function(ch){h=
   return '<svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="cg'+h+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+col+'"/><stop offset="1" stop-color="'+col+'" stop-opacity=".7"/></linearGradient></defs><rect width="400" height="160" fill="url(#cg'+h+')"/>'+sh+'<path d="M200 58l6 13 14 2-10 10 2 14-12-7-12 7 2-14-10-10 14-2z" fill="#fff" opacity=".55"/></svg>';};
 
 /* ---------- الغلاف الحيّ: مشهد يتبدّل مع ساعة اليوم ---------- */
-var TOD={
- dawn:{s:['#2E3160','#B87A8E','#F4C38E'],h:['#6E6A8A','#4F4C6E','#35324F'],night:.35,dusk:.6,sea:['#5B6E9A','#2C3560']},
- day:{s:['#4F9ED3','#9CCFEA','#F4E6C8'],h:['#9CBFA6','#6A9A80','#46745F'],night:0,dusk:0,sea:['#3E9CC2','#1C6C93']},
- noon:{s:['#3A8FCB','#86C3E8','#E4F1F6'],h:['#A6C6A8','#70A084','#4A7A62'],night:0,dusk:0,sea:['#2F9FC7','#16698F']},
- asr:{s:['#4A86BC','#D9B48C','#F5D6A0'],h:['#A69A7A','#7E7C5E','#5A5E44'],night:0,dusk:.1,sea:['#4F8FB0','#2A5C80']},
- sunset:{s:['#2A2452','#B4527A','#F39A5C'],h:['#6B4A6A','#4A3352','#2E2038'],night:.3,dusk:.85,sea:['#8A5878','#3A2848']},
- night:{s:['#060A1C','#121A3C','#2A2552'],h:['#1D2644','#141B33','#0C1122'],night:1,dusk:1,sea:['#1A2550','#0A1030']}
-};
-A.tod=function(){var d=new Date(),m=d.getHours()+d.getMinutes()/60;var k=m<5?'night':m<6.6?'dawn':m<11?'day':m<14.5?'noon':m<16.8?'asr':m<18.6?'sunset':'night';
-  /* موضع الشمس أو القمر على قوس */
-  var t,isSun=m>=5.6&&m<18.6;if(isSun)t=(m-5.6)/13;else{var mm2=m<5.6?m+24:m;t=(mm2-18.6)/11;}t=Math.max(0,Math.min(1,t));
-  var x=720-t*640,y=250-Math.sin(t*Math.PI)*190;return {k:k,c:TOD[k],sun:isSun,x:x,y:y};};
-A.scene=function(kind){var td=A.tod(),c=td.c,st='';
-  var seed=11;function r(){seed=(seed*9301+49297)%233280;return seed/233280;}
-  for(var i=0;i<46;i++)st+='<circle cx="'+(r()*800).toFixed(0)+'" cy="'+(r()*200).toFixed(0)+'" r="'+(r()*1.3+.3).toFixed(2)+'" fill="#fff"/>';
-  var orb=td.sun?'<circle r="90" fill="url(#sg)" opacity=".55"/><circle r="30" fill="#FFE8A8"/><circle r="30" fill="url(#sg2)"/>'
-   :'<circle r="110" fill="url(#mg)" opacity=".7"/><circle r="26" fill="#F7F2DE"/><circle cx="-7" cy="-5" r="5" fill="#E3DCC2" opacity=".7"/><circle cx="8" cy="7" r="3.5" fill="#E3DCC2" opacity=".6"/><circle cx="4" cy="-10" r="2.5" fill="#E3DCC2" opacity=".6"/>';
-  var cl=function(cls,x,y,s){return '<g class="cl '+cls+'" opacity="'+(.75-c.night*.55)+'"><g transform="translate('+x+' '+y+') scale('+s+')"><ellipse cx="0" cy="0" rx="46" ry="16" fill="#fff"/><ellipse cx="-18" cy="-10" rx="22" ry="16" fill="#fff"/><ellipse cx="14" cy="-13" rx="26" ry="19" fill="#fff"/></g></g>';};
-  var defs='<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+c.s[0]+'"/><stop offset=".6" stop-color="'+c.s[1]+'"/><stop offset="1" stop-color="'+c.s[2]+'"/></linearGradient>'+
-   '<radialGradient id="sg"><stop offset="0" stop-color="#FFE9B0"/><stop offset="1" stop-color="#FFE9B0" stop-opacity="0"/></radialGradient><radialGradient id="sg2" cx=".4" cy=".35"><stop offset="0" stop-color="#FFFBEA"/><stop offset="1" stop-color="#FFD27A" stop-opacity=".2"/></radialGradient>'+
-   '<radialGradient id="mg"><stop offset="0" stop-color="#E9EEFF" stop-opacity=".55"/><stop offset="1" stop-color="#E9EEFF" stop-opacity="0"/></radialGradient>'+
-   '<linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+c.sea[0]+'"/><stop offset="1" stop-color="'+c.sea[1]+'"/></linearGradient>'+
-   '<linearGradient id="bm" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF4C8" stop-opacity=".55"/><stop offset="1" stop-color="#FFF4C8" stop-opacity="0"/></linearGradient></defs>';
-  var base='<rect width="800" height="420" fill="url(#sk)"/><g class="stars">'+st+'</g><g transform="translate('+td.x.toFixed(0)+' '+td.y.toFixed(0)+')">'+orb+'</g>'+cl('',120,70,1)+cl('c2',420,110,.75)+cl('c3',640,60,.6)+
-   '<g class="birds" fill="none" stroke="#2C3A40" stroke-width="2" stroke-linecap="round" opacity=".6"><path d="M0 120q6-6 12 0q6-6 12 0"/><path d="M30 150q5-5 10 0q5-5 10 0"/><path d="M-20 100q4-4 8 0q4-4 8 0"/></g>';
-  var land;
-  if(kind==='sea'){var bx=150,by=168;
-   land='<path d="M0 262 Q120 236 240 254 T520 246 T800 258 V300 H0z" fill="'+c.h[0]+'" opacity=".85"/>'+
-    '<rect y="290" width="800" height="130" fill="url(#sea)"/>'+
-    '<g class="shine"><ellipse cx="'+td.x.toFixed(0)+'" cy="320" rx="26" ry="3" fill="#fff" opacity=".5"/><ellipse cx="'+td.x.toFixed(0)+'" cy="340" rx="40" ry="3" fill="#fff" opacity=".35"/><ellipse cx="'+td.x.toFixed(0)+'" cy="362" rx="56" ry="3.5" fill="#fff" opacity=".25"/><ellipse cx="'+td.x.toFixed(0)+'" cy="388" rx="70" ry="4" fill="#fff" opacity=".18"/></g>'+
-    '<path class="wave" d="M-40 312 q20-6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" stroke="#fff" stroke-opacity=".22" stroke-width="2" fill="none"/>'+
-    '<path class="wave w2" d="M-40 350 q25-7 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0" stroke="#fff" stroke-opacity=".16" stroke-width="2" fill="none"/>'+
-    '<g class="boat"><g transform="translate(860 300)"><g class="bob"><path d="M-28 0h56l-10 12h-36z" fill="'+c.h[2]+'"/><path d="M0 -2V-50L26 -6z" fill="#FFF8EE" opacity=".95"/><path d="M-3 -2V-40L-22 -6z" fill="#FFF8EE" opacity=".8"/></g></g></g>'+
-    '<polygon class="beam" style="--bx:'+bx+'px;--by:'+by+'px" points="'+bx+','+by+' '+(bx+520)+','+(by-70)+' '+(bx+520)+','+(by+70)+'" fill="url(#bm)"/>'+
-    '<path d="M0 230 Q60 222 110 236 Q160 228 230 258 Q260 290 250 420 H0z" fill="'+c.h[2]+'"/>'+
-    '<g><path d="M136 236 L141 182 H159 L164 236z" fill="#F6F1E8"/><path d="M137.5 220 L139.2 202 H160.8 L162.5 220z" fill="#C85A4A"/><path d="M140.6 192 L141 186 H159 L159.4 192z" fill="#C85A4A"/>'+
-    '<rect x="138" y="178" width="24" height="5" rx="1" fill="#3A3550"/><rect x="142" y="162" width="16" height="16" rx="2" fill="#FFF3C2"/><rect x="142" y="162" width="16" height="16" rx="2" fill="#FFE27A" class="glow-win"/><path d="M139 162 L150 150 L161 162z" fill="#3A3550"/><rect x="148" y="144" width="4" height="7" fill="#3A3550"/>'+
-    '<circle cx="150" cy="168" r="22" fill="#FFF0B0" class="glow-win" opacity=".35"/></g>'+
-    '<path d="M560 420 Q600 380 680 384 Q760 388 800 370 V420z" fill="'+c.h[1]+'" opacity=".9"/>';
-  }else{
-   land='<path d="M0 250 Q110 205 230 232 T470 222 T800 236 V420 H0z" fill="'+c.h[0]+'"/>'+
-    '<path d="M0 300 Q150 262 300 286 T600 278 T800 290 V420 H0z" fill="'+c.h[1]+'"/>'+
-    /* المدرسة بأقواس عُمانية */
-    '<g transform="translate(70 214)"><rect x="0" y="34" width="200" height="74" fill="#F3E6D2"/><rect x="0" y="30" width="200" height="8" fill="#E1CDB0"/>'+
-    '<path d="M70 34 V12 h60 V34" fill="#F3E6D2"/><path d="M66 12h68v-6h-68z" fill="#E1CDB0"/><path d="M92 6 V-14 a8 8 0 0 1 16 0 V6" fill="#E1CDB0"/><path d="M100 -24 v-10 M100 -34 l12 4 l-12 4" stroke="#B65A3C" stroke-width="2" fill="#D2704F"/>'+
-    [14,46,140,172].map(function(x){return '<path d="M'+x+' 92 V66 a9 9 0 0 1 18 0 V92z" fill="#7C6A55" opacity=".55"/><path d="M'+x+' 92 V66 a9 9 0 0 1 18 0 V92z" fill="#FFD77A" class="glow-win"/>';}).join('')+
-    '<path d="M86 108 V70 a14 14 0 0 1 28 0 V108z" fill="#6E5640"/><path d="M86 108 V70 a14 14 0 0 1 28 0 V108z" fill="#FFC970" class="glow-win" opacity=".8"/></g>'+
-    /* شجرة غاف */
-    '<g transform="translate(330 300)"><path d="M0 0 C2 -30 -4 -50 6 -72" stroke="#5A4632" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M4 -50 C-14 -62 -26 -60 -36 -66" stroke="#5A4632" stroke-width="4" fill="none" stroke-linecap="round"/>'+
-    '<ellipse cx="4" cy="-86" rx="50" ry="20" fill="'+c.h[2]+'"/><ellipse cx="-30" cy="-70" rx="28" ry="13" fill="'+c.h[2]+'"/><ellipse cx="34" cy="-74" rx="26" ry="12" fill="'+c.h[2]+'"/></g>'+
-    '<path d="M0 350 Q200 318 420 340 T800 336 V420 H0z" fill="'+c.h[2]+'"/>'+
-    '<g class="ff" fill="#FFE98A">'+[[180,330],[260,312],[420,340],[520,322],[610,346],[700,318],[90,352],[360,360]].map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2.4"/>';}).join('')+'</g>';
-  }
-  return '<svg class="scn" viewBox="0 0 800 420" preserveAspectRatio="'+(innerWidth<700?'xMinYMax':'xMidYMax')+' slice" aria-hidden="true" style="--night:'+c.night+';--dusk:'+c.dusk+'">'+defs+base+land+'</svg>';};
+/* المشهد الحيّ: يرسمه scene.js (إضاءة من ارتفاع الشمس الحقيقي) */
+A.tod=function(){return {k:window.SCENE?SCENE.light().k:'day'};};
+A.scene=function(kind){return window.SCENE?SCENE.html(kind):'';};
 
 /* ---------- الرأس والشريط والجزيرة ---------- */
 A.mark=function(cls){return '<img class="'+(cls||'mk')+'" src="icons/mark.svg" alt="" draggable="false">';};

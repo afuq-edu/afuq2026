@@ -1,6 +1,6 @@
 /* عامل الخدمة لمنصة «دفّة»: تعمل الواجهة دون إنترنت بعد أول زيارة. ارفعي رقم الإصدار عند تحديث الملفات. */
-var V='idara-v1';
-var CORE=['./','index.html','app.css','core.js','fx.js','sounds.js','data.js','app.js','pages.js','touches.js','touches.css','touches2.js','touches2.css','manifest.webmanifest',
+var V='idara-v2';
+var CORE=['./','index.html','app.css','scene.css','scene.js','core.js','fx.js','sounds.js','data.js','app.js','pages.js','touches.js','touches.css','touches2.js','touches2.css','manifest.webmanifest',
   'icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','icons/favicon-64.png','icons/mark.svg'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return Promise.all(CORE.map(function(u){return c.add(u).catch(function(){});}));}).then(function(){return self.skipWaiting();}));});
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k.indexOf('idara-')===0&&k!==V;}).map(function(k){return caches.delete(k);}));}).then(function(){return self.clients.claim();}));});

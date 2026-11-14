@@ -18,16 +18,14 @@ P.home=function(){var S=A.school(),wd=A.workday(),isT=A.isToday(wd),T=A.teachers
   var need=A.needOn(wd),cov=need.filter(function(x){return x.sub;}).length;
   var vis=DA.list('vis',function(v){return v.kind==='sup';}),vd=vis.filter(function(v){return v.st==='done';});
   var visited={};vd.forEach(function(v){visited[v.t]=1;});
-  var stars='';for(var i=0;i<26;i++)stars+='<i style="top:'+(Math.random()*90).toFixed(1)+'%;left:'+(Math.random()*100).toFixed(1)+'%;--d:'+(Math.random()*3).toFixed(2)+'s"></i>';
-  var h='<section class="hero"><div class="glow a"></div><div class="glow b"></div><div class="stars" aria-hidden="true">'+stars+'</div>'+
-   '<svg class="cloud" viewBox="0 0 120 50" aria-hidden="true"><path d="M20 40a14 14 0 0 1 4-27 20 20 0 0 1 37-4 16 16 0 0 1 30 8 12 12 0 0 1 9 23z"/></svg>'+
+  var h='<section class="hero has-scene">'+(window.SCENE?SCENE.html('campus'):'')+'<div class="hscrim" aria-hidden="true"></div>'+
    '<div class="wrap"><div class="hin"><div class="logo-ring">'+A.mark('x')+'</div><div class="htxt">'+
    '<div class="topline"><span>'+esc(S.place)+'</span><i></i><span>'+esc(S.cycle)+'</span><i></i><span>العام الدراسي '+esc(S.year)+'</span></div>'+
    '<h1>'+esc(S.name)+'</h1><div class="motto">'+esc(S.motto)+'</div>'+
    '<div class="greet">'+DA.greet()+'، <b>'+esc(S.principal)+'</b> · مديرة المدرسة</div>'+
    '<div class="when"><span class="pillx">'+ic('cal')+esc(A.fmt(DA.today()))+'</span><span class="pillx">'+ic('moon')+esc(A.hijri())+'</span><span class="pillx">'+ic('clock')+'<span class="clock" data-clock></span> · <span data-period>'+esc(A.periodNow())+'</span></span></div>'+
    '<div class="hact"><a class="btn gold" href="#/tatt">'+ic('check')+' تحضير المعلمات</a><a class="btn ghost" href="#/subs">'+ic('swap')+' الاحتياط '+(need.length-cov?'<span class="pill-n">'+(need.length-cov)+'</span>':'')+'</a><a class="btn ghost" href="#/reports">'+ic('report')+' التقارير</a></div>'+
-   '</div></div></div><div class="scape" aria-hidden="true"><svg viewBox="0 0 1200 92" preserveAspectRatio="none"><path fill="#fff" d="M0 70 Q200 40 400 62 T800 58 T1200 66 V92 H0z"/><path fill="#fff" d="M520 92V50h18V38h10v12h20V30h12v-8h6v8h12v20h20V38h10v12h18v42z"/></svg></div></section>';
+   '</div></div></div></section>';
   h+='<div class="wrap kpi-wrap"><div class="kpis">'+
    stat('student','--k2',stu.length,'طالبًا وطالبة',A.classes().length+' شعبة')+
    stat('users','--k1',T.length,'معلمة','')+

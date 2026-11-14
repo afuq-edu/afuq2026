@@ -625,3 +625,18 @@ html[data-mode="light"] .foot .fin{background:var(--hd)}
 @media (max-width:700px){.kpi-wrap .kpis{grid-template-columns:repeat(2,1fr)}}
 .stat small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .stat>span:last-child{min-width:0}
+
+/* ============ الغلاف بمشهد حيّ شبه واقعي (scene.js) ============ */
+.hero.has-scene{background:#0F2C3C;isolation:isolate}
+.hero.has-scene::before{display:none}
+.hero.has-scene .scn2{z-index:-2;border-radius:0;--z:1.3;--fx:1;--fy:.66}
+.hero.has-scene .scn2 .stage{width:calc(max(100cqw,190.48cqh)*var(--z,1))}
+.hero.has-scene .hscrim{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(270deg,rgba(8,24,36,.9) 0%,rgba(8,24,36,.8) 42%,rgba(8,24,36,.4) 64%,rgba(8,24,36,0) 82%),linear-gradient(0deg,rgba(8,24,36,.55),rgba(8,24,36,0) 36%)}
+.hero.has-scene .scn2 .tod-btn{top:14px;left:16px}
+.hero.has-scene .hin{text-shadow:0 1px 14px rgba(0,0,0,.35)}
+@media (max-width:700px){
+ .hero.has-scene{padding-top:176px}
+ .hero.has-scene .scn2{inset:0 0 auto 0;height:214px;--z:1;--fx:.26;--fy:.74}
+ .hero.has-scene .hscrim{background:linear-gradient(180deg,rgba(15,44,60,0) 0,rgba(15,44,60,0) 120px,#0F2C3C 212px)}
+ .hero.has-scene .logo-ring{margin-top:-58px}
+}
