@@ -1,0 +1,97 @@
+/* =====================================================================
+   اللمسات الخمسون الثانية (51–100) · هادئة وطبيعية، تعتمد متغيرات الثيم فقط
+   51–76 بالـCSS، و77–100 تفعّلها touches2.js
+   ===================================================================== */
+/* (51) خط أنعم وأوضح */
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+/* (52) عناوين متوازنة الأسطر وفقرات بلا كلمة يتيمة */
+h1,h2,h3,.h1{text-wrap:balance}p,.note{text-wrap:pretty}
+/* (53) أرقام متساوية العرض فلا ترتجف أثناء العدّ */
+.stat b,.ring b,.t-clock,.chip,.pct,[class*="pct"]{font-variant-numeric:tabular-nums}
+/* (54) مربعات الاختيار والمنزلقات بلون الثيم */
+input[type=checkbox],input[type=radio],input[type=range],progress{accent-color:var(--a)}
+/* (55) ضغطة ناعمة للأزرار بلا وميض اللمس الأزرق */
+a,button,[role=button]{-webkit-tap-highlight-color:transparent}
+.btn{transition:transform .18s cubic-bezier(.3,.7,.4,1.4),box-shadow .25s,filter .25s}.btn:active{transform:scale(.97)}
+/* (56) النص التوضيحي يخفت عند الكتابة */
+input::placeholder,textarea::placeholder{transition:opacity .3s,transform .3s}input:focus::placeholder,textarea:focus::placeholder{opacity:.35;transform:translateX(-4px)}
+/* (57) شارة القسم النشط تنمو من الأعلى */
+.nav a.on{animation:t2On .45s cubic-bezier(.2,.8,.2,1)}@keyframes t2On{from{box-shadow:inset 0 0 0 var(--a)}}
+/* (58) ضوء خفيف يعبر عنصر القائمة عند المرور */
+@media (hover:hover){.nav a{background-image:linear-gradient(100deg,transparent 30%,rgba(var(--a-rgb),.12) 50%,transparent 70%);background-size:250% 100%;background-position:120% 0;background-repeat:no-repeat}
+ .nav a:hover{background-position:-20% 0;transition:background-position .7s ease,background-color .25s,color .25s}}
+/* (59) أيقونة عنوان البطاقة تتوهج حين تمرّين */
+.ctitle .ci{transition:box-shadow .4s,transform .4s}@media (hover:hover){.card:hover .ctitle .ci{box-shadow:0 0 0 4px rgba(var(--a-rgb),.12),0 6px 16px -8px rgba(var(--a-rgb),.8)}}
+/* (60) إطار شعري داخل الصور */
+.wide-img,.gal img,.cover img,.lg img{outline:1px solid rgba(255,255,255,.18);outline-offset:-1px}
+/* (61) نقاط القوائم معيّنات ذهبية */
+ul.recs{list-style:none;padding-inline-start:4px}ul.recs li{position:relative;padding-inline-start:20px}
+ul.recs li::before{content:"";position:absolute;inset-inline-start:2px;top:.72em;width:7px;height:7px;background:linear-gradient(135deg,var(--a2),var(--a));transform:rotate(45deg);border-radius:1.5px}
+/* (62) صفوف الجداول تُضاء عند المرور */
+@media (hover:hover){table tbody tr{transition:background .2s}table tbody tr:hover{background:var(--a-soft)}}
+/* (63) خط العنوان الصغير يُرسم عند فتح القسم */
+.sec-head .eyebrow::after{content:"";display:inline-block;vertical-align:middle;height:1px;width:46px;margin-inline-start:10px;background:linear-gradient(90deg,rgba(var(--a-rgb),.9),transparent);transform-origin:right;animation:t2Line .9s .2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes t2Line{from{transform:scaleX(0)}}
+/* (64) نجمة صغيرة قبل عنوان النافذة */
+.dlg .box>h2::before{content:"";display:inline-block;width:9px;height:9px;margin-inline-end:9px;vertical-align:.12em;background:linear-gradient(135deg,var(--a2),var(--a));transform:rotate(45deg);border-radius:2px;box-shadow:0 0 10px rgba(var(--a-rgb),.6)}
+/* (65) وميض لطيف في أماكن الصور الفارغة */
+.cover .ph{background-image:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);background-size:250% 100%;animation:t2Ph 2.8s ease-in-out infinite}
+@keyframes t2Ph{from{background-position:120% 0}to{background-position:-30% 0}}
+/* (66) انتقال الألوان بنعومة عند تغيير الثيم */
+html.t2-theming body,html.t2-theming .top,html.t2-theming .card,html.t2-theming .nav a,html.t2-theming .tabbar,html.t2-theming .btn,html.t2-theming .chip,html.t2-theming .hero{transition:background-color .6s,border-color .6s,color .6s,box-shadow .6s!important}
+/* (67) ضوء يجري على خط الأقواس */
+.arches::before{background-size:200% 100%;animation:t2Arch 7s linear infinite}
+@keyframes t2Arch{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
+/* (68) لمعة على الصور الرمزية للمعلمات */
+.av{position:relative;overflow:hidden}.av::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);transform:translateX(-120%);transition:transform .8s}
+@media (hover:hover){.card:hover .av::after,a:hover .av::after,button:hover .av::after,.av:hover::after{transform:translateX(120%)}}
+/* (69) حلقة تركيز للبطاقات القابلة للفتح */
+[role=button].card:focus-visible,.card[tabindex]:focus-visible{outline:2px solid rgba(var(--a-rgb),.8);outline-offset:3px}
+/* (70) الصور لا تُسحب بالخطأ */
+img{-webkit-user-drag:none}
+/* (71) النص المختصر يتلاشى بدل أن يُقطع */
+.clamp{-webkit-mask-image:linear-gradient(180deg,#000 60%,transparent);mask-image:linear-gradient(180deg,#000 60%,transparent)}
+/* (72) تكبير بطيء جدًا لأغلفة الأعمال حين تظهر */
+.wk.t-in .cover img{animation:t2Kb 16s ease-in-out infinite alternate}@keyframes t2Kb{to{transform:scale(1.06)}}
+/* (73) صفحات المكتبة تميل قليلًا عند المرور */
+@media (hover:hover){.doc .pg img{transition:transform .5s cubic-bezier(.2,.8,.2,1)}.doc:hover .pg img{transform:rotate(-1.5deg) scale(1.03)}}
+/* (74) الانتقال إلى عنصر يتوقف تحت الرأس لا خلفه */
+[id],.card{scroll-margin-top:90px}
+/* (75) الحركات تتوقف حين تكون الصفحة مخفية (توفير للبطارية) */
+body.t-hidden *,body.t-hidden *::before,body.t-hidden *::after{animation-play-state:paused!important}
+/* (76) مؤشر الكتابة بلون الثيم */
+input,textarea{caret-color:var(--a)}
+
+/* ===== أصناف تفعّلها touches2.js ===== */
+/* (79) اهتزاز الحقل المطلوب */
+.t2-shake{animation:t2Shake .5s cubic-bezier(.36,.07,.19,.97);border-color:var(--bad)!important;box-shadow:0 0 0 3px var(--bad-soft)!important}
+@keyframes t2Shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+/* (88) تلميح أنيق لأزرار الأيقونات */
+.t2-tip{position:fixed;z-index:9999;pointer-events:none;padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;background:var(--solid);color:var(--ink);border:1px solid var(--line);box-shadow:var(--sh);opacity:0;transform:translateY(4px);transition:opacity .18s,transform .18s;white-space:nowrap}
+.t2-tip.on{opacity:1;transform:none}
+/* (84) خيط العيد الوطني تحت الرأس */
+.t2-ribbon{position:fixed;inset-inline:0;top:0;height:3px;z-index:70;pointer-events:none;background:linear-gradient(90deg,#C8102E 0 33.3%,#fff 33.3% 66.6%,#009A44 66.6%);opacity:.85;animation:t2Rib 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes t2Rib{from{transform:scaleX(0)}}
+/* (83/85) شارة المناسبة في التحية */
+.t2-occ{display:inline-block;margin-inline-start:8px;padding:1px 9px;border-radius:99px;font-size:.86em;background:rgba(255,255,255,.14);border:1px solid rgba(var(--a-rgb),.45);color:inherit;animation:t2Fade .8s .6s both}
+@keyframes t2Fade{from{opacity:0;transform:translateY(4px)}}
+/* (87) بريق يعبر الشعار حين تهدأ الصفحة */
+.hero .medal.t2-glint::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:2;pointer-events:none;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.75) 50%,transparent 60%) 0 0/300% 100% no-repeat;animation:t2Glint 1.4s ease-in-out both}
+@keyframes t2Glint{from{background-position:100% 0}to{background-position:0 0}}
+/* (93) ضوء البطل يتبع ساعات اليوم */
+.hero::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;transition:opacity 1.2s}
+body.t2-dawn .hero::after{opacity:1;background:radial-gradient(80% 60% at 100% 0%,rgba(255,214,160,.16),transparent 60%)}
+body.t2-noon .hero::after{opacity:1;background:radial-gradient(70% 50% at 50% 0%,rgba(255,255,255,.08),transparent 60%)}
+body.t2-dusk .hero::after{opacity:1;background:radial-gradient(80% 60% at 0% 0%,rgba(255,150,130,.16),transparent 60%)}
+body.t2-night .hero::after{opacity:1;background:radial-gradient(70% 50% at 0% 0%,rgba(160,180,255,.1),transparent 60%)}
+/* (97) ضغطة مطوّلة ترفع البطاقة على الجوال */
+.card.t2-press{transform:translateY(-3px) scale(1.01);box-shadow:var(--glow),var(--sh)}
+/* (98) حكمة اليوم في التذييل */
+.t2-quote{display:block;direction:ltr;unicode-bidi:isolate;margin-top:8px;font-family:var(--fe);font-style:italic;font-size:13px;opacity:.75;animation:t2Fade 1s both}
+/* (91) ترويسة الطباعة */
+.t2-print{display:none}
+@media print{.t2-print{display:block;text-align:center;margin:0 0 14px;font-size:12px;color:#444;border-bottom:1px solid #ccc;padding-bottom:8px}.t2-ribbon,.t2-tip{display:none!important}}
+/* (96) سهم صغير للروابط الخارجية */
+a[target=_blank]:not(.card):not(.btn)::after{content:"↗";display:inline-block;margin-inline-start:3px;font-size:.8em;opacity:.6;transition:transform .2s}
+a[target=_blank]:not(.card):not(.btn):hover::after{transform:translate(-2px,-2px)}
+@media (prefers-reduced-motion:reduce){.wk.t-in .cover img,.cover .ph,.arches::before,.sec-head .eyebrow::after,.t2-ribbon,.t2-occ,.t2-quote{animation:none!important}}
