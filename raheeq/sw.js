@@ -1,3 +1,3 @@
 /* منصة مقفلة: الملفات مشفّرة ويفكها هذا العامل على جهاز المعلمة بعد إدخال كلمة المرور. */
-self.LOCK={slug:'raheeq',v:'raheeq-lbf636023be',pub:['sw.js','lock.json','manifest.webmanifest']};
+self.LOCK={slug:'raheeq',v:'raheeq-l5ec7f55c33',pub:['sw.js','lock.json','manifest.webmanifest']};
 importScripts('../lock/lock-sw.js');
