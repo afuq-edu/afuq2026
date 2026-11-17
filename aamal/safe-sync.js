@@ -68,7 +68,7 @@ function setOf(id,v){var S=A.S();if(id.indexOf('k:')===0){S[id.slice(2)]=v;retur
   if(v===undefined){if(i>=0)S.ev.splice(i,1);}else if(i>=0)S.ev[i]=v;else S.ev.push(v);}
 
 /* تطبيق ما يصل من السحابة */
-function applyRemote(id,d){var T=d.t||0;if(M.h[id]!==undefined&&M.h[id]===(d.del?'-':rh(d.j)))return false;
+function applyRemote(id,d){var T=d.t||0;if(M.h[id]!==undefined&&M.h[id]===(d.del?'-':rh(d.j))){/* مطابق لما على الجهاز: يُحفظ أساسًا للدمج، وإلا غلبت السحابةُ أولَ تعديل محلي */if(!d.del&&B[id]===undefined)B[id]=d.j;return false;}
   var isK=id.indexOf('k:')===0,isE=id.indexOf('e:')===0;if(!isK&&!isE)return false;if(isK&&SKIP[id.slice(2)])return false;
   var v;if(!d.del){try{v=JSON.parse(d.j);}catch(e){return false;}}else if(isK)return false;
   var base=B[id]!==undefined?JSON.parse(B[id]):undefined;
