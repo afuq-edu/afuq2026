@@ -1,7 +1,7 @@
 {
-  "name": "منصة أعمال رحيق العلم",
-  "short_name": "رحيق العلم",
-  "description": "منصة أعمال مدرسة رحيق العلم",
+  "name": "رحيق الأثر",
+  "short_name": "رحيق الأثر",
+  "description": "رحيق الأثر: منصة أعمال مدرسة رحيق العلم وشواهدها",
   "lang": "ar",
   "dir": "rtl",
   "id": "./",
@@ -11,10 +11,27 @@
   "orientation": "any",
   "background_color": "#F5F1E8",
   "theme_color": "#1E3B36",
-  "categories": ["education"],
+  "categories": [
+    "education"
+  ],
   "icons": [
-    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
