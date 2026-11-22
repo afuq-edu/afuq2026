@@ -67,6 +67,7 @@ W.tviews.arena=function(main,p){var mid=p[0]||'',key=mid||'free',m=mid?W.findMat
   play();
   function setup(){var cfg={secs:m?W.matchSecs(m):[],per:3,les:[1,2],ty:['mc','tf','fl','sa'],mode:'turn'};
     function draw(){W.view(main,W.head('ساحة العرض','مسابقة حية على شاشة الصف: سؤال كبير، ومؤقت، ونقاط لكل شعبة.')+
+      '<a class="card corner livecard" href="#/t/live"><span class="pulse"></span><div style="flex:1"><b class="kufi">تريدين أن تظهر الأسئلة على أجهزة الطالبات؟</b><div class="muted">ساحة العرض تعمل على شاشة الصف وحدها، والنقاط تضيفينها بيدك. للأسئلة على أجهزة الطالبات والنقاط التلقائية استعملي «المنافسة المباشرة».</div></div><span class="btn pri">'+ic('bolt')+'المنافسة المباشرة</span></a>'+
       '<section class="card corner form">'+(m?'<p><span class="tag">'+esc(m.stage)+'</span> <b>'+esc(m.name)+'</b>: '+cfg.secs.map(W.secName).join(' · ')+'</p>':
        '<div class="f"><b>الشعب المتنافسة</b><div class="row">'+W.SECS.map(function(s){return '<button type="button" class="chip'+(cfg.secs.indexOf(s.id)>=0?' on':'')+'" data-sec="'+s.id+'">'+s.name+'</button>';}).join('')+'</div>'+
        (W.pendingMatches().length?'<small class="muted">أو اختاري مواجهة من التصفيات: '+W.pendingMatches().map(function(x){return '<a href="#/t/arena/'+x.id+'">'+esc(x.stage+' · '+x.name)+'</a>';}).join('، ')+'</small>':'')+'</div>')+
