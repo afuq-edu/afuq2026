@@ -1,0 +1,20 @@
+{
+  "name": "جولة رحيق الأثر · مدرسة افتراضية",
+  "short_name": "جولة رحيق",
+  "description": "جولة افتراضية داخل مدرسة عُمانية · عرض إعلاني ببيانات افتراضية",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0E1A24",
+  "theme_color": "#0E1A24",
+  "categories": ["education"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
