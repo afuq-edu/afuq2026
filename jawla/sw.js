@@ -1,6 +1,6 @@
 /* عامل الخدمة لمنصة «جولة رحيق الأثر»: تعمل الواجهة دون إنترنت بعد أول زيارة. ارفعي رقم الإصدار عند تحديث الملفات. */
-var V='jawla-v1';
-var CORE=['./','index.html','style.css','art.js','data.js','app.js','manifest.webmanifest',
+var V='jawla-v2';
+var CORE=['./','index.html','style.css','visual-upgrade.css','art.js','data.js','app.js','manifest.webmanifest',
   'icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','icons/favicon-64.png','icons/mark.svg'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return Promise.all(CORE.map(function(u){return c.add(u).catch(function(){});}));}).then(function(){return self.skipWaiting();}));});
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k.indexOf('jawla-')===0&&k!==V;}).map(function(k){return caches.delete(k);}));}).then(function(){return self.clients.claim();}));});
