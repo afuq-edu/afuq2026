@@ -1,0 +1,20 @@
+{
+  "name": "فناء رحيق الأثر · مدرسة من الأعلى",
+  "short_name": "فناء رحيق",
+  "description": "جولة افتراضية داخل مدرسة عُمانية · عرض إعلاني ببيانات افتراضية",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F3E7CF",
+  "theme_color": "#F3E7CF",
+  "categories": ["education"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
