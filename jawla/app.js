@@ -155,7 +155,7 @@ function panel(p,i){var I='style="--i:'+(i+1)+'"';
 function hexInfo(room,j){var p=room.panels.filter(function(x){return x.t==='hex';})[0];if(!p)return;var h=p.items[j],box=$('#hexinfo');if(!box)return;box.style.setProperty('--hc',hexColor(h.v));
   box.innerHTML='<b>'+AR(h.v)+'٪</b><strong>'+esc(h.n)+'</strong><p>'+esc(h.d)+'</p>';$$('.hx',roomEl).forEach(function(e,i){e.classList.toggle('on',i===j);});}
 function showRoom(room){cur=room;mode='room';setHash(room.id);var idx=ORDER.indexOf(room),nx=ORDER[idx+1];
-  roomEl.style.setProperty('--rc',room.color);roomEl.style.setProperty('--rw',room.wall);
+  roomEl.setAttribute('data-room',room.id);roomEl.style.setProperty('--rc',room.color);roomEl.style.setProperty('--rw',room.wall);
   var h='<div class="rm-top"><button class="gbtn" data-act="exit">'+arrowR+'<span class="tx">العودة إلى الممر</span></button><div class="ttl"><small>'+esc(room.tag)+' · '+esc(S.name)+'</small><b>'+esc(room.name)+'</b></div><button class="gbtn" data-act="index">'+ic('door',20)+'<span class="tx">كل القاعات</span></button></div>';
   h+='<div class="rm-wall" id="rmWall"><article class="pn pn-intro" style="--i:0"><span class="bigic">'+ic(room.icon,36)+'</span><h2>'+esc(room.name)+'</h2><p>'+esc(room.intro)+'</p><span class="hint">'+arrow+' تجوّل بالسحب أو بالأسهم</span></article>';
   h+=room.panels.map(panel).join('');
@@ -249,7 +249,7 @@ function gateSVG(){var r=A.rng(77),s='<style>:root{--gm1:#22324F;--gm2:#1A2740;-
   s+='<g class="gdim"><g class="sway">'+A.palm(430,800,2.5,'#2F6B3B','#5B3F26')+'</g><g class="sway b">'+A.palm(1180,812,2.8,'#3F7F4A','#5B3F26')+'</g><g class="sway b">'+A.palm(250,850,3.2,'#3F7F4A','#5B3F26')+'</g><g class="sway">'+A.palm(1390,860,3.3,'#2F6B3B','#5B3F26')+'</g><ellipse cx="120" cy="890" rx="190" ry="40" fill="#2F6B3B"/><ellipse cx="1500" cy="896" rx="210" ry="44" fill="#2F6B3B"/></g>';
   return'<svg class="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">'+s+'</svg>';}
 function buildGate(){var words=['مدرسة','<em>سَنا</em>','<em>الغد</em>'];
-  gate.innerHTML=gateSVG()+'<div class="gtxt"><span class="k"><i></i>'+esc(S.product)+' · جولة افتراضية</span><h1>'+words.map(function(w,i){return'<span style="--i:'+i+'">'+w+'</span>';}).join(' ')+'</h1><p>تجوّل بين أقسام المدرسة كما تتجوّل في معرض: ممرّ وأبواب وقاعات، وكل معروضة تُكبَّر وتحكي قصتها.</p></div>'+
+  gate.innerHTML=gateSVG()+'<div class="gate-photo" aria-hidden="true"></div><div class="gate-caption" aria-hidden="true">جولة في بيئة تعليمية عُمانية</div><div class="gtxt"><span class="k"><i></i>'+esc(S.product)+' · جولة افتراضية</span><h1>'+words.map(function(w,i){return'<span style="--i:'+i+'">'+w+'</span>';}).join(' ')+'</h1><p>تجوّل بين أقسام المدرسة كما تتجوّل في معرض: ممرّ وأبواب وقاعات، وكل معروضة تُكبَّر وتحكي قصتها.</p></div>'+
    '<div class="gcta"><div class="row"><button class="btn p" data-act="start">'+ic('door',22,2)+' ادخل المدرسة</button><button class="btn s" data-act="tour">'+ic('eye',22,2)+' جولة تلقائية</button></div><small>عرض إعلاني · المدرسة والبيانات افتراضية</small></div>';}
 async function startTour(quick){if(mode!=='gate'||busy)return;busy=true;ac();var sc=$('.scene',gate),vw=innerWidth,vh=innerHeight,k=Math.max(vw/1600,vh/900);
   sc.style.transformOrigin=(vw/2)+'px '+(vh/2+(630-450)*k)+'px';gate.classList.add('opening');snd.door();await wait(quick?500:1100);
