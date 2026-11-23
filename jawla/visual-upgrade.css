@@ -1,0 +1,95 @@
+/* Visual art direction · architectural photography, subtle depth, no people */
+#gate{background:#07141a}
+#gate .scene{z-index:0}
+#gate .gate-photo{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:
+    linear-gradient(180deg,rgba(6,20,28,.53) 0%,rgba(6,20,28,.10) 34%,rgba(6,20,28,.11) 56%,rgba(4,15,24,.86) 100%),
+    linear-gradient(90deg,rgba(4,15,24,.25),transparent 45%,rgba(4,15,24,.22)),
+    url("https://images.unsplash.com/photo-1756840396902-1510fec4fa86?auto=format&fit=crop&w=2200&q=86");
+  background-position:center,center,center 49%;
+  background-size:cover;
+  filter:saturate(.94) contrast(1.08);
+  transform:scale(1.02);
+  transition:transform 2.7s cubic-bezier(.22,.74,.12,1),filter 2s ease,opacity 1.2s ease;
+  will-change:transform;
+}
+#gate .gate-photo::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 63% 48% at 50% 53%,transparent 37%,rgba(3,14,23,.38) 100%);
+}
+#gate.opening .gate-photo{transform:scale(2.15) translateY(8%);filter:brightness(.8) saturate(1.1)}
+#gate .gtxt,#gate .gcta{z-index:3}
+#gate .gtxt{top:clamp(24px,5.5vh,70px)}
+#gate .gtxt .k{border-color:rgba(255,255,255,.32);background:rgba(5,26,32,.42);box-shadow:0 8px 28px rgba(0,0,0,.13);letter-spacing:.025em}
+#gate .gtxt h1{font-size:clamp(40px,6.8vw,90px);letter-spacing:-.025em;text-shadow:0 8px 34px rgba(0,0,0,.46)}
+#gate .gtxt h1 em{color:#f4d792}
+#gate .gtxt p{max-width:38em;line-height:1.95;letter-spacing:.005em;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+#gate .gcta{padding-bottom:max(28px,calc(env(safe-area-inset-bottom) + 26px));gap:14px;background:linear-gradient(0deg,rgba(3,12,21,.55),transparent)}
+#gate .btn{box-shadow:0 16px 46px rgba(0,0,0,.29)}
+#gate .btn.p{background:#e8c67d;color:#122831}
+#gate .btn.s{background:rgba(8,31,40,.52);border-color:rgba(255,255,255,.36)}
+#gate .gcta small{font-weight:700;letter-spacing:.01em}
+#gate::after{content:"";position:absolute;inset:16px;border:1px solid rgba(255,245,223,.22);z-index:2;pointer-events:none;border-radius:3px}
+#gate.opening::after{opacity:0;transition:opacity .6s}
+#gate .gate-caption{position:absolute;right:clamp(22px,4vw,72px);bottom:clamp(126px,20vh,188px);z-index:3;color:rgba(255,255,255,.87);display:flex;gap:12px;align-items:center;font-size:11px;letter-spacing:.13em;pointer-events:none}
+#gate .gate-caption::before{content:"";width:30px;height:1px;background:#e8c67d}
+#gate.opening .gate-caption{opacity:0;transition:opacity .5s}
+
+/* A photographic introduction for every room, retaining the horizontal gallery. */
+#room .pn-intro{
+  --room-photo:url("https://images.unsplash.com/photo-1640562705307-76b0b4bd1747?auto=format&fit=crop&w=1100&q=80");
+  min-height:min(62vh,560px);width:min(85vw,470px);padding:clamp(22px,3vw,38px);
+  border:1px solid rgba(255,255,255,.2);border-radius:22px;
+  background-image:linear-gradient(180deg,rgba(6,17,27,.34),rgba(5,16,25,.75) 45%,rgba(5,16,25,.95)),var(--room-photo);
+  background-size:cover;background-position:center;
+  box-shadow:0 28px 80px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.17);
+  color:#fff;align-items:flex-start;justify-content:flex-end;isolation:isolate;
+}
+#room .pn-intro h2{color:#fff;font-size:clamp(33px,4.8vw,54px);text-shadow:0 4px 15px rgba(0,0,0,.3)}
+#room .pn-intro p{color:rgba(255,255,255,.86);line-height:1.95}
+#room .pn-intro .bigic{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(9px);box-shadow:none}
+#room .pn-intro .hint{color:#f4d792;filter:none}
+#room[data-room="works"] .pn-intro,
+#room[data-room="diary"] .pn-intro,
+#room[data-room="programs"] .pn-intro,
+#room[data-room="gifted"] .pn-intro{
+  --room-photo:url("https://images.unsplash.com/photo-1756840396902-1510fec4fa86?auto=format&fit=crop&w=1100&q=80");
+}
+#room[data-room="evidence"] .pn-intro,
+#room[data-room="plan"] .pn-intro,
+#room[data-room="staff"] .pn-intro,
+#room[data-room="teams"] .pn-intro{
+  --room-photo:url("https://images.unsplash.com/photo-1640562705307-76b0b4bd1747?auto=format&fit=crop&w=1100&q=80");
+}
+#room[data-room="results"] .pn-intro,
+#room[data-room="students"] .pn-intro,
+#room[data-room="indicators"] .pn-intro{
+  --room-photo:url("https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1100&q=80");
+}
+#room[data-room="council"] .pn-intro,
+#room[data-room="vision"] .pn-intro{
+  --room-photo:url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1100&q=80");
+}
+/* A quiet image strip in room selection cards */
+#index .ix{isolation:isolate;overflow:hidden;border-color:rgba(255,255,255,.16);background:#162d38}
+#index .ix::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(10,28,40,.3),rgba(9,23,35,.9)),url("https://images.unsplash.com/photo-1640562705307-76b0b4bd1747?auto=format&fit=crop&w=640&q=64") center/cover;
+  opacity:.58;transition:transform .7s ease,opacity .5s ease;
+}
+#index .ix:nth-child(4n+1)::before{background-image:linear-gradient(180deg,rgba(10,28,40,.24),rgba(9,23,35,.93)),url("https://images.unsplash.com/photo-1756840396902-1510fec4fa86?auto=format&fit=crop&w=640&q=64")}
+#index .ix:nth-child(4n+3)::before{background-image:linear-gradient(180deg,rgba(10,28,40,.25),rgba(9,23,35,.93)),url("https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=640&q=64")}
+#index .ix:nth-child(4n+4)::before{background-image:linear-gradient(180deg,rgba(10,28,40,.26),rgba(9,23,35,.93)),url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=64")}
+#index .ix:hover::before{transform:scale(1.07);opacity:.75}
+#top .brand,#hud .where{box-shadow:0 12px 40px rgba(0,0,0,.12)}
+@media(max-width:700px){
+  #gate .gate-photo{background-position:center,center,center 42%}
+  #gate .gtxt{top:max(38px,env(safe-area-inset-top))}
+  #gate .gtxt h1{font-size:clamp(41px,12vw,64px);line-height:1.36}
+  #gate .gtxt p{font-size:14px;padding:0 10px;max-width:29em}
+  #gate .gate-caption{right:26px;bottom:168px;font-size:10px}
+  #gate::after{inset:10px}
+  #room .pn-intro{min-height:min(66vh,515px);width:min(88vw,420px);padding:24px}
+}
+@media(prefers-reduced-motion:reduce){#gate .gate-photo,#index .ix::before{transition:none}}
