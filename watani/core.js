@@ -27,6 +27,30 @@ W.LVp={1:'معرفة',2:'تطبيق',3:'استدلال'};
 W.TY={mc:'اختيار من متعدد',tf:'صواب أو خطأ',fl:'أكملي الفراغ',sa:'إجابة قصيرة'};
 W.KEYS=['أ','ب','ج','د','هـ','و'];
 
+/* ---------- الدروس والوحدات (من bank.js) واختيارها ---------- */
+W.ORD=['','الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن'];
+W.ORDf=['','الأولى','الثانية','الثالثة','الرابعة'];
+W.les=function(n){return (window.LESSONS||[]).filter(function(L){return L.n===n;})[0];};
+W.lesAll=function(){return (window.LESSONS||[]).map(function(L){return L.n;});};
+W.lesShort=function(n){var L=W.les(n);return L?'الوحدة '+W.ORDf[L.u||1]+' · الدرس '+W.ORD[L.un||n]:'الدرس '+W.ar(n);};
+W.lesName=function(n){var L=W.les(n);return L?W.lesShort(n)+': '+L.title:'الدرس '+W.ar(n);};
+W.lesOpts=function(sel,all){return (all?'<option value="0">'+all+'</option>':'')+(window.LESSONS||[]).map(function(L){return '<option value="'+L.n+'"'+(sel===L.n?' selected':'')+'>'+esc(W.lesShort(L.n)+': '+L.title)+'</option>';}).join('');};
+/* آخر اختيار للدروس يُتذكّر على هذا الجهاز */
+W.lesDef=function(){var all=W.lesAll(),v=W.lsg('lesSel',null);v=(v||[]).filter(function(n){return all.indexOf(n)>=0;});return v.length?v:all;};
+W.lesPick=function(sel,cnt){var U=window.UNITS||{},us=[];(window.LESSONS||[]).forEach(function(L){if(us.indexOf(L.u||1)<0)us.push(L.u||1);});
+  return '<div class="lespick">'+us.map(function(u){var ls=(window.LESSONS||[]).filter(function(L){return (L.u||1)===u;}),full=ls.every(function(L){return sel.indexOf(L.n)>=0;});
+    return '<div class="lu"><div class="luh"><b>الوحدة '+W.ORDf[u]+(U[u]?': '+esc(U[u]):'')+'</b><button type="button" class="chip'+(full?' on':'')+'" data-lesu="'+u+'">'+(full?'✓ ':'')+'كل الوحدة</button></div><div class="lrow">'+
+      ls.map(function(L){var on=sel.indexOf(L.n)>=0,c=cnt?cnt(L.n):null;return '<button type="button" class="lchip'+(on?' on':'')+'" data-les="'+L.n+'" aria-pressed="'+on+'"><span class="ln">'+W.ORD[L.un||L.n]+'</span><span class="lt">'+esc(L.title)+'</span>'+(c!=null?'<span class="lc">'+W.ar(c)+' سؤالًا</span>':'')+'</button>';}).join('')+'</div></div>';}).join('')+
+    '<div class="row" style="gap:8px"><button type="button" class="chip" data-lesu="all">كل دروس الفصل</button><span class="muted">المختار: '+W.ar(sel.length)+' من '+W.ar((window.LESSONS||[]).length)+' دروس</span></div></div>';};
+W.lesBind=function(root,cfg,before,after){
+  function done(){if(!cfg.les.length)cfg.les.push(W.lesAll()[0]);cfg.les.sort(function(a,b){return a-b;});W.lss('lesSel',cfg.les);after();}
+  $$('[data-les]',root).forEach(function(b){b.onclick=function(){before();var n=+b.dataset.les,i=cfg.les.indexOf(n);if(i>=0){if(cfg.les.length>1)cfg.les.splice(i,1);}else cfg.les.push(n);done();};});
+  $$('[data-lesu]',root).forEach(function(b){b.onclick=function(){before();var u=b.dataset.lesu;
+    if(u==='all'){cfg.les=W.lesAll();}
+    else{var ns=(window.LESSONS||[]).filter(function(L){return String(L.u||1)===u;}).map(function(L){return L.n;}),full=ns.every(function(n){return cfg.les.indexOf(n)>=0;});
+      if(full){var rest=cfg.les.filter(function(n){return ns.indexOf(n)<0;});cfg.les=rest.length?rest:ns;}else{cfg.les=ns;}}
+    done();};});};
+
 /* ---------- أيقونات ---------- */
 var P={
  home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',

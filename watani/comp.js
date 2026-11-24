@@ -65,19 +65,19 @@ W.tviews.arena=function(main,p){var mid=p[0]||'',key=mid||'free',m=mid?W.findMat
   var A=G.comp.arena[key];
   if(!A){setup();return;}
   play();
-  function setup(){var cfg={secs:m?W.matchSecs(m):[],per:3,les:[1,2],ty:['mc','tf','fl','sa'],mode:'turn'};
+  function setup(){var cfg={secs:m?W.matchSecs(m):[],per:3,les:W.lesDef(),ty:['mc','tf','fl','sa'],mode:'turn'};
     function draw(){W.view(main,W.head('ساحة العرض','مسابقة حية على شاشة الصف: سؤال كبير، ومؤقت، ونقاط لكل شعبة.')+
       '<a class="card corner livecard" href="#/t/live"><span class="pulse"></span><div style="flex:1"><b class="kufi">تريدين أن تظهر الأسئلة على أجهزة الطالبات؟</b><div class="muted">ساحة العرض تعمل على شاشة الصف وحدها، والنقاط تضيفينها بيدك. للأسئلة على أجهزة الطالبات والنقاط التلقائية استعملي «المنافسة المباشرة».</div></div><span class="btn pri">'+ic('bolt')+'المنافسة المباشرة</span></a>'+
       '<section class="card corner form">'+(m?'<p><span class="tag">'+esc(m.stage)+'</span> <b>'+esc(m.name)+'</b>: '+cfg.secs.map(W.secName).join(' · ')+'</p>':
        '<div class="f"><b>الشعب المتنافسة</b><div class="row">'+W.SECS.map(function(s){return '<button type="button" class="chip'+(cfg.secs.indexOf(s.id)>=0?' on':'')+'" data-sec="'+s.id+'">'+s.name+'</button>';}).join('')+'</div>'+
        (W.pendingMatches().length?'<small class="muted">أو اختاري مواجهة من التصفيات: '+W.pendingMatches().map(function(x){return '<a href="#/t/arena/'+x.id+'">'+esc(x.stage+' · '+x.name)+'</a>';}).join('، ')+'</small>':'')+'</div>')+
       '<div class="grid g3"><label class="f">عدد الأسئلة لكل شعبة<input class="inp" type="number" min="1" max="15" id="per" value="'+cfg.per+'"></label><div class="f"><b>طريقة الإجابة</b><div class="row"><button type="button" class="chip'+(cfg.mode==='turn'?' on':'')+'" data-m="turn">بالدور</button><button type="button" class="chip'+(cfg.mode==='fast'?' on':'')+'" data-m="fast">الأسرع</button></div></div>'+
-      '<div class="f"><b>الدروس</b><div class="row">'+[1,2].map(function(n){return '<button type="button" class="chip'+(cfg.les.indexOf(n)>=0?' on':'')+'" data-les="'+n+'">الدرس '+(n===1?'الأول':'الثاني')+'</button>';}).join('')+'</div></div></div>'+
+      '</div><div class="f"><b>الدروس التي تُسحب منها الأسئلة</b>'+W.lesPick(cfg.les,function(n){return G.bank.items.filter(function(x){return x.l===n&&cfg.ty.indexOf(x.t)>=0;}).length;})+'</div>'+
       '<div class="f"><b>أنواع الأسئلة</b><div class="row">'+Object.keys(W.TY).map(function(t){return '<button type="button" class="chip'+(cfg.ty.indexOf(t)>=0?' on':'')+'" data-ty="'+t+'">'+W.TY[t]+'</button>';}).join('')+'</div></div>'+
       '<p class="muted" style="margin:0">«بالدور»: يُوجَّه كل سؤال لشعبة، وإن أخطأت يمكن لغيرها الاستحواذ بنقطة. «الأسرع»: تجيب أول شعبة ترفع البطاقة.</p><div class="row"><button class="btn pri lg" id="go"'+(cfg.secs.length<2?' disabled':'')+'>'+ic('play')+'ابدئي المواجهة</button></div></section>');
       $$('[data-sec]').forEach(function(b){b.onclick=function(){keep();var i=cfg.secs.indexOf(b.dataset.sec);if(i>=0)cfg.secs.splice(i,1);else cfg.secs.push(b.dataset.sec);draw();};});
       $$('[data-m]').forEach(function(b){b.onclick=function(){keep();cfg.mode=b.dataset.m;draw();};});
-      $$('[data-les]').forEach(function(b){b.onclick=function(){keep();var n=+b.dataset.les,i=cfg.les.indexOf(n);if(i>=0){if(cfg.les.length>1)cfg.les.splice(i,1);}else cfg.les.push(n);draw();};});
+      W.lesBind(document,cfg,keep,draw);
       $$('[data-ty]').forEach(function(b){b.onclick=function(){keep();var i=cfg.ty.indexOf(b.dataset.ty);if(i>=0){if(cfg.ty.length>1)cfg.ty.splice(i,1);}else cfg.ty.push(b.dataset.ty);draw();};});
       $('#go').onclick=function(){keep();var sc={};cfg.secs.forEach(function(s){sc[s]=0;});A=G.comp.arena[key]={secs:cfg.secs,per:cfg.per,les:cfg.les,ty:cfg.ty,mode:cfg.mode,sc:sc,used:[],turn:0,n:0,log:[],cur:null};W.saveComp(true);play();};}
     function keep(){var p=$('#per');if(p)cfg.per=Math.max(1,+p.value||3);}
