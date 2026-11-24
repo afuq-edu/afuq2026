@@ -1,5 +1,5 @@
 /*! © 2026 منصات أفق التعليمية. جميع الحقوق محفوظة. لا يُسمح بالنسخ أو إعادة الاستعمال أو تدريب النماذج دون إذن مكتوب. */
-var V='jawla3-v1';
+var V='jawla3-v2';
 var CORE=['./','index.html','style.css','j.js','manifest.webmanifest',
   'icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','icons/favicon-64.png','icons/mark.svg'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return Promise.all(CORE.map(function(u){return c.add(u).catch(function(){});}));}).then(function(){return self.skipWaiting();}));});
