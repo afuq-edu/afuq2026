@@ -70,19 +70,19 @@ W.routes.live=function(p){var id=p[0],main=W.shell('s','');var m=W.me();
 W.tviews.live=function(main){
   var L=G.comp.live;
   if(L)play();else setup();
-  function setup(){var cfg={secs:[],per:10,les:[1,2],ty:['mc','tf','fl'],ded:1,dur:20};
+  function setup(){var cfg={secs:[],per:10,les:W.lesDef(),ty:['mc','tf','fl'],ded:1,dur:20};
     function draw(){W.view(main,W.head('المنافسة المباشرة','الأسئلة تظهر على أجهزة الطالبات، والنقاط هنا على شاشة الصف: أسرع إجابة صحيحة تكسب، والخطأ يُخصم.')+
       '<section class="card corner form"><div class="f"><b>الشعب المتنافسة <button type="button" class="chip" id="all" style="font-size:12px">الكل</button> <button type="button" class="chip" id="none" style="font-size:12px">لا شيء</button></b><div class="row">'+W.SECS.map(function(s){return '<button type="button" class="chip'+(cfg.secs.indexOf(s.id)>=0?' on':'')+'" data-sec="'+s.id+'">'+s.name+'</button>';}).join('')+'</div></div>'+
       '<div class="grid g3"><label class="f">عدد الأسئلة<input class="inp" type="number" min="1" max="40" id="per" value="'+cfg.per+'"></label><label class="f">ثوانٍ لكل سؤال<input class="inp" type="number" min="5" max="120" id="dur" value="'+cfg.dur+'"></label>'+
       '<div class="f"><b>خصم الإجابة الخاطئة</b><div class="row">'+[0,1,2,3].map(function(n){return '<button type="button" class="chip'+(cfg.ded===n?' on':'')+'" data-ded="'+n+'">'+(n?'−'+ar(n):'بلا خصم')+'</button>';}).join('')+'</div></div></div>'+
-      '<div class="f"><b>الدروس</b><div class="row">'+[1,2].map(function(n){return '<button type="button" class="chip'+(cfg.les.indexOf(n)>=0?' on':'')+'" data-les="'+n+'">الدرس '+(n===1?'الأول':'الثاني')+'</button>';}).join('')+'</div></div>'+
+      '<div class="f"><b>الدروس التي تُسحب منها الأسئلة</b>'+W.lesPick(cfg.les,function(n){return G.bank.items.filter(function(x){return x.l===n&&cfg.ty.indexOf(x.t)>=0&&(x.t==='tf'||(x.o&&x.o.length));}).length;})+'</div>'+
       '<div class="f"><b>أنواع الأسئلة</b><div class="row">'+Object.keys(LTY).map(function(t){return '<button type="button" class="chip'+(cfg.ty.indexOf(t)>=0?' on':'')+'" data-ty="'+t+'">'+LTY[t]+'</button>';}).join('')+'</div><small class="muted">الإجابات القصيرة لا تدخل المنافسة المباشرة لأنها تحتاج تصحيحًا يدويًا.</small></div>'+
       '<p class="muted" style="margin:0">النقاط: أسرع إجابة صحيحة تأخذ نقاط السؤال حسب مستواه (معرفة '+ar(+W.set().pts[1]||1)+'، تطبيق '+ar(+W.set().pts[2]||2)+'، استدلال '+ar(+W.set().pts[3]||3)+')، وكل إجابة خاطئة تخصم من شعبتها. تُحسب أول إجابة تصل من كل شعبة.</p>'+
       '<div class="row"><button class="btn pri lg" id="go"'+(cfg.secs.length<2?' disabled':'')+'>'+ic('play')+'ابدئي المنافسة</button>'+(cfg.secs.length<2?'<span class="muted">اختاري شعبتين على الأقل</span>':'')+'</div></section>');
       $$('[data-sec]').forEach(function(b){b.onclick=function(){keep();var i=cfg.secs.indexOf(b.dataset.sec);if(i>=0)cfg.secs.splice(i,1);else cfg.secs.push(b.dataset.sec);draw();};});
       $('#all').onclick=function(){keep();cfg.secs=W.SECS.map(function(s){return s.id;});draw();};$('#none').onclick=function(){keep();cfg.secs=[];draw();};
       $$('[data-ded]').forEach(function(b){b.onclick=function(){keep();cfg.ded=+b.dataset.ded;draw();};});
-      $$('[data-les]').forEach(function(b){b.onclick=function(){keep();var n=+b.dataset.les,i=cfg.les.indexOf(n);if(i>=0){if(cfg.les.length>1)cfg.les.splice(i,1);}else cfg.les.push(n);draw();};});
+      W.lesBind(document,cfg,keep,draw);
       $$('[data-ty]').forEach(function(b){b.onclick=function(){keep();var i=cfg.ty.indexOf(b.dataset.ty);if(i>=0){if(cfg.ty.length>1)cfg.ty.splice(i,1);}else cfg.ty.push(b.dataset.ty);draw();};});
       $('#go').onclick=function(){keep();var bt=$('#go');bt.disabled=true;
         /* تنظيف أي منافسة سابقة لم تُغلق */

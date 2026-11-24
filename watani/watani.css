@@ -448,3 +448,17 @@ html[data-skin="layl"] .winner .wn,html[data-skin="annabi"] .winner .wn{color:va
 .top .prin i small::after{content:":"}
 .top .prin i b{font-size:13px}
 @media (max-width:560px){.top .prin span{flex-direction:row;flex-wrap:wrap;gap:2px 12px;justify-content:center}.top .prin i b{font-size:12px}}
+
+/* اختيار الدروس */
+.lespick{display:grid;gap:12px;margin-top:6px}
+.lespick .lu{border:1px solid var(--line2);border-radius:14px;padding:10px 12px;background:var(--surface2)}
+.lespick .luh{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.lespick .luh b{font-size:14px;color:var(--hd)}
+.lespick .lrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.lchip{display:flex;align-items:center;gap:10px;text-align:start;padding:8px 10px;border-radius:12px;border:1.5px solid var(--line2);background:var(--surface);color:var(--ink2);cursor:pointer;font:inherit;transition:border-color .15s,background .15s}
+.lchip .ln{flex:none;min-width:58px;padding:3px 8px;border-radius:999px;background:var(--surface2);font-size:12px;font-weight:700;text-align:center}
+.lchip .lt{flex:1;font-size:13.5px;font-weight:700;line-height:1.5}
+.lchip .lc{flex:none;font-size:11.5px;color:var(--muted)}
+.lchip.on{border-color:var(--hd);background:color-mix(in srgb,var(--hd) 9%,var(--surface));color:var(--hd)}
+.lchip.on .ln{background:var(--hd);color:var(--solid)}
+.lchip:focus-visible{outline:3px solid color-mix(in srgb,var(--hd) 45%,transparent);outline-offset:2px}
